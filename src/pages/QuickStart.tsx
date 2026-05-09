@@ -1,8 +1,9 @@
 import { Badge } from "@easyfix/console-ui";
 import { CodeBlock } from "@/components/CodeBlock";
 
-const NPM_VERSION = "0.1.2";
+const NPM_VERSION = "0.1.3";
 const NPM_URL = "https://www.npmjs.com/package/@easyfix/console-ui";
+const NPM_BADGE_URL = "https://img.shields.io/npm/v/@easyfix/console-ui?label=npm&color=cb3837";
 const GITHUB_URL = "https://github.com/easyfix-vn/easyfix-console-ui";
 
 function Section({
@@ -32,7 +33,11 @@ export default function QuickStart() {
             rel="noopener noreferrer"
             className="inline-flex items-center"
           >
-            <Badge variant="secondary">v{NPM_VERSION}</Badge>
+            <img
+              src={NPM_BADGE_URL}
+              alt={`npm package version ${NPM_VERSION}`}
+              className="h-5"
+            />
           </a>
         </div>
         <p className="mt-2 text-muted-foreground">
