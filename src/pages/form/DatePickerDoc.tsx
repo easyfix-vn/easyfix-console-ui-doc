@@ -1,0 +1,140 @@
+import { DatePicker } from "@easyfix/console-ui";
+import { useState } from "react";
+import { ComponentDemo } from "@/components/ComponentDemo";
+import { PropsTable } from "@/components/PropsTable";
+
+function BasicDatePicker() {
+  const [date, setDate] = useState<Date | undefined>();
+  return <DatePicker value={date} onChange={setDate} />;
+}
+
+function FormatTemplateDatePicker() {
+  const [date, setDate] = useState<Date | undefined>();
+  return (
+    <div className="flex flex-wrap items-center gap-2">
+      <DatePicker
+        value={date}
+        onChange={setDate}
+        format="YYYY/MM/DD"
+        placeholder="YYYY/MM/DD"
+      />
+      <DatePicker
+        value={date}
+        onChange={setDate}
+        format="DD-MM-YYYY"
+        placeholder="DD-MM-YYYY"
+      />
+      <DatePicker
+        value={date}
+        onChange={setDate}
+        format="YYYY 年 M 月 D 日"
+        placeholder="中文格式"
+      />
+    </div>
+  );
+}
+
+function CustomFormatDatePicker() {
+  const [date, setDate] = useState<Date | undefined>();
+  return (
+    <DatePicker
+      value={date}
+      onChange={setDate}
+      format={(d: Date) =>
+        `${d.getFullYear()}年${d.getMonth() + 1}月${d.getDate()}日`
+      }
+    />
+  );
+}
+
+const propsData = [
+  { name: "value", type: "Date", description: "选中日期（受控）" },
+  {
+    name: "onChange",
+    type: "(date: Date | undefined) => void",
+    description: "日期变化回调",
+  },
+  {
+    name: "placeholder",
+    type: "string",
+    default: 'i18n("datePicker.placeholder")',
+    description: "占位文本，未传时根据当前 locale 取内置文案",
+  },
+  {
+    name: "disabled",
+    type: "boolean",
+    default: "false",
+    description: "是否禁用",
+  },
+  {
+    name: "format",
+    type: "string | (date: Date) => string",
+    default:
+      "zh-CN: YYYY-MM-DD\nen-US: MM/DD/YYYY\nvi: DD/MM/YYYY",
+    description:
+      "格式化模板（推荐）。模板支持 YYYY/YY/MM/M/DD/D/HH/H/mm/m/ss/s。也可传函数自定义。",
+  },
+  { name: "className", type: "string", description: "自定义样式类名" },
+];
+
+export default function DatePickerDoc() {
+  return (
+    <div className="space-y-8">
+      <div>
+        <h1 className="font-heading text-3xl font-bold">DatePicker 日期选择器</h1>
+        <p className="mt-2 text-muted-foreground">
+          用于选择单个日期的弹出式选择器，内置日历面板。支持字符串模板格式化，并随
+          ConfigProvider 的 locale 自动选择合适的默认模板与文案。
+          如需选择日期范围，请使用{" "}
+          <a href="/form/date-range-picker" className="text-primary underline underline-offset-4">
+            DateRangePicker
+          </a>
+          。
+        </p>
+      </div>
+
+      <ComponentDemo
+        title="基础用法"
+        description="点击触发日历弹窗选择日期；占位文本与默认格式跟随当前 locale"
+        code={`import { DatePicker } from "@easyfix/console-ui";
+
+const [date, setDate] = useState<Date | undefined>();
+
+<DatePicker value={date} onChange={setDate} />`}
+      >
+        <BasicDatePicker />
+      </ComponentDemo>
+
+      <ComponentDemo
+        title="字符串模板"
+        description={`通过 format 传入字符串模板，支持 YYYY / MM / DD / HH / mm / ss 等 token`}
+        code={`<DatePicker format="YYYY/MM/DD" />
+<DatePicker format="DD-MM-YYYY" />
+<DatePicker format="YYYY 年 M 月 D 日" />`}
+      >
+        <FormatTemplateDatePicker />
+      </ComponentDemo>
+
+      <ComponentDemo
+        title="禁用状态"
+        description="设置 disabled 禁用日期选择"
+        code={`<DatePicker disabled placeholder="不可选择" />`}
+      >
+        <DatePicker disabled placeholder="不可选择" />
+      </ComponentDemo>
+
+      <ComponentDemo
+        title="自定义格式函数"
+        description="format 也支持函数，便于做更复杂的本地化逻辑"
+        code={`<DatePicker
+  format={(d) => \`\${d.getFullYear()}年\${d.getMonth() + 1}月\${d.getDate()}日\`}
+/>`}
+      >
+        <CustomFormatDatePicker />
+      </ComponentDemo>
+
+      <h2 className="font-heading text-xl font-semibold">DatePicker API</h2>
+      <PropsTable data={propsData} />
+    </div>
+  );
+}

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="_圖層_2" data-name="圖層 2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 155.7 155.7">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+      }
+
+      .cls-2 {
+        fill: #f18a38;
+      }
+
+      .cls-3 {
+        clip-path: url(#clippath-2);
+      }
+
+      .cls-4 {
+        fill: #fff;
+      }
+
+      .cls-5 {
+        fill: url(#_未命名的渐变_13);
+      }
+
+      .cls-6 {
+        clip-path: url(#clippath);
+      }
+    </style>
+    <clipPath id="clippath">
+      <rect class="cls-1" x="55.36" y="36.86" width="44.89" height="82.06"/>
+    </clipPath>
+    <clipPath id="clippath-2">
+      <path class="cls-1" d="M105.23,85.25l14.99-14.99c.06-.06.11-.12.16-.18h-39.78s5.68,6.76,5.68,6.76c.5.6.49,1.47-.02,2.06l-5.56,6.35h24.53Z"/>
+    </clipPath>
+    <linearGradient id="_未命名的渐变_13" data-name="未命名的渐变 13" x1="77.83" y1="78.43" x2="110.28" y2="78.43" gradientUnits="userSpaceOnUse">
+      <stop offset=".04" stop-color="#fff"/>
+      <stop offset=".8" stop-color="#f18a38"/>
+    </linearGradient>
+  </defs>
+  <g id="_图层_1" data-name="图层 1">
+    <g>
+      <g>
+        <rect class="cls-2" width="155.7" height="155.7" rx="47.08" ry="47.08"/>
+        <path class="cls-4" d="M98.27,126.51h-40.85c-5.96,0-10.79-4.52-10.79-10.09V39.28c0-5.57,4.83-10.09,10.79-10.09h40.85c5.96,0,10.79,4.52,10.79,10.09v77.14c0,5.57-4.83,10.09-10.79,10.09Z"/>
+      </g>
+      <g>
+        <rect class="cls-2" x="55.3" y="38.93" width="45" height="77.86" rx="6.73" ry="6.73"/>
+        <g class="cls-6">
+          <g>
+            <path class="cls-4" d="M78.37,67.52s.09.02.13.06l8.56,10.19c.05.06.05.15,0,.21l-8.56,9.77s-.08.06-.12.06h-13.07c3.2,4.55,8.48,7.52,14.46,7.52,9.76,0,17.67-7.91,17.67-17.67,0-9.76-7.91-17.67-17.67-17.67-5.98,0-11.26,2.97-14.46,7.52h13.07Z"/>
+            <g class="cls-3">
+              <rect class="cls-5" x="77.83" y="61.36" width="32.45" height="34.14"/>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
