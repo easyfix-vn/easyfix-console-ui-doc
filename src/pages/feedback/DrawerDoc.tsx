@@ -36,6 +36,13 @@ const drawerPropsData = [
     description:
       "ESC 键是否关闭。设为 false 时按下 ESC 键不会关闭抽屉，常用于流程不可中断的场景。",
   },
+  {
+    name: "closeOnSwipe",
+    type: "boolean",
+    default: "true",
+    description:
+      "拖拽（滑动）是否关闭。设为 false 时拖拽不会关闭抽屉，松手后抽屉自动弹回原位。",
+  },
 ];
 
 const popupPropsData = [
@@ -251,6 +258,60 @@ export default function DrawerDoc() {
             </DrawerPanel>
             <DrawerFooter>
               <DrawerClose render={<Button />}>我已确认</DrawerClose>
+            </DrawerFooter>
+          </DrawerPopup>
+        </Drawer>
+      </ComponentDemo>
+
+      <ComponentDemo
+        title="禁止拖拽关闭"
+        description="closeOnSwipe=false 禁止拖拽（滑动）关闭抽屉，松手后抽屉自动弹回原位。适用于内容可滑动或拖拽误触场景。"
+        code={`<Drawer closeOnSwipe={false}>
+  <DrawerTrigger asChild>
+    <Button variant="outline">拖拽不会关闭</Button>
+  </DrawerTrigger>
+  <DrawerPopup>
+    <DrawerBar />
+    <DrawerHeader>
+      <DrawerTitle>禁止拖拽关闭</DrawerTitle>
+      <DrawerDescription>
+        尝试拖拽抽屉，松手后会自动弹回。
+      </DrawerDescription>
+    </DrawerHeader>
+    <DrawerPanel>
+      <p className="text-sm text-muted-foreground">
+        拖拽不会关闭此抽屉，只能使用按钮关闭。
+      </p>
+    </DrawerPanel>
+    <DrawerFooter>
+      <DrawerClose asChild>
+        <Button variant="outline">关闭</Button>
+      </DrawerClose>
+    </DrawerFooter>
+  </DrawerPopup>
+</Drawer>`}
+      >
+        <Drawer closeOnSwipe={false}>
+          <DrawerTrigger asChild>
+            <Button variant="outline">拖拽不会关闭</Button>
+          </DrawerTrigger>
+          <DrawerPopup>
+            <DrawerBar />
+            <DrawerHeader>
+              <DrawerTitle>禁止拖拽关闭</DrawerTitle>
+              <DrawerDescription>
+                尝试拖拽抽屉，松手后会自动弹回。
+              </DrawerDescription>
+            </DrawerHeader>
+            <DrawerPanel>
+              <p className="text-sm text-muted-foreground">
+                拖拽不会关闭此抽屉，只能使用按钮关闭。
+              </p>
+            </DrawerPanel>
+            <DrawerFooter>
+              <DrawerClose asChild>
+                <Button variant="outline">关闭</Button>
+              </DrawerClose>
             </DrawerFooter>
           </DrawerPopup>
         </Drawer>

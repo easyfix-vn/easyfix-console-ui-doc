@@ -73,9 +73,9 @@ export default function QuickStart() {
         <p className="text-sm text-muted-foreground">
           使用 npm、pnpm 或 yarn 安装包及必要的对等依赖。
         </p>
-        <CodeBlock code="npm install @easyfix/console-ui @base-ui/react react react-dom" language="bash" />
+        <CodeBlock code="npm install @easyfix/console-ui @base-ui/react @dnd-kit/core @dnd-kit/modifiers @dnd-kit/sortable @dnd-kit/utilities react react-dom" language="bash" />
         <p className="text-sm text-muted-foreground">或使用 pnpm：</p>
-        <CodeBlock code="pnpm add @easyfix/console-ui @base-ui/react react react-dom" language="bash" />
+        <CodeBlock code="pnpm add @easyfix/console-ui @base-ui/react @dnd-kit/core @dnd-kit/modifiers @dnd-kit/sortable @dnd-kit/utilities react react-dom" language="bash" />
         <p className="text-sm text-muted-foreground">
           完整对等依赖列表见{" "}
           <a
