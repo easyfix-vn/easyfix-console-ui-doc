@@ -99,7 +99,7 @@ const validateOptions: CountryCodeOption[] = [
     cc: "1",
     label: "+1",
     flag: "us",
-    validate: (phone) => {
+    validate: (phone: string) => {
       if (!phone) return undefined;
       if (!/^\d+$/.test(phone)) return "只能输入数字";
       if (phone.length !== 10) return "美国号码须为 10 位";
@@ -195,7 +195,7 @@ function FormDemo() {
           placeholder="请输入姓名"
           aria-invalid={!!errors.name}
         />
-        {errors.name && <FieldError forceShow>{errors.name}</FieldError>}
+        {errors.name ? <FieldError>{errors.name}</FieldError> : null}
       </Field>
 
       <Field>
@@ -203,11 +203,11 @@ function FormDemo() {
         <EasyGlobalPhoneInput
           cc={cc}
           phone={phone}
-          onCcChange={(v) => {
+          onCcChange={(v: string) => {
             setCc(v);
             setErrors((prev) => ({ ...prev, phone: "" }));
           }}
-          onPhoneChange={(v) => {
+          onPhoneChange={(v: string) => {
             setPhone(v);
             setErrors((prev) => ({ ...prev, phone: "" }));
           }}
@@ -303,7 +303,7 @@ const customOptions: CountryCodeOption[] = [
     cc: "1",
     label: "+1",
     flag: "us",
-    validate: (phone) => {
+    validate: (phone: string) => {
       if (!phone) return undefined;
       if (!/^\\d+$/.test(phone)) return "只能输入数字";
       if (phone.length !== 10) return "美国号码须为 10 位";
