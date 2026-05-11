@@ -2,6 +2,12 @@ import { useState, useCallback } from "react";
 import {
   EasySearchTable,
   Button,
+  Input,
+  NumberField,
+  NumberFieldGroup,
+  NumberFieldInput,
+  NumberFieldDecrement,
+  NumberFieldIncrement,
   type SearchFieldDef,
   type ColumnDef,
   type SearchParams,
@@ -365,6 +371,223 @@ function SearchTableDateRangeDemo() {
   );
 }
 
+function SearchTableCustomFieldDemo() {
+  const [data, setData] = useState<UserRecord[]>(allData.slice(0, 5));
+  const [page, setPage] = useState(1);
+  const [total, setTotal] = useState(allData.length);
+  const [loading, setLoading] = useState(false);
+
+  const customSearchFields: SearchFieldDef[] = [
+    { key: "name", labelKey: "姓名", type: "input", placeholder: "请输入姓名" },
+    {
+      key: "status",
+      labelKey: "状态",
+      type: "select",
+      placeholder: "请选择状态",
+      options: [
+        { label: "活跃", value: "active" },
+        { label: "停用", value: "inactive" },
+      ],
+    },
+    {
+      key: "minId",
+      labelKey: "最小ID",
+      type: "custom",
+      render: (value: unknown, onChange: (v: unknown) => void) => (
+        <NumberField
+          value={value as number | undefined}
+          onValueChange={(v) => onChange(v)}
+          min={0}
+        >
+          <NumberFieldGroup>
+            <NumberFieldDecrement />
+            <NumberFieldInput placeholder="最小 ID" />
+            <NumberFieldIncrement />
+          </NumberFieldGroup>
+        </NumberField>
+      ),
+    },
+    {
+      key: "keyword",
+      labelKey: "关键词",
+      type: "custom",
+      render: (value: unknown, onChange: (v: unknown) => void) => (
+        <Input
+          placeholder="自定义：输入邮箱关键词"
+          value={(value as string) ?? ""}
+          onChange={(e) => onChange(e.target.value)}
+          className="border-dashed"
+        />
+      ),
+    },
+  ];
+
+  const handleSearch = useCallback((params: SearchParams) => {
+    setLoading(true);
+    setTimeout(() => {
+      let filtered = [...allData];
+      if (params.name) {
+        filtered = filtered.filter((item) =>
+          item.name.includes(params.name as string),
+        );
+      }
+      if (params.status) {
+        filtered = filtered.filter((item) => item.status === params.status);
+      }
+      if (params.minId) {
+        filtered = filtered.filter(
+          (item) => Number(item.id) >= (params.minId as number),
+        );
+      }
+      if (params.keyword) {
+        filtered = filtered.filter((item) =>
+          item.email.includes(params.keyword as string),
+        );
+      }
+      const start = (params.page - 1) * params.pageSize;
+      setData(filtered.slice(start, start + params.pageSize));
+      setTotal(filtered.length);
+      setPage(params.page);
+      setLoading(false);
+    }, 300);
+  }, []);
+
+  return (
+    <EasySearchTable<UserRecord>
+      columns={columns}
+      searchFields={customSearchFields}
+      data={data}
+      total={total}
+      page={page}
+      pageSize={5}
+      onSearch={handleSearch}
+      loading={loading}
+    />
+  );
+}
+
+type ManyColRecord = {
+  id: string;
+  col1: string;
+  col2: string;
+  col3: string;
+  col4: string;
+  col5: string;
+  col6: string;
+  col7: string;
+  col8: string;
+  col9: string;
+  col10: string;
+};
+
+const manyColData: ManyColRecord[] = Array.from({ length: 8 }, (_, i) => ({
+  id: String(i + 1),
+  col1: `数据A-${i + 1}`,
+  col2: `数据B-${i + 1}`,
+  col3: `数据C-${i + 1}`,
+  col4: `数据D-${i + 1}`,
+  col5: `数据E-${i + 1}`,
+  col6: `数据F-${i + 1}`,
+  col7: `数据G-${i + 1}`,
+  col8: `数据H-${i + 1}`,
+  col9: `数据I-${i + 1}`,
+  col10: `数据J-${i + 1}`,
+}));
+
+const manyColumns: ColumnDef<ManyColRecord>[] = [
+  { key: "id", headerKey: "ID", width: 60, fixed: "left" },
+  { key: "col1", headerKey: "字段A", width: 120 },
+  { key: "col2", headerKey: "字段B", width: 120 },
+  { key: "col3", headerKey: "字段C", width: 120 },
+  { key: "col4", headerKey: "字段D", width: 120 },
+  { key: "col5", headerKey: "字段E", width: 120 },
+  { key: "col6", headerKey: "字段F", width: 120 },
+  { key: "col7", headerKey: "字段G", width: 120 },
+  { key: "col8", headerKey: "字段H", width: 120 },
+  { key: "col9", headerKey: "字段I", width: 120 },
+  { key: "col10", headerKey: "字段J", width: 120, fixed: "right" },
+];
+
+function SearchTableManyColumnsDemo() {
+  const [data, setData] = useState<ManyColRecord[]>(manyColData.slice(0, 5));
+  const [page, setPage] = useState(1);
+  const [total, setTotal] = useState(manyColData.length);
+  const [loading, setLoading] = useState(false);
+
+  const handleSearch = useCallback((params: SearchParams) => {
+    setLoading(true);
+    setTimeout(() => {
+      let filtered = [...manyColData];
+      if (params.keyword) {
+        filtered = filtered.filter((item) =>
+          item.col1.includes(params.keyword as string),
+        );
+      }
+      const start = (params.page - 1) * params.pageSize;
+      setData(filtered.slice(start, start + params.pageSize));
+      setTotal(filtered.length);
+      setPage(params.page);
+      setLoading(false);
+    }, 300);
+  }, []);
+
+  return (
+    <EasySearchTable<ManyColRecord>
+      columns={manyColumns}
+      searchFields={[
+        { key: "keyword", labelKey: "关键词", type: "input", placeholder: "搜索字段A" },
+      ]}
+      data={data}
+      total={total}
+      page={page}
+      pageSize={5}
+      onSearch={handleSearch}
+      loading={loading}
+    />
+  );
+}
+
+function SearchTableDefaultViewsDemo() {
+  const [data, setData] = useState<OrderRecord[]>(orderData.slice(0, 6));
+  const [page, setPage] = useState(1);
+  const [total, setTotal] = useState(orderData.length);
+  const [loading, setLoading] = useState(false);
+
+  const handleSearch = useCallback((params: SearchParams) => {
+    setLoading(true);
+    setTimeout(() => {
+      let filtered = [...orderData];
+      if (params.name) {
+        filtered = filtered.filter((item) =>
+          item.name.includes(params.name as string),
+        );
+      }
+      const start = (params.page - 1) * params.pageSize;
+      setData(filtered.slice(start, start + params.pageSize));
+      setTotal(filtered.length);
+      setPage(params.page);
+      setLoading(false);
+    }, 300);
+  }, []);
+
+  return (
+    <EasySearchTable<OrderRecord>
+      columns={orderColumns}
+      searchFields={[
+        { key: "name", labelKey: "订单名", type: "input", placeholder: "请输入订单名" },
+      ]}
+      data={data}
+      total={total}
+      page={page}
+      pageSize={6}
+      onSearch={handleSearch}
+      loading={loading}
+      defaultView="card"
+      views={["table", "card", "list"]}
+    />
+  );
+}
+
 const propsData = [
   {
     name: "columns",
@@ -374,7 +597,7 @@ const propsData = [
   {
     name: "searchFields",
     type: "SearchFieldDef[]",
-    description: "搜索表单字段配置，支持 input、select 和 dateRange 类型",
+    description: "搜索表单字段配置，支持 input、select、dateRange 和 custom 类型",
   },
   {
     name: "data",
@@ -412,6 +635,11 @@ const propsData = [
     type: '"table" | "card" | "list"',
     default: '"table"',
     description: "默认数据展示视图模式",
+  },
+  {
+    name: "views",
+    type: 'SearchTableView[]',
+    description: "显式指定可用的视图列表。未传时自动根据 renderCard/renderListItem 推断",
   },
   {
     name: "toolbarLeft",
@@ -483,7 +711,12 @@ const columnDefData = [
   {
     name: "width",
     type: "string | number",
-    description: "列宽度",
+    description: "列宽度。设置 fixed 时建议明确指定 width",
+  },
+  {
+    name: "fixed",
+    type: '"left" | "right"',
+    description: "将列固定在表格左侧或右侧，水平滚动时保持可见",
   },
   {
     name: "defaultVisible",
@@ -512,13 +745,18 @@ const searchFieldDefData = [
   },
   {
     name: "type",
-    type: '"input" | "select" | "dateRange"',
-    description: "字段类型",
+    type: '"input" | "select" | "dateRange" | "custom"',
+    description: "字段类型。custom 类型可注入任意组件",
   },
   {
     name: "placeholder",
     type: "string",
     description: "占位提示文本",
+  },
+  {
+    name: "colSpan",
+    type: "number",
+    description: "该字段在栅格中占用的列数，默认为 1",
   },
   {
     name: "options",
@@ -531,6 +769,11 @@ const searchFieldDefData = [
     default: "false",
     description: "dateRange 类型时是否显示时间选择",
   },
+  {
+    name: "render",
+    type: "(value: unknown, onChange: (value: unknown) => void) => ReactNode",
+    description: "custom 类型时的渲染函数，接收当前值和变更回调",
+  },
 ];
 
 export default function SearchTableDoc() {
@@ -542,7 +785,7 @@ export default function SearchTableDoc() {
         </h1>
         <p className="mt-2 text-muted-foreground">
           集成搜索表单、数据表格和分页的复合组件，适用于后台管理中常见的数据列表页。业务只需声明列和搜索字段即可完成典型
-          CRUD 列表。
+          CRUD 列表。支持 input、select、dateRange 和 custom（自定义组件）四种搜索字段类型，以及表格、卡片、列表三种数据视图。
         </p>
       </div>
 
@@ -755,6 +998,104 @@ const renderExportContent = (ctx: EasySearchTableExportContext<UserRecord>) => (
       >
         <div className="w-full">
           <SearchTableDateRangeDemo />
+        </div>
+      </ComponentDemo>
+
+      <ComponentDemo
+        title="自定义搜索组件"
+        description="通过 type: 'custom' 注入任意自定义搜索组件，如 NumberField、带特殊样式的 Input 等。render 回调接收 (value, onChange) 用于双向绑定。"
+        code={`const searchFields: SearchFieldDef[] = [
+  { key: "name", labelKey: "姓名", type: "input", placeholder: "请输入姓名" },
+  {
+    key: "status",
+    labelKey: "状态",
+    type: "select",
+    options: [
+      { label: "活跃", value: "active" },
+      { label: "停用", value: "inactive" },
+    ],
+  },
+  {
+    key: "minId",
+    labelKey: "最小ID",
+    type: "custom",
+    render: (value, onChange) => (
+      <NumberField value={value as number} onValueChange={onChange} min={0}>
+        <NumberFieldGroup>
+          <NumberFieldDecrement />
+          <NumberFieldInput placeholder="最小 ID" />
+          <NumberFieldIncrement />
+        </NumberFieldGroup>
+      </NumberField>
+    ),
+  },
+  {
+    key: "keyword",
+    labelKey: "关键词",
+    type: "custom",
+    render: (value, onChange) => (
+      <Input
+        placeholder="自定义：输入邮箱关键词"
+        value={(value as string) ?? ""}
+        onChange={(e) => onChange(e.target.value)}
+        className="border-dashed"
+      />
+    ),
+  },
+];`}
+      >
+        <div className="w-full">
+          <SearchTableCustomFieldDemo />
+        </div>
+      </ComponentDemo>
+
+      <ComponentDemo
+        title="多列表格 + 固定列"
+        description="当列数较多时（如 10+ 列），表格自动在容器内水平滚动，不会撑破页面布局。通过 fixed: 'left' | 'right' 可将关键列固定在表格两侧，滚动时始终可见。配合列配置可以按需显隐列。"
+        code={`const manyColumns: ColumnDef<Record>[] = [
+  { key: "id", headerKey: "ID", width: 60, fixed: "left" },
+  { key: "col1", headerKey: "字段A", width: 120 },
+  { key: "col2", headerKey: "字段B", width: 120 },
+  // ... 更多列
+  { key: "col10", headerKey: "字段J", width: 120, fixed: "right" },
+];
+
+<EasySearchTable
+  columns={manyColumns}
+  searchFields={[
+    { key: "keyword", labelKey: "关键词", type: "input", placeholder: "搜索字段A" },
+  ]}
+  data={data}
+  total={total}
+  page={page}
+  pageSize={5}
+  onSearch={handleSearch}
+  loading={loading}
+/>`}
+      >
+        <div className="w-full">
+          <SearchTableManyColumnsDemo />
+        </div>
+      </ComponentDemo>
+
+      <ComponentDemo
+        title="内置卡片 / 列表视图"
+        description="通过 views 属性启用内置的卡片和列表视图，无需传入 renderCard / renderListItem 即可使用默认模板。默认模板以首列作为标题，其余列展示为详情。"
+        code={`<EasySearchTable<OrderRecord>
+  columns={orderColumns}
+  searchFields={searchFields}
+  data={data}
+  total={total}
+  page={page}
+  pageSize={6}
+  onSearch={handleSearch}
+  loading={loading}
+  defaultView="card"
+  views={["table", "card", "list"]}
+/>`}
+      >
+        <div className="w-full">
+          <SearchTableDefaultViewsDemo />
         </div>
       </ComponentDemo>
 

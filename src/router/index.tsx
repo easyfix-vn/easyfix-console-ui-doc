@@ -46,6 +46,9 @@ const CalendarDoc = lazy(() => import("@/pages/form/CalendarDoc"));
 const CheckboxGroupDoc = lazy(() => import("@/pages/form/CheckboxGroupDoc"));
 const ComboboxDoc = lazy(() => import("@/pages/form/ComboboxDoc"));
 const GroupDoc = lazy(() => import("@/pages/form/GroupDoc"));
+const GlobalPhoneInputDoc = lazy(
+  () => import("@/pages/form/GlobalPhoneInputDoc"),
+);
 
 const AvatarDoc = lazy(() => import("@/pages/data/AvatarDoc"));
 const BadgeDoc = lazy(() => import("@/pages/data/BadgeDoc"));
@@ -66,6 +69,9 @@ const KbdDoc = lazy(() => import("@/pages/data/KbdDoc"));
 const CollapsibleDoc = lazy(() => import("@/pages/data/CollapsibleDoc"));
 const MeterDoc = lazy(() => import("@/pages/data/MeterDoc"));
 const PreviewCardDoc = lazy(() => import("@/pages/data/PreviewCardDoc"));
+const GlobalPhoneTextDoc = lazy(
+  () => import("@/pages/data/GlobalPhoneTextDoc"),
+);
 
 const AlertDoc = lazy(() => import("@/pages/feedback/AlertDoc"));
 const DialogDoc = lazy(() => import("@/pages/feedback/DialogDoc"));
@@ -154,6 +160,7 @@ export const navGroups: NavGroup[] = [
       { label: "CheckboxGroup 复选组", path: "/form/checkbox-group" },
       { label: "Combobox 搜索选择", path: "/form/combobox" },
       { label: "Group 输入组合", path: "/form/group" },
+      { label: "GlobalPhoneInput 国际手机号", path: "/form/global-phone-input" },
     ],
   },
   {
@@ -176,6 +183,7 @@ export const navGroups: NavGroup[] = [
       { label: "Collapsible 折叠面板", path: "/data/collapsible" },
       { label: "Meter 仪表", path: "/data/meter" },
       { label: "PreviewCard 预览卡片", path: "/data/preview-card" },
+      { label: "GlobalPhoneText 手机号展示", path: "/data/global-phone-text" },
     ],
   },
   {
@@ -242,6 +250,7 @@ export const routes: RouteObject[] = [
   { path: "form/checkbox-group", element: <CheckboxGroupDoc /> },
   { path: "form/combobox", element: <ComboboxDoc /> },
   { path: "form/group", element: <GroupDoc /> },
+  { path: "form/global-phone-input", element: <GlobalPhoneInputDoc /> },
 
   { path: "data/avatar", element: <AvatarDoc /> },
   { path: "data/badge", element: <BadgeDoc /> },
@@ -260,6 +269,7 @@ export const routes: RouteObject[] = [
   { path: "data/collapsible", element: <CollapsibleDoc /> },
   { path: "data/meter", element: <MeterDoc /> },
   { path: "data/preview-card", element: <PreviewCardDoc /> },
+  { path: "data/global-phone-text", element: <GlobalPhoneTextDoc /> },
 
   { path: "feedback/alert", element: <AlertDoc /> },
   { path: "feedback/dialog", element: <DialogDoc /> },

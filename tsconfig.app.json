@@ -16,7 +16,8 @@
     "noFallthroughCasesInSwitch": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@easyfix/console-ui": ["../easyfix_console_ui/src/index.ts"]
     }
   },
   "include": ["src"]

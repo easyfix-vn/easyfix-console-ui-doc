@@ -1,17 +1,57 @@
 import path from "node:path";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
-import { defineConfig } from "vite";
+import { defineConfig, type Plugin } from "vite";
 
-export default defineConfig({
-  plugins: [react(), tailwindcss()],
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "./src"),
+const docsSrc = path.resolve(__dirname, "./src");
+const uiSrc = path.resolve(__dirname, "../easyfix_console_ui/src");
+
+/**
+ * dev 模式下把 @easyfix/console-ui 指向组件库源码，
+ * 同时根据 importer 位置把 @/ 分别映射到 docs/src 或 ui/src，
+ * 使组件库改动即时 HMR，无需手动 build。
+ */
+function consoleUiSourcePlugin(): Plugin {
+  return {
+    name: "console-ui-source",
+    enforce: "pre",
+    async resolveId(source, importer, options) {
+      if (source === "@easyfix/console-ui") {
+        return path.resolve(uiSrc, "index.ts");
+      }
+      if (source.startsWith("@easyfix/console-ui/")) {
+        const sub = source.slice("@easyfix/console-ui/".length);
+        const mapped = path.resolve(uiSrc, sub);
+        return (
+          (await this.resolve(mapped, importer, { ...options, skipSelf: true }))
+            ?.id ?? mapped
+        );
+      }
+      if (source.startsWith("@/")) {
+        const normalized = importer?.split("?")[0] ?? "";
+        const base = normalized.startsWith(uiSrc) ? uiSrc : docsSrc;
+        const mapped = path.resolve(base, source.slice(2));
+        return (
+          (await this.resolve(mapped, importer, { ...options, skipSelf: true }))
+            ?.id ?? mapped
+        );
+      }
+      return undefined;
     },
+  };
+}
+
+export default defineConfig(({ command }) => ({
+  plugins: [
+    ...(command === "serve" ? [consoleUiSourcePlugin()] : []),
+    react(),
+    tailwindcss(),
+  ],
+  resolve: {
+    ...(command !== "serve" ? { alias: { "@": docsSrc } } : {}),
     dedupe: ["react", "react-dom", "react/jsx-runtime", "@base-ui/react"],
   },
   server: {
     port: 5188,
   },
-});
+}));

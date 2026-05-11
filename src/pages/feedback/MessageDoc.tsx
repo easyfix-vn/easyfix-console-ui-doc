@@ -37,12 +37,15 @@ const providerPropsData = [
   },
 ];
 
-function PositionDemo() {
-  const [position, setPosition] = useState<ToastPosition>("top-right");
-
+function PositionSelector({
+  position,
+  onPositionChange,
+}: {
+  position: ToastPosition;
+  onPositionChange: (p: ToastPosition) => void;
+}) {
   function showAt(p: ToastPosition) {
-    setPosition(p);
-    // setState 异步生效，先排队 add，base-ui 会用新 position 渲染下一帧
+    onPositionChange(p);
     queueMicrotask(() =>
       toastManager.add({
         title: `位置：${p}`,
@@ -69,20 +72,16 @@ function PositionDemo() {
           </Button>
         ))}
       </div>
-      {/*
-        通过 key 强制 ToastProvider 在 position 变化时重新挂载，
-        以便 viewport 的 data-position / swipeDirection 同步生效。
-      */}
-      <ToastProvider key={position} position={position} />
     </div>
   );
 }
 
 export default function MessageDoc() {
+  const [position, setPosition] = useState<ToastPosition>("top-right");
+
   return (
     <div className="space-y-10">
-      {/* 默认 ToastProvider，演示中其它例子使用 */}
-      <ToastProvider position="top-right" />
+      <ToastProvider key={position} position={position} />
 
       <div>
         <h1 className="font-heading text-3xl font-bold">Message 消息提示</h1>
@@ -190,7 +189,7 @@ function showAt(p: ToastPosition) {
   );
 }`}
       >
-        <PositionDemo />
+        <PositionSelector position={position} onPositionChange={setPosition} />
       </ComponentDemo>
 
       <ComponentDemo

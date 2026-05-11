@@ -96,5 +96,3 @@ git add .
 git commit -m "Add console UI docs README and Pages deploy"
 git push -u origin main
 ```
-
-提交信息中不要添加 `Co-authored-by: Cursor <cursoragent@cursor.com>`。
