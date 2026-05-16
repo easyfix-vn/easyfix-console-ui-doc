@@ -12,6 +12,7 @@ import {
   type ColumnDef,
   type SearchParams,
   type EasySearchTableExportContext,
+  type SortState,
 } from "@easyfix/console-ui";
 
 import { ComponentDemo } from "@/components/ComponentDemo";
@@ -105,6 +106,50 @@ function SearchTableBasicDemo() {
       pageSize={5}
       onSearch={handleSearch}
       loading={loading}
+    />
+  );
+}
+
+function SearchTableToolbarDemo() {
+  const [data, setData] = useState<UserRecord[]>(allData.slice(0, 5));
+  const [page, setPage] = useState(1);
+  const [total, setTotal] = useState(allData.length);
+  const [loading, setLoading] = useState(false);
+
+  const handleSearch = useCallback((params: SearchParams) => {
+    setLoading(true);
+    setTimeout(() => {
+      let filtered = [...allData];
+      if (params.name) filtered = filtered.filter((item) => item.name.includes(params.name as string));
+      if (params.status) filtered = filtered.filter((item) => item.status === params.status);
+      const start = (params.page - 1) * params.pageSize;
+      setData(filtered.slice(start, start + params.pageSize));
+      setTotal(filtered.length);
+      setPage(params.page);
+      setLoading(false);
+    }, 300);
+  }, []);
+
+  return (
+    <EasySearchTable<UserRecord>
+      columns={columns}
+      searchFields={searchFields}
+      data={data}
+      total={total}
+      page={page}
+      pageSize={5}
+      onSearch={handleSearch}
+      loading={loading}
+      toolbarActions={
+        <div className="flex items-center gap-2">
+          <Button size="sm" onClick={() => alert("新增")}>
+            新增
+          </Button>
+          <Button size="sm" variant="outline" onClick={() => alert("批量删除")}>
+            批量删除
+          </Button>
+        </div>
+      }
     />
   );
 }
@@ -547,6 +592,61 @@ function SearchTableManyColumnsDemo() {
   );
 }
 
+function SearchTableSortDemo() {
+  const [data, setData] = useState<UserRecord[]>(allData.slice(0, 5));
+  const [page, setPage] = useState(1);
+  const [total, setTotal] = useState(allData.length);
+  const [loading, setLoading] = useState(false);
+
+  const sortableColumns: ColumnDef<UserRecord>[] = [
+    { key: "id", headerKey: "ID", width: 80, sortable: true },
+    { key: "name", headerKey: "姓名", sortable: true },
+    { key: "email", headerKey: "邮箱" },
+    {
+      key: "status",
+      headerKey: "状态",
+      render: (value) => (
+        <span className={value === "active" ? "text-green-600" : "text-muted-foreground"}>
+          {value === "active" ? "活跃" : "停用"}
+        </span>
+      ),
+    },
+  ];
+
+  const handleSearch = useCallback((params: SearchParams) => {
+    setLoading(true);
+    setTimeout(() => {
+      let filtered = [...allData];
+      if (params.name) {
+        filtered = filtered.filter((item) => item.name.includes(params.name as string));
+      }
+      const start = (params.page - 1) * params.pageSize;
+      setData(filtered.slice(start, start + params.pageSize));
+      setTotal(filtered.length);
+      setPage(params.page);
+      setLoading(false);
+    }, 300);
+  }, []);
+
+  const handleSort = useCallback((sort: SortState) => {
+    console.log("服务端排序参数:", sort);
+  }, []);
+
+  return (
+    <EasySearchTable<UserRecord>
+      columns={sortableColumns}
+      searchFields={searchFields}
+      data={data}
+      total={total}
+      page={page}
+      pageSize={5}
+      onSearch={handleSearch}
+      loading={loading}
+      onSort={handleSort}
+    />
+  );
+}
+
 function SearchTableDefaultViewsDemo() {
   const [data, setData] = useState<OrderRecord[]>(orderData.slice(0, 6));
   const [page, setPage] = useState(1);
@@ -642,25 +742,15 @@ const propsData = [
     description: "显式指定可用的视图列表。未传时自动根据 renderCard/renderListItem 推断",
   },
   {
-    name: "toolbarLeft",
+    name: "toolbarActions",
     type: "ReactNode",
-    description: "工具栏左侧自定义内容",
-  },
-  {
-    name: "onAdd",
-    type: "() => void",
-    description: "新增按钮点击回调，传入后自动显示新增按钮",
-  },
-  {
-    name: "addLabel",
-    type: "ReactNode",
-    description: "新增按钮的文本",
+    description: "工具栏操作区插槽，用于放置自定义操作按钮（新增、批量操作等）",
   },
   {
     name: "showExport",
     type: "boolean",
     default: "false",
-    description: "是否显示导出按钮",
+    description: "是否显示导出按钮，导出按钮位于列配置按钮左侧",
   },
   {
     name: "exportFileName",
@@ -684,6 +774,34 @@ const propsData = [
     type: "(record: T, columns: ColumnDef<T>[]) => ReactNode",
     description: "自定义列表视图渲染。传入后视图切换器中会出现「列表」选项",
   },
+  {
+    name: "pageSizeOptions",
+    type: "number[]",
+    default: "[10, 20, 50, 100]",
+    description: "每页条数选项列表",
+  },
+  {
+    name: "showPageSizeSelector",
+    type: "boolean",
+    default: "true",
+    description: "是否显示每页条数选择器",
+  },
+  {
+    name: "showPageJumper",
+    type: "boolean",
+    default: "true",
+    description: "是否显示跳转页码输入框",
+  },
+  {
+    name: "defaultSort",
+    type: "SortState",
+    description: "初始排序状态，格式为 { key: string; order: 'asc' | 'desc' | null }",
+  },
+  {
+    name: "onSort",
+    type: "(sort: SortState) => void",
+    description: "列排序回调（服务端排序模式）。传入后点击列头只触发回调，不做客户端排序；未传时自动对当前页数据做客户端排序",
+  },
 ];
 
 const columnDefData = [
@@ -706,7 +824,7 @@ const columnDefData = [
     name: "sortable",
     type: "boolean",
     default: "false",
-    description: "是否支持排序",
+    description: "是否支持排序。点击列头切换 asc → desc → 无排序。未传 onSort 时自动做客户端排序，传入 onSort 则触发回调由外部控制",
   },
   {
     name: "width",
@@ -882,6 +1000,39 @@ function MyPage() {
       </ComponentDemo>
 
       <ComponentDemo
+        title="工具栏操作插槽"
+        description="通过 toolbarActions 插槽在工具栏左侧放置自定义操作按钮，如新增、批量删除等。"
+        code={`import { EasySearchTable, Button } from "@easyfix/console-ui";
+import { Plus, Trash2 } from "lucide-react";
+
+<EasySearchTable
+  columns={columns}
+  searchFields={searchFields}
+  data={data}
+  total={total}
+  page={page}
+  pageSize={5}
+  onSearch={handleSearch}
+  toolbarActions={
+    <>
+      <Button size="sm" onClick={() => alert("新增")}>
+        <Plus className="size-4" />
+        新增
+      </Button>
+      <Button size="sm" variant="outline" onClick={() => alert("批量删除")}>
+        <Trash2 className="size-4" />
+        批量删除
+      </Button>
+    </>
+  }
+/>`}
+      >
+        <div className="w-full">
+          <SearchTableToolbarDemo />
+        </div>
+      </ComponentDemo>
+
+      <ComponentDemo
         title="高级导出"
         description="通过 renderExportContent 自定义导出弹出面板，支持导出当前页、后端全量导出、复制到剪贴板等多种导出方式。"
         code={`import {
@@ -1046,6 +1197,33 @@ const renderExportContent = (ctx: EasySearchTableExportContext<UserRecord>) => (
       >
         <div className="w-full">
           <SearchTableCustomFieldDemo />
+        </div>
+      </ComponentDemo>
+
+      <ComponentDemo
+        title="列排序"
+        description="在 ColumnDef 中设置 sortable: true 启用列排序。点击列头循环切换升序 → 降序 → 无排序。未传 onSort 时自动对当前页数据做客户端排序；传入 onSort 则触发回调，由外部控制数据（服务端排序）。"
+        code={`const columns: ColumnDef<UserRecord>[] = [
+  { key: "id", headerKey: "ID", width: 80, sortable: true },
+  { key: "name", headerKey: "姓名", sortable: true },
+  { key: "email", headerKey: "邮箱" },
+];
+
+// 服务端排序：传入 onSort 回调
+<EasySearchTable
+  columns={columns}
+  onSort={(sort) => {
+    // sort: { key: "name", order: "asc" | "desc" | null }
+    fetchData({ ...searchParams, sortKey: sort.key, sortOrder: sort.order });
+  }}
+  // ...
+/>
+
+// 客户端排序：不传 onSort，自动对当前页数据排序
+<EasySearchTable columns={columns} />`}
+      >
+        <div className="w-full">
+          <SearchTableSortDemo />
         </div>
       </ComponentDemo>
 
