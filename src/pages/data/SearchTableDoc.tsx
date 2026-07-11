@@ -2,18 +2,28 @@ import { useState, useCallback } from "react";
 import {
   EasySearchTable,
   Button,
+  Empty,
+  EmptyContent,
+  EmptyDescription,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle,
   Input,
   NumberField,
   NumberFieldGroup,
   NumberFieldInput,
   NumberFieldDecrement,
   NumberFieldIncrement,
+  SegmentedControl,
+  SegmentedControlItem,
+  SegmentedControlList,
   type SearchFieldDef,
   type ColumnDef,
   type SearchParams,
   type EasySearchTableExportContext,
   type SortState,
 } from "@easyfix/console-ui";
+import { Ghost } from "lucide-react";
 
 import { ComponentDemo } from "@/components/ComponentDemo";
 import { PropsTable } from "@/components/PropsTable";
@@ -35,12 +45,12 @@ const allData: UserRecord[] = [
 ];
 
 const searchFields: SearchFieldDef[] = [
-  { key: "name", labelKey: "姓名", type: "input", placeholder: "请输入姓名" },
+  { key: "name", labelKey: "姓名", type: "input", placeholder: "姓名" },
   {
     key: "status",
     labelKey: "状态",
     type: "select",
-    placeholder: "请选择状态",
+    placeholder: "状态",
     options: [
       { label: "活跃", value: "active" },
       { label: "停用", value: "inactive" },
@@ -107,6 +117,58 @@ function SearchTableBasicDemo() {
       onSearch={handleSearch}
       loading={loading}
     />
+  );
+}
+
+function SearchTableEmptyDemo() {
+  const [emptyMode, setEmptyMode] = useState<"default" | "custom">("default");
+
+  return (
+    <div className="space-y-4">
+      <SegmentedControl
+        value={emptyMode}
+        onValueChange={(value) =>
+          setEmptyMode(value === "custom" ? "custom" : "default")
+        }
+      >
+        <SegmentedControlList>
+          <SegmentedControlItem value="default">默认空状态</SegmentedControlItem>
+          <SegmentedControlItem value="custom">自定义插槽</SegmentedControlItem>
+        </SegmentedControlList>
+      </SegmentedControl>
+
+      <EasySearchTable<UserRecord>
+        columns={columns}
+        searchFields={searchFields}
+        data={[]}
+        total={0}
+        page={1}
+        pageSize={5}
+        onSearch={() => {}}
+        renderEmptyContent={
+          emptyMode === "custom"
+            ? ({ view, reset }) => (
+                <Empty className="min-h-48 py-10 md:py-12">
+                  <EmptyHeader>
+                    <EmptyMedia variant="icon">
+                      <Ghost />
+                    </EmptyMedia>
+                    <EmptyTitle className="text-base">没有匹配的用户</EmptyTitle>
+                    <EmptyDescription>
+                      当前位于 {view} 视图，调整搜索条件后重试。
+                    </EmptyDescription>
+                  </EmptyHeader>
+                  <EmptyContent>
+                    <Button size="sm" variant="outline" onClick={reset}>
+                      重置搜索条件
+                    </Button>
+                  </EmptyContent>
+                </Empty>
+              )
+            : undefined
+        }
+      />
+    </div>
   );
 }
 
@@ -398,12 +460,12 @@ function SearchTableViewDemo() {
     <EasySearchTable<OrderRecord>
       columns={orderColumns}
       searchFields={[
-        { key: "name", labelKey: "订单名", type: "input", placeholder: "请输入订单名" },
+        { key: "name", labelKey: "订单名", type: "input", placeholder: "订单名称" },
         {
           key: "status",
           labelKey: "状态",
           type: "select",
-          placeholder: "请选择状态",
+          placeholder: "状态",
           options: [
             { label: "已支付", value: "paid" },
             { label: "待支付", value: "pending" },
@@ -482,7 +544,7 @@ function SearchTableDateRangeDemo() {
     <EasySearchTable<OrderRecord>
       columns={orderColumns}
       searchFields={[
-        { key: "name", labelKey: "订单名", type: "input", placeholder: "请输入订单名" },
+        { key: "name", labelKey: "订单名", type: "input", placeholder: "订单名称" },
         { key: "dateRange", labelKey: "创建时间", type: "dateRange", placeholder: "选择日期范围" },
       ]}
       data={data}
@@ -502,12 +564,12 @@ function SearchTableCustomFieldDemo() {
   const [loading, setLoading] = useState(false);
 
   const customSearchFields: SearchFieldDef[] = [
-    { key: "name", labelKey: "姓名", type: "input", placeholder: "请输入姓名" },
+    { key: "name", labelKey: "姓名", type: "input", placeholder: "姓名" },
     {
       key: "status",
       labelKey: "状态",
       type: "select",
-      placeholder: "请选择状态",
+      placeholder: "状态",
       options: [
         { label: "活跃", value: "active" },
         { label: "停用", value: "inactive" },
@@ -517,9 +579,10 @@ function SearchTableCustomFieldDemo() {
       key: "minId",
       labelKey: "最小ID",
       type: "custom",
+      defaultValue: null,
       render: (value: unknown, onChange: (v: unknown) => void) => (
         <NumberField
-          value={value as number | undefined}
+          value={value as number | null}
           onValueChange={(v) => onChange(v)}
           min={0}
         >
@@ -537,7 +600,7 @@ function SearchTableCustomFieldDemo() {
       type: "custom",
       render: (value: unknown, onChange: (v: unknown) => void) => (
         <Input
-          placeholder="自定义：输入邮箱关键词"
+          placeholder="邮箱关键词"
           value={(value as string) ?? ""}
           onChange={(e) => onChange(e.target.value)}
           className="border-dashed"
@@ -753,7 +816,7 @@ function SearchTableDefaultViewsDemo() {
     <EasySearchTable<OrderRecord>
       columns={orderColumns}
       searchFields={[
-        { key: "name", labelKey: "订单名", type: "input", placeholder: "请输入订单名" },
+        { key: "name", labelKey: "订单名", type: "input", placeholder: "订单名称" },
       ]}
       data={data}
       total={total}
@@ -784,7 +847,21 @@ const propsData = [
     type: '"auto" | "manual"',
     default: '"auto"',
     description:
-      "搜索触发模式。auto 会在 select/dateRange/custom 变更或 input 失焦时自动触发 onSearch；manual 仅通过搜索按钮或 input 回车触发",
+      "搜索触发模式。auto 会在 select/dateRange/custom 变更或 input 失焦时提交搜索；manual 仅通过搜索按钮或 input 回车提交。提交前会与上次条件做值比较，相同时不触发 onSearch",
+  },
+  {
+    name: "searchThrottleMs",
+    type: "number",
+    default: "300",
+    description:
+      "搜索限流间隔（毫秒）。窗口内保留最后一次搜索条件并在窗口结束时提交；设为 0 可关闭限流，条件去重仍然生效",
+  },
+  {
+    name: "searchCollapseThreshold",
+    type: "number",
+    default: "5",
+    description:
+      "自动折叠阈值。搜索字段超过该数量时显示展开/收起按钮；操作按钮会按当前 1/2/3 列响应式布局自动选择搜索栅格或表格工具栏，且只渲染一组",
   },
   {
     name: "data",
@@ -832,7 +909,7 @@ const propsData = [
     name: "toolbarActions",
     type: "ReactNode",
     description:
-      "工具栏操作区插槽，用于放置自定义操作按钮（新增、批量操作等）。小屏或移动端视图下，搜索的重置、搜索、展开/收起按钮会渲染在该区域右侧，并保持垂直对齐与一致间距",
+      "表格左侧工具栏插槽，用于放置自定义操作按钮。搜索字段刚好填满当前响应式行时，重置、搜索、展开/收起按钮会接在此插槽右侧；否则占用搜索栅格中的下一列",
   },
   {
     name: "showExport",
@@ -851,6 +928,12 @@ const propsData = [
     type: "(ctx: EasySearchTableExportContext<T>) => ReactNode",
     description:
       "自定义导出面板渲染。ctx 包含 data、columns、searchValues、exportParams、close()、exportCurrentData() 等",
+  },
+  {
+    name: "renderEmptyContent",
+    type: "(ctx: EasySearchTableEmptyContext) => ReactNode",
+    description:
+      "自定义空状态插槽。ctx 包含当前 view、searchValues 和 reset()；未传时使用带图标和 i18n 文案的 Empty",
   },
   {
     name: "renderCard",
@@ -966,6 +1049,12 @@ const searchFieldDefData = [
     description: "该字段在栅格中占用的列数，默认为 1",
   },
   {
+    name: "defaultValue",
+    type: "unknown",
+    description:
+      "字段初始值及重置值。custom 字段未提供时默认使用 null，以保持 NumberField 等受控组件从首次渲染开始状态一致",
+  },
+  {
     name: "options",
     type: "Array<{ label: string; value: string }>",
     description:
@@ -992,15 +1081,13 @@ export default function SearchTableDoc() {
           SearchTable 搜索表格
         </h1>
         <p className="mt-2 text-muted-foreground">
-          集成搜索表单、数据表格和分页的复合组件，适用于后台管理中常见的数据列表页。业务只需声明列和搜索字段即可完成典型
-          CRUD 列表。支持 input、select、dateRange 和 custom（自定义组件）四种搜索字段类型，支持 auto/manual 两种搜索触发模式，
-          input 字段内置清空按钮，select 字段自动提供“全部”选项，小屏视图下会将搜索操作按钮收敛到工具栏操作区，以及表格、卡片、列表三种数据视图。
+          组合搜索表单、数据表格与分页，面向后台数据列表。支持 input、select、dateRange、custom 字段，auto/manual 搜索模式、响应式搜索区和表格、卡片、列表视图。
         </p>
       </div>
 
       <ComponentDemo
-        title="基础用法"
-        description="配置 columns 和 searchFields，通过 onSearch 回调获取搜索和分页参数。input 搜索框有右侧清空按钮；select 搜索框会自动在首项提供“全部”（value 为空字符串）。"
+        title="基本用法"
+        description="columns 和 searchFields 定义表格与筛选条件，onSearch 接收查询和分页参数。"
         code={`import { useState, useCallback } from "react";
 import {
   EasySearchTable,
@@ -1023,7 +1110,7 @@ const mockData: UserRecord[] = [
 ];
 
 const searchFields: SearchFieldDef[] = [
-  { key: "name", labelKey: "姓名", type: "input", placeholder: "请输入姓名" },
+  { key: "name", labelKey: "姓名", type: "input", placeholder: "姓名" },
   {
     key: "status",
     labelKey: "状态",
@@ -1091,8 +1178,52 @@ function MyPage() {
       </ComponentDemo>
 
       <ComponentDemo
+        title="空状态与自定义插槽"
+        description="renderEmptyContent 定义表格、卡片和列表共用的空状态。"
+        code={`import {
+  EasySearchTable,
+  Empty,
+  EmptyContent,
+  EmptyDescription,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle,
+  Button,
+} from "@easyfix/console-ui";
+import { Ghost } from "lucide-react";
+
+<EasySearchTable
+  columns={columns}
+  searchFields={searchFields}
+  data={[]}
+  total={0}
+  page={1}
+  pageSize={5}
+  onSearch={handleSearch}
+  renderEmptyContent={({ view, searchValues, reset }) => (
+    <Empty>
+      <EmptyHeader>
+        <EmptyMedia variant="icon">
+          <Ghost />
+        </EmptyMedia>
+        <EmptyTitle>没有匹配的数据</EmptyTitle>
+        <EmptyDescription>当前位于 {view} 视图。</EmptyDescription>
+      </EmptyHeader>
+      <EmptyContent>
+        <Button variant="outline" onClick={reset}>重置搜索条件</Button>
+      </EmptyContent>
+    </Empty>
+  )}
+/>`}
+      >
+        <div className="w-full">
+          <SearchTableEmptyDemo />
+        </div>
+      </ComponentDemo>
+
+      <ComponentDemo
         title="工具栏操作插槽"
-        description="通过 toolbarActions 插槽在工具栏左侧放置自定义操作按钮，如新增、批量删除等。小屏或移动端视图下，搜索表单底部的重置、搜索、展开/收起按钮会隐藏，并自动渲染到 toolbarActions 右侧，和自定义操作保持同一行的垂直对齐与间距。"
+        description="toolbarActions 在工具栏左侧承载新增、批量删除等自定义操作。"
         code={`import { EasySearchTable, Button } from "@easyfix/console-ui";
 import { Plus, Trash2 } from "lucide-react";
 
@@ -1125,7 +1256,7 @@ import { Plus, Trash2 } from "lucide-react";
 
       <ComponentDemo
         title="搜索触发模式"
-        description="searchMode 默认为 auto：select、dateRange、custom 变更时立即触发 onSearch，input 在失焦或点击清空按钮时触发。设置为 manual 后，仅点击搜索按钮或在 input 中按 Enter 时触发 onSearch。"
+        description="auto 在字段变更或 input 失焦时提交查询；manual 仅响应搜索操作或 Enter。"
         code={`const [searchMode, setSearchMode] = useState<"auto" | "manual">("auto");
 
 <EasySearchTable<UserRecord>
@@ -1155,7 +1286,7 @@ import { Plus, Trash2 } from "lucide-react";
 
       <ComponentDemo
         title="高级导出"
-        description="通过 renderExportContent 自定义导出弹出面板，支持导出当前页、后端全量导出、复制到剪贴板等多种导出方式。"
+        description="renderExportContent 定义导出面板，可组合当前页、服务端和剪贴板导出。"
         code={`import {
   EasySearchTable,
   Button,
@@ -1220,7 +1351,7 @@ const renderExportContent = (ctx: EasySearchTableExportContext<UserRecord>) => (
 
       <ComponentDemo
         title="视图切换"
-        description="传入 renderCard 和 renderListItem 后，工具栏自动出现分段切换器（SegmentedControl），可在表格、卡片、列表之间切换。若未传入某视图的渲染函数，则该选项自动隐藏。"
+        description="renderCard 与 renderListItem 启用卡片、列表视图；缺少渲染函数的视图自动隐藏。"
         code={`<EasySearchTable<OrderRecord>
   columns={orderColumns}
   searchFields={searchFields}
@@ -1251,9 +1382,9 @@ const renderExportContent = (ctx: EasySearchTableExportContext<UserRecord>) => (
 
       <ComponentDemo
         title="时间范围搜索"
-        description="搜索字段支持 dateRange 类型，可使用日期范围选择器筛选数据。"
+        description="dateRange 字段以日期范围筛选数据。"
         code={`const searchFields: SearchFieldDef[] = [
-  { key: "name", labelKey: "订单名", type: "input", placeholder: "请输入订单名" },
+  { key: "name", labelKey: "订单名", type: "input", placeholder: "订单名称" },
   { key: "dateRange", labelKey: "创建时间", type: "dateRange", placeholder: "选择日期范围" },
 ];
 
@@ -1275,9 +1406,9 @@ const renderExportContent = (ctx: EasySearchTableExportContext<UserRecord>) => (
 
       <ComponentDemo
         title="自定义搜索组件"
-        description="通过 type: 'custom' 注入任意自定义搜索组件，如 NumberField、带特殊样式的 Input 等。render 回调接收 (value, onChange) 用于双向绑定。"
+        description="type: 'custom' 注入自定义搜索控件，render 接收 value 与 onChange。"
         code={`const searchFields: SearchFieldDef[] = [
-  { key: "name", labelKey: "姓名", type: "input", placeholder: "请输入姓名" },
+  { key: "name", labelKey: "姓名", type: "input", placeholder: "姓名" },
   {
     key: "status",
     labelKey: "状态",
@@ -1291,8 +1422,9 @@ const renderExportContent = (ctx: EasySearchTableExportContext<UserRecord>) => (
     key: "minId",
     labelKey: "最小ID",
     type: "custom",
+    defaultValue: null,
     render: (value, onChange) => (
-      <NumberField value={value as number} onValueChange={onChange} min={0}>
+      <NumberField value={value as number | null} onValueChange={onChange} min={0}>
         <NumberFieldGroup>
           <NumberFieldDecrement />
           <NumberFieldInput placeholder="最小 ID" />
@@ -1307,7 +1439,7 @@ const renderExportContent = (ctx: EasySearchTableExportContext<UserRecord>) => (
     type: "custom",
     render: (value, onChange) => (
       <Input
-        placeholder="自定义：输入邮箱关键词"
+        placeholder="邮箱关键词"
         value={(value as string) ?? ""}
         onChange={(e) => onChange(e.target.value)}
         className="border-dashed"
@@ -1323,7 +1455,7 @@ const renderExportContent = (ctx: EasySearchTableExportContext<UserRecord>) => (
 
       <ComponentDemo
         title="列排序"
-        description="在 ColumnDef 中设置 sortable: true 启用列排序。点击列头循环切换升序 → 降序 → 无排序。未传 onSort 时自动对当前页数据做客户端排序；传入 onSort 则触发回调，由外部控制数据（服务端排序）。"
+        description="sortable 启用升序、降序和无排序循环；onSort 存在时由调用方处理排序。"
         code={`const columns: ColumnDef<UserRecord>[] = [
   { key: "id", headerKey: "ID", width: 80, sortable: true },
   { key: "name", headerKey: "姓名", sortable: true },
@@ -1350,7 +1482,7 @@ const renderExportContent = (ctx: EasySearchTableExportContext<UserRecord>) => (
 
       <ComponentDemo
         title="多列表格 + 固定列"
-        description="当列数较多时（如 10+ 列），表格自动在容器内水平滚动，不会撑破页面布局。通过 fixed: 'left' | 'right' 可将关键列固定在表格两侧，滚动时始终可见。配合列配置可以按需显隐列。"
+        description="多列数据在容器内横向滚动；fixed 将关键列固定在左右边缘。"
         code={`const manyColumns: ColumnDef<Record>[] = [
   { key: "id", headerKey: "ID", width: 60, fixed: "left" },
   { key: "col1", headerKey: "字段A", width: 120 },
@@ -1379,7 +1511,7 @@ const renderExportContent = (ctx: EasySearchTableExportContext<UserRecord>) => (
 
       <ComponentDemo
         title="内置卡片 / 列表视图"
-        description="通过 views 属性启用内置的卡片和列表视图，无需传入 renderCard / renderListItem 即可使用默认模板。默认模板以首列作为标题，其余列展示为详情。"
+        description="views 启用内置卡片和列表模板，首列作为标题，其余列展示为详情。"
         code={`<EasySearchTable<OrderRecord>
   columns={orderColumns}
   searchFields={searchFields}

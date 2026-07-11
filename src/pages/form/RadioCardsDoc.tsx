@@ -73,8 +73,8 @@ export default function RadioCardsDoc() {
       </div>
 
       <ComponentDemo
-        title="基础用法"
-        description="基本的卡片单选组"
+        title="默认样式"
+        description="卡片形式的单选控件。"
         code={`import { RadioCards, RadioCardItem } from "@easyfix/console-ui";
 
 const [value, setValue] = useState("standard");
@@ -90,7 +90,7 @@ const [value, setValue] = useState("standard");
 
       <ComponentDemo
         title="带描述文字"
-        description="通过 description 属性添加描述信息"
+        description="description 承载选项说明。"
         code={`<RadioCards value={value} onValueChange={setValue}>
   <RadioCardItem
     value="email"

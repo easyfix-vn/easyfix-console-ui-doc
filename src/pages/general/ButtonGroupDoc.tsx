@@ -35,7 +35,7 @@ export default function ButtonGroupDoc() {
       </div>
 
       <ComponentDemo
-        title="基础用法"
+        title="默认布局"
         description="默认水平排列，按钮之间保留间距。"
         code={`import { EasyButton, EasyButtonGroup } from "@easyfix/console-ui";
 
@@ -52,7 +52,7 @@ export default function ButtonGroupDoc() {
 
       <ComponentDemo
         title="紧凑连接"
-        description="设置 attached 让按钮紧密拼接，共享圆角边框。"
+        description="attached 启用紧凑连接与共享圆角。"
         code={`<EasyButtonGroup attached>
   <EasyButton variant="outline">左</EasyButton>
   <EasyButton variant="outline">中</EasyButton>
@@ -68,7 +68,7 @@ export default function ButtonGroupDoc() {
 
       <ComponentDemo
         title="垂直排列"
-        description="设置 orientation='vertical' 实现纵向按钮组。"
+        description="orientation='vertical' 定义纵向布局。"
         code={`<EasyButtonGroup orientation="vertical" attached>
   <EasyButton variant="outline">上</EasyButton>
   <EasyButton variant="outline">中</EasyButton>

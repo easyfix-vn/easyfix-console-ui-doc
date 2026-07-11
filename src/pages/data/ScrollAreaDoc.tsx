@@ -98,7 +98,7 @@ export default function ScrollAreaDoc() {
 
       <ComponentDemo
         title="渐隐效果"
-        description="设置 scrollFade 在滚动溢出的边缘显示渐隐遮罩。"
+        description="scrollFade 在溢出边缘显示渐隐遮罩。"
         code={`<ScrollArea scrollFade className="h-48 w-48 rounded-md border">
   <div className="p-4">
     {tags.map((tag) => (

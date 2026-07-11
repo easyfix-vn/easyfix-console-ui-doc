@@ -33,7 +33,7 @@ const providerPropsData = [
     type: '"top-left" | "top-center" | "top-right" | "bottom-left" | "bottom-center" | "bottom-right"',
     default: '"bottom-right"',
     description:
-      "全局消息显示位置；同时影响默认的 swipe 关闭方向（顶部上滑/底部下滑、左侧左滑/右侧右滑）",
+      "全局显示位置；同时决定默认滑动关闭方向。",
   },
 ];
 
@@ -49,7 +49,7 @@ function PositionSelector({
     queueMicrotask(() =>
       toastManager.add({
         title: `位置：${p}`,
-        description: "消息会出现在所选位置",
+        description: `消息显示在 ${p}`,
         type: "info",
       }),
     );
@@ -86,15 +86,15 @@ export default function MessageDoc() {
       <div>
         <h1 className="font-heading text-3xl font-bold">Message 消息提示</h1>
         <p className="mt-2 text-muted-foreground">
-          全局消息通知，用于操作反馈。通过{" "}
+          全局消息用于呈现短时操作反馈；{" "}
           <code className="rounded bg-muted px-1.5 py-0.5 text-xs font-mono">
             toastManager.add()
           </code>{" "}
-          命令式调用。显示位置由
+          创建消息，显示位置由
           <code className="mx-1 rounded bg-muted px-1.5 py-0.5 text-xs font-mono">
             ToastProvider.position
           </code>
-          控制，支持 6 个常用位置。
+          管理。
         </p>
       </div>
 
@@ -127,7 +127,7 @@ export default function MessageDoc() {
             onClick={() =>
               toastManager.add({
                 title: "错误",
-                description: "操作失败，请重试",
+                description: "操作失败，稍后重试",
                 type: "error",
               })
             }
@@ -139,7 +139,7 @@ export default function MessageDoc() {
             onClick={() =>
               toastManager.add({
                 title: "警告",
-                description: "请注意潜在风险",
+                description: "存在潜在风险",
                 type: "warning",
               })
             }
@@ -163,7 +163,7 @@ export default function MessageDoc() {
             onClick={() =>
               toastManager.add({
                 title: "加载中",
-                description: "请稍候...",
+                description: "处理中...",
                 type: "loading",
               })
             }
@@ -175,7 +175,7 @@ export default function MessageDoc() {
 
       <ComponentDemo
         title="显示位置 position"
-        description="通过 ToastProvider 的 position 属性控制消息显示位置；下面的演示会先切换 position 再触发消息。"
+        description="ToastProvider 的 position 定义消息显示位置。"
         code={`import { toastManager, ToastProvider, type ToastPosition } from "@easyfix/console-ui";
 
 const [position, setPosition] = useState<ToastPosition>("top-right");
@@ -194,7 +194,7 @@ function showAt(p: ToastPosition) {
 
       <ComponentDemo
         title="仅标题"
-        description="可以只传递 title 显示简短消息。"
+        description="仅传 title 时渲染简短消息。"
         code={`<Button onClick={() => toastManager.add({ title: "文件已保存", type: "success" })}>
   保存文件
 </Button>`}

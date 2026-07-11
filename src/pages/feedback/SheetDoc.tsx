@@ -72,14 +72,13 @@ export default function SheetDoc() {
       <div>
         <h1 className="font-heading text-3xl font-bold">Sheet 侧边抽屉</h1>
         <p className="mt-2 text-muted-foreground">
-          从屏幕边缘滑出的面板，适用于表单编辑、详情查看等不离开当前页面的操作场景。
-          支持从上下左右四个方向弹出。
+          从视口边缘滑出的面板，适用于表单编辑和详情查看等上下文操作。
         </p>
       </div>
 
       <ComponentDemo
-        title="基础侧边抽屉"
-        description="点击按钮从右侧打开一个抽屉面板，包含标题、内容和底部操作区。"
+        title="基本用法"
+        description="右侧抽屉包含标题、内容和底部操作区。"
         code={`import {
   Sheet, SheetTrigger, SheetPopup,
   SheetHeader, SheetTitle, SheetDescription,
@@ -94,7 +93,7 @@ export default function SheetDoc() {
   <SheetPopup>
     <SheetHeader>
       <SheetTitle>编辑配置</SheetTitle>
-      <SheetDescription>修改你的应用配置信息。</SheetDescription>
+      <SheetDescription>维护应用配置。</SheetDescription>
     </SheetHeader>
     <SheetPanel>
       <p>这里是抽屉的主要内容区域。</p>
@@ -113,12 +112,12 @@ export default function SheetDoc() {
           <SheetPopup>
             <SheetHeader>
               <SheetTitle>编辑配置</SheetTitle>
-              <SheetDescription>修改你的应用配置信息。</SheetDescription>
+              <SheetDescription>维护应用配置。</SheetDescription>
             </SheetHeader>
             <SheetPanel>
               <div className="space-y-4">
                 <p className="text-sm text-muted-foreground">
-                  这里是抽屉的主要内容区域，可以放置表单或其他内容。
+                  抽屉主体区域可承载表单或其他内容。
                 </p>
               </div>
             </SheetPanel>
@@ -134,7 +133,7 @@ export default function SheetDoc() {
 
       <ComponentDemo
         title="不同方向"
-        description="通过 side 属性控制抽屉从不同方向弹出。"
+        description="side 定义抽屉的弹出方向。"
         code={`import {
   Sheet, SheetTrigger, SheetPopup,
   SheetHeader, SheetTitle, SheetDescription,
@@ -179,13 +178,13 @@ export default function SheetDoc() {
       </ComponentDemo>
 
       <div>
-        <h2 className="font-heading mb-4 text-xl font-semibold">Sheet API</h2>
+        <h2 className="font-heading mb-4 text-xl font-semibold">API</h2>
         <PropsTable data={sheetPropsData} />
       </div>
 
       <div>
         <h2 className="font-heading mb-4 text-xl font-semibold">
-          SheetPopup API
+          SheetPopup
         </h2>
         <PropsTable data={sheetPopupPropsData} />
       </div>

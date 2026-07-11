@@ -12,7 +12,7 @@ const previewCardPropsData = [
     name: "delay",
     type: "number",
     default: "200",
-    description: "鼠标悬停多少毫秒后展示卡片",
+    description: "触发器悬停延迟（毫秒）",
   },
 ];
 
@@ -49,13 +49,13 @@ export default function PreviewCardDoc() {
           PreviewCard 预览卡片
         </h1>
         <p className="mt-2 text-muted-foreground">
-          鼠标悬停时显示的预览卡片，适用于链接预览、用户信息展示等场景。当用户将鼠标悬停在触发元素上时，弹出一个包含预览内容的浮层。
+          在触发元素悬停时显示上下文预览，适用于链接和资料摘要。
         </p>
       </div>
 
       <ComponentDemo
-        title="基础预览卡片"
-        description="鼠标悬停在链接上时展示预览信息。"
+        title="链接预览"
+        description="悬停链接时显示预览内容。"
         code={`import {
   PreviewCard,
   PreviewCardTrigger,
@@ -103,8 +103,8 @@ export default function PreviewCardDoc() {
       </ComponentDemo>
 
       <ComponentDemo
-        title="带自定义内容的预览卡片"
-        description="在预览卡片中展示头像、描述等丰富内容。"
+        title="自定义内容"
+        description="预览卡片可承载头像、说明和元数据。"
         code={`import {
   PreviewCard,
   PreviewCardTrigger,
@@ -158,16 +158,13 @@ export default function PreviewCardDoc() {
       </ComponentDemo>
 
       <div>
-        <h2 className="font-heading mb-4 text-xl font-semibold">
-          PreviewCard API
-        </h2>
+        <h2 className="font-heading mb-4 text-xl font-semibold">API</h2>
+        <h3 className="mb-3 text-lg font-medium">PreviewCard</h3>
         <PropsTable data={previewCardPropsData} />
       </div>
 
       <div>
-        <h2 className="font-heading mb-4 text-xl font-semibold">
-          PreviewCardPopup API
-        </h2>
+        <h3 className="mb-3 mt-6 text-lg font-medium">PreviewCardPopup</h3>
         <PropsTable data={previewCardPopupPropsData} />
       </div>
     </div>

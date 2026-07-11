@@ -218,7 +218,7 @@ export default function DropdownMenuDoc() {
           DropdownMenu 下拉菜单
         </h1>
         <p className="mt-2 text-muted-foreground">
-          点击触发后弹出的可选项列表，支持图标、快捷键、子菜单、单选、多选。设计参考{" "}
+          由触发器展开的可选项列表，支持图标、快捷键、子菜单、单选和多选。设计参考{" "}
           <a
             className="text-primary hover:underline"
             href="https://www.radix-ui.com/themes/docs/components/dropdown-menu"
@@ -232,7 +232,7 @@ export default function DropdownMenuDoc() {
       </div>
 
       <ComponentDemo
-        title="基础用法"
+        title="基本结构"
         description="DropdownMenuTrigger + DropdownMenuContent + DropdownMenuItem。可在 Item 中嵌入图标和快捷键提示。"
         code={`import {
   DropdownMenu, DropdownMenuTrigger, DropdownMenuContent,

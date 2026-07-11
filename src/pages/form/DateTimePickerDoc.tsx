@@ -114,7 +114,7 @@ export default function DateTimePickerDoc() {
         </h1>
         <p className="mt-2 text-muted-foreground">
           在日期选择器的基础上增加了时间输入，时间输入控件已重写以适配主题色（包含暗色模式）。
-          如需选择日期时间范围，请使用{" "}
+          日期时间范围由{" "}
           <a href="/form/date-range-picker" className="text-primary underline underline-offset-4">
             DateRangePicker（showTime）
           </a>
@@ -123,8 +123,8 @@ export default function DateTimePickerDoc() {
       </div>
 
       <ComponentDemo
-        title="基础用法"
-        description="选择日期后可在底部调整时间，时间输入框跟随主题色"
+        title="日期时间"
+        description="日历面板提供时间输入，并遵循当前主题。"
         code={`import { DateTimePicker } from "@easyfix/console-ui";
 
 const [date, setDate] = useState<Date | undefined>();
@@ -135,7 +135,7 @@ const [date, setDate] = useState<Date | undefined>();
 
       <ComponentDemo
         title="字符串模板"
-        description="通过 format 传入字符串模板，包含时间 token：HH:mm:ss"
+        description="format 接收包含 HH:mm:ss 的时间模板。"
         code={`<DateTimePicker format="YYYY/MM/DD HH:mm" />
 <DateTimePicker format="YYYY-MM-DD HH:mm:ss" />`}
       >
@@ -144,7 +144,7 @@ const [date, setDate] = useState<Date | undefined>();
 
       <ComponentDemo
         title="时区与时间戳"
-        description="输入框内展示当前 UTC+07 形式的偏移 tag；日期时间按当前时区展示和编辑，并通过 dayjs.tz 转换为毫秒时间戳"
+        description="输入框展示 UTC 偏移；日期时间按当前时区编辑并转换为毫秒时间戳。"
         code={`const [date, setDate] = useState<Date | undefined>();
 const [timeZone, setTimeZone] = useState("Asia/Ho_Chi_Minh");
 const [timestamp, setTimestamp] = useState<number | undefined>();
@@ -162,7 +162,7 @@ const [timestamp, setTimestamp] = useState<number | undefined>();
 
       <ComponentDemo
         title="禁用状态"
-        description="设置 disabled 禁用选择器"
+        description="disabled 禁用选择器。"
         code={`<DateTimePicker disabled placeholder="不可选择" />`}
       >
         <DateTimePicker disabled placeholder="不可选择" />

@@ -57,8 +57,8 @@ export default function TimeTextDoc() {
       </div>
 
       <ComponentDemo
-        title="基础用法"
-        description="自动识别毫秒时间戳、秒级时间戳和标准时间字符串"
+        title="默认解析"
+        description="自动识别毫秒、秒级时间戳和标准时间字符串。"
         code={`import { EasyTimeText } from "@easyfix/console-ui";
 
 <EasyTimeText value={Date.UTC(2026, 6, 11, 13, 30)} timeZone="UTC" />
@@ -74,7 +74,7 @@ export default function TimeTextDoc() {
 
       <ComponentDemo
         title="时区转换"
-        description="timeZone 支持 IANA 时区和常见缩写；时区展示统一使用 UTC+偏移，例如 UTC+07"
+        description="timeZone 支持 IANA 时区和常见缩写；界面统一显示 UTC 偏移。"
         code={`<EasyTimeText value={timestamp} timeZone="Asia/Ho_Chi_Minh" locale="vi-VN" />
 <EasyTimeText value={timestamp} timeZone="Asia/Shanghai" locale="zh-CN" />
 <EasyTimeText value={timestamp} timeZone="ICT" locale="vi-VN" />
@@ -90,7 +90,7 @@ export default function TimeTextDoc() {
 
       <ComponentDemo
         title="时间数组区间"
-        description="同一天的多个时间会合并为区间；跨日期会按日期分组"
+        description="同日时间合并为区间，跨日期按日期分组。"
         code={`<EasyTimeText
   value={[
     Date.UTC(2026, 6, 11, 1, 0),
@@ -112,7 +112,7 @@ export default function TimeTextDoc() {
 
       <ComponentDemo
         title="格式化"
-        description="可只展示日期或时间，也可使用日月年、时分秒 token 自定义格式"
+        description="format 支持日期、时间及自定义 token。"
         code={`<EasyTimeText value={timestamp} timeZone="UTC" format="date" />
 <EasyTimeText value={timestamp} timeZone="UTC" format="time" />
 <EasyTimeText
@@ -154,7 +154,7 @@ export default function TimeTextDoc() {
 
       <ComponentDemo
         title="Locale 与文字尺寸"
-        description="常见区域可以传入对应 locale；size 用于表格、详情和标题旁的时间文本"
+        description="locale 定义地区格式，size 适配表格、详情和标题场景。"
         code={`<EasyTimeText value={timestamp} timeZone="Asia/Ho_Chi_Minh" locale="vi-VN" size="sm" />
 <EasyTimeText value={timestamp} timeZone="Asia/Shanghai" locale="zh-CN" />
 <EasyTimeText value={timestamp} timeZone="Asia/Shanghai" locale="zh-CN" size="lg" />`}

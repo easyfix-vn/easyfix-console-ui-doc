@@ -97,7 +97,7 @@ export default function RadioGroupDoc() {
 
       <ComponentDemo
         title="基础单选组"
-        description="受控模式的基础用法，配合 Radio 组件使用。"
+        description="受控模式由 RadioGroup 与 Radio 组合。"
         code={`import { RadioGroup, Radio } from "@easyfix/console-ui";
 
 const [value, setValue] = useState("apple");
@@ -181,7 +181,7 @@ const [value, setValue] = useState("apple");
 
       <ComponentDemo
         title="禁用选项"
-        description="可以禁用整个单选组或单独禁用某个选项。"
+        description="disabled 可作用于单选组或单个选项。"
         code={`<RadioGroup defaultValue="option1">
   <label className="flex items-center gap-2 text-sm">
     <Radio value="option1" />

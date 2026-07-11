@@ -110,7 +110,7 @@ const propsData = [
   {
     name: "onChange",
     type: "(range?: { from?: Date; to?: Date }) => void",
-    description: "点击确定后触发范围变化回调；showTime 开启时切换日期会保留两端原有的时分",
+    description: "确认范围后触发回调；showTime 保留两端既有时分。",
   },
   {
     name: "onTimestampChange",
@@ -192,7 +192,7 @@ export default function DateRangePickerDoc() {
 
       <ComponentDemo
         title="日期范围选择（默认）"
-        description="同时选择起止日期，点击确定后提交；快捷日期会立即提交并关闭弹层"
+        description="维护起止日期；确认范围后提交，快捷日期立即提交。"
         code={`import { DateRangePicker, type DateRangeValue } from "@easyfix/console-ui";
 
 const [range, setRange] = useState<DateRangeValue | undefined>();
@@ -203,7 +203,7 @@ const [range, setRange] = useState<DateRangeValue | undefined>();
 
       <ComponentDemo
         title="日期时间范围选择"
-        description="showTime 开启后在日历下方追加独立的起止时间输入框，点击确定后提交"
+        description="showTime 在日历下方提供起止时间输入，并在确认后提交。"
         code={`import { DateRangePicker, type DateRangeValue } from "@easyfix/console-ui";
 
 const [range, setRange] = useState<DateRangeValue | undefined>();

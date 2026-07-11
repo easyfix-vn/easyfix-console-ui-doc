@@ -77,13 +77,13 @@ export default function PopoverDoc() {
           <code className="rounded bg-muted px-1.5 py-0.5 text-xs font-mono">
             @base-ui/react/popover
           </code>{" "}
-          封装，用于在触发元素附近展示浮层内容。
+          封装，在触发元素附近展示上下文内容。
         </p>
       </div>
 
       <ComponentDemo
-        title="基础弹出框"
-        description="点击按钮弹出浮层，展示标题和描述信息。"
+        title="基本用法"
+        description="触发器控制带标题和描述的浮层。"
         code={`import {
   Popover, PopoverTrigger, PopoverPopup,
   PopoverTitle, PopoverDescription, Button,
@@ -114,7 +114,7 @@ export default function PopoverDoc() {
 
       <ComponentDemo
         title="不同位置"
-        description="通过 side 属性控制弹出框出现的位置。"
+        description="side 定义浮层的弹出方向。"
         code={`<Popover>
   <PopoverTrigger asChild>
     <Button variant="outline">上方</Button>
@@ -172,7 +172,7 @@ export default function PopoverDoc() {
 
       <ComponentDemo
         title="带关闭按钮"
-        description="使用 PopoverClose 组件在弹出框内添加关闭按钮。"
+        description="PopoverClose 在浮层内提供关闭控件。"
         code={`import {
   Popover, PopoverTrigger, PopoverPopup,
   PopoverClose, PopoverTitle, PopoverDescription, Button,
@@ -186,7 +186,7 @@ export default function PopoverDoc() {
     <div className="flex items-start gap-4">
       <div className="min-w-0 flex-1">
         <PopoverTitle>通知设置</PopoverTitle>
-        <PopoverDescription>配置您的通知偏好设置。</PopoverDescription>
+        <PopoverDescription>管理通知偏好。</PopoverDescription>
       </div>
       <PopoverClose aria-label="关闭" />
     </div>
@@ -202,7 +202,7 @@ export default function PopoverDoc() {
               <div className="min-w-0 flex-1">
                 <PopoverTitle>通知设置</PopoverTitle>
                 <PopoverDescription>
-                  配置您的通知偏好设置。
+                  管理通知偏好。
                 </PopoverDescription>
               </div>
               <PopoverClose aria-label="关闭" />

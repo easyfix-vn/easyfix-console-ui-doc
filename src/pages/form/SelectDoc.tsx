@@ -136,8 +136,8 @@ export default function SelectDoc() {
       </div>
 
       <ComponentDemo
-        title="基础用法"
-        description="基本的单选下拉选择器"
+        title="默认样式"
+        description="单选下拉选择器。"
         code={`import {
   Select, SelectTrigger, SelectValue,
   SelectPopup, SelectItem,
@@ -145,7 +145,7 @@ export default function SelectDoc() {
 
 <Select defaultValue="apple">
   <SelectTrigger>
-    <SelectValue placeholder="请选择水果" />
+    <SelectValue placeholder="水果" />
   </SelectTrigger>
   <SelectPopup>
     <SelectItem value="apple">苹果</SelectItem>
@@ -156,7 +156,7 @@ export default function SelectDoc() {
       >
         <Select defaultValue="apple">
           <SelectTrigger>
-            <SelectValue placeholder="请选择水果" />
+            <SelectValue placeholder="水果" />
           </SelectTrigger>
           <SelectPopup>
             <SelectItem value="apple">苹果</SelectItem>
@@ -171,7 +171,7 @@ export default function SelectDoc() {
         description="使用 SelectGroup 和 SelectGroupLabel 对选项进行分组"
         code={`<Select defaultValue="apple">
   <SelectTrigger>
-    <SelectValue placeholder="请选择" />
+    <SelectValue placeholder="选择项" />
   </SelectTrigger>
   <SelectPopup>
     <SelectGroup>
@@ -184,7 +184,7 @@ export default function SelectDoc() {
       >
         <Select defaultValue="apple">
           <SelectTrigger>
-            <SelectValue placeholder="请选择" />
+            <SelectValue placeholder="选择项" />
           </SelectTrigger>
           <SelectPopup>
             <SelectGroup>
@@ -224,7 +224,7 @@ export default function SelectDoc() {
           </Select>
           <Select defaultValue="a">
             <SelectTrigger>
-              <SelectValue placeholder="请选择" />
+              <SelectValue placeholder="选择项" />
             </SelectTrigger>
             <SelectPopup>
               <SelectItem value="a">可选项 A</SelectItem>
@@ -257,7 +257,7 @@ export default function SelectDoc() {
 
       <ComponentDemo
         title="自定义模糊搜索"
-        description="通过 filter 属性自定义搜索能力，可按拼音、别名或业务字段匹配"
+        description="filter 定义拼音、别名或业务字段等匹配规则。"
         code={`function fuzzyMatch(text, query) {
   let qi = 0;
   for (let ti = 0; ti < text.length && qi < query.length; ti++) {

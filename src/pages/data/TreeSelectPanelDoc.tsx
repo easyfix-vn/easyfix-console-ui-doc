@@ -30,7 +30,7 @@ function TreeSelectBasicDemo() {
       onSelect={(node) => setSelected(node.id)}
       actions={
         <div className="text-sm text-muted-foreground">
-          {selected ? `已选择: ${selected}` : "请在左侧选择一个节点"}
+          {selected ? `已选择: ${selected}` : "尚未选择节点"}
         </div>
       }
     />
@@ -49,7 +49,7 @@ function TreeSelectCollapsibleDemo() {
       defaultCollapsed={false}
       actions={
         <div className="text-sm text-muted-foreground">
-          {selected ? `已选择: ${selected}` : "点击左上角按钮可折叠面板"}
+          {selected ? `已选择: ${selected}` : "左侧面板支持折叠"}
         </div>
       }
     />
@@ -154,8 +154,8 @@ export default function TreeSelectPanelDoc() {
       </div>
 
       <ComponentDemo
-        title="基础用法"
-        description="传入 treeData 即可渲染树形结构，点击节点触发 onSelect 回调。"
+        title="基本结构"
+        description="treeData 定义树结构，onSelect 接收节点选择结果。"
         code={`import { useState } from "react";
 import { EasyTreeSelectPanel, type EasyTreeNode } from "@easyfix/console-ui";
 
@@ -185,7 +185,7 @@ function Demo() {
       onSelect={(node) => setSelected(node.id)}
       actions={
         <div className="text-sm text-muted-foreground">
-          {selected ? \`已选择: \${selected}\` : "请在左侧选择一个节点"}
+          {selected ? \`已选择: \${selected}\` : "尚未选择节点"}
         </div>
       }
     />
@@ -199,7 +199,7 @@ function Demo() {
 
       <ComponentDemo
         title="可折叠面板"
-        description="设置 collapsible 属性后，左侧面板可以通过按钮进行折叠和展开。"
+        description="collapsible 启用左侧面板的折叠控制。"
         code={`import { useState } from "react";
 import { EasyTreeSelectPanel, type EasyTreeNode } from "@easyfix/console-ui";
 
@@ -217,7 +217,7 @@ function Demo() {
       defaultCollapsed={false}
       actions={
         <div className="text-sm text-muted-foreground">
-          {selected ? \`已选择: \${selected}\` : "点击左上角按钮可折叠面板"}
+          {selected ? \`已选择: \${selected}\` : "左侧面板支持折叠"}
         </div>
       }
     />

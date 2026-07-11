@@ -80,9 +80,9 @@ export default function FormFieldDoc() {
   <Field name="username">
     <FieldLabel>用户名</FieldLabel>
     <FieldItem>
-      <FieldControl render={<Input placeholder="请输入用户名" />} />
+      <FieldControl render={<Input placeholder="用户名" />} />
     </FieldItem>
-    <FieldDescription>用户名将作为你的唯一标识</FieldDescription>
+    <FieldDescription>用户名用作账户唯一标识。</FieldDescription>
   </Field>
 </Form>`}
       >
@@ -91,9 +91,9 @@ export default function FormFieldDoc() {
             <Field name="username">
               <FieldLabel>用户名</FieldLabel>
               <FieldItem>
-                <FieldControl render={<Input placeholder="请输入用户名" />} />
+              <FieldControl render={<Input placeholder="用户名" />} />
               </FieldItem>
-              <FieldDescription>用户名将作为你的唯一标识</FieldDescription>
+              <FieldDescription>用户名用作账户唯一标识。</FieldDescription>
             </Field>
           </Form>
         </div>
@@ -108,19 +108,19 @@ export default function FormFieldDoc() {
     <FieldItem>
       <FieldControl render={<Input type="email" placeholder="name@example.com" />} />
     </FieldItem>
-    <FieldDescription>我们不会分享你的邮箱地址</FieldDescription>
+    <FieldDescription>邮箱地址不会向第三方披露。</FieldDescription>
   </Field>
   <Field name="password">
     <FieldLabel>密码</FieldLabel>
     <FieldItem>
-      <FieldControl render={<Input type="password" placeholder="请输入密码" />} />
+      <FieldControl render={<Input type="password" placeholder="密码" />} />
     </FieldItem>
     <FieldDescription>密码至少 8 个字符</FieldDescription>
   </Field>
   <Field name="nickname">
     <FieldLabel>昵称</FieldLabel>
     <FieldItem>
-      <FieldControl render={<Input placeholder="请输入昵称" />} />
+      <FieldControl render={<Input placeholder="昵称" />} />
     </FieldItem>
   </Field>
 </Form>`}
@@ -138,7 +138,7 @@ export default function FormFieldDoc() {
                   />
                 </FieldItem>
                 <FieldDescription>
-                  我们不会分享你的邮箱地址
+                  邮箱地址不会向第三方披露。
                 </FieldDescription>
               </Field>
               <Field name="password">
@@ -146,7 +146,7 @@ export default function FormFieldDoc() {
                 <FieldItem>
                   <FieldControl
                     render={
-                      <Input type="password" placeholder="请输入密码" />
+                      <Input type="password" placeholder="密码" />
                     }
                   />
                 </FieldItem>
@@ -156,7 +156,7 @@ export default function FormFieldDoc() {
                 <FieldLabel>昵称</FieldLabel>
                 <FieldItem>
                   <FieldControl
-                    render={<Input placeholder="请输入昵称" />}
+                    render={<Input placeholder="昵称" />}
                   />
                 </FieldItem>
               </Field>
@@ -171,7 +171,7 @@ export default function FormFieldDoc() {
       </div>
 
       <div>
-        <h2 className="mb-4 text-xl font-semibold">组件列表</h2>
+        <h2 className="mb-4 text-xl font-semibold">组件构成</h2>
         <div className="overflow-x-auto rounded-lg border">
           <table className="w-full text-sm">
             <thead>

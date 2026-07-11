@@ -150,7 +150,7 @@ function LocalConfigPreview() {
         <div className="space-y-3 rounded-lg border bg-background p-4">
           <ConfigDisplay />
           <I18nPreview />
-          <EasyInput allowClear placeholder="试试可清除输入框" />
+          <EasyInput allowClear placeholder="可清除输入" />
           <EasySearchTable
             columns={sampleColumns}
             data={sampleData}
@@ -209,7 +209,7 @@ const propsData = [
     name: "theme",
     type: '"light" | "dark" | "system"',
     default: '"system"',
-    description: "主题模式；切换 <html class=dark> 并影响所有 token",
+    description: "主题模式；更新 html 的 dark 类并影响全部令牌",
   },
   {
     name: "messages",
@@ -218,10 +218,10 @@ const propsData = [
   },
   {
     name: "timeZone",
-    type: "string",
+    type: "IanaTimeZone",
     default: "浏览器/系统时区",
     description:
-      "可选 UTC-12、UTC-11、UTC-10、UTC-09、UTC-08、UTC-07、UTC-06、UTC-05、UTC-04、UTC-03、UTC-02、UTC-01、UTC+00、UTC+01、UTC+02、UTC+03、UTC+04、UTC+05、UTC+06、UTC+07、UTC+08、UTC+09、UTC+10、UTC+11、UTC+12、UTC+13、UTC+14；对应 IANA 示例：Pacific/Pago_Pago、America/New_York、Asia/Ho_Chi_Minh、Asia/Shanghai、Asia/Tokyo、Pacific/Kiritimati；DatePicker、DateTimePicker、DateRangePicker 未显式传 timeZone 时使用",
+      "默认 IANA 时区；日期组件未显式传入 timeZone 时读取该值。UTC+07、UTC+08 仅用于界面展示。",
   },
   {
     name: "prefix",
@@ -238,15 +238,13 @@ export default function ConfigProviderDoc() {
       <div>
         <h1 className="font-heading text-3xl font-bold">ConfigProvider 全局配置</h1>
         <p className="mt-2 text-muted-foreground">
-          ConfigProvider 同时承担主题（light/dark/system）、国际化语言、内置翻译资源和默认时区配置。
-          组件库内置组件（如 EasySearchTable / EasySearchForm / EasyColumnConfig）会自动通过
-          useEasyT 读取当前 locale 的翻译。本文档应用本身已被 ConfigProvider 包裹，因此左侧切换效果立即可见。
+          ConfigProvider 统一管理主题、语言、翻译资源和默认时区；内置组件通过 useEasyT 读取当前语言配置。
         </p>
       </div>
 
       <ComponentDemo
-        title="文档应用全局配置"
-        description="本演示读取并修改全局 ConfigProvider 的 locale / theme，观察内置文案随之切换"
+        title="全局配置"
+        description="locale 与 theme 变更会同步更新内置组件的语言和主题。"
         code={`// main.tsx
 import { ConfigProvider } from "@easyfix/console-ui";
 
@@ -258,8 +256,8 @@ import { ConfigProvider } from "@easyfix/console-ui";
       </ComponentDemo>
 
       <ComponentDemo
-        title="局部嵌套配置"
-        description="可在子树内再次使用 ConfigProvider 局部覆盖语言或主题，组件文案、按钮、搜索表格立即响应"
+        title="局部配置"
+        description="嵌套的 ConfigProvider 可覆盖子树的语言和主题。"
         code={`<ConfigProvider locale="en-US" theme="dark">
   <EasySearchTable ... />
 </ConfigProvider>`}
@@ -268,8 +266,8 @@ import { ConfigProvider } from "@easyfix/console-ui";
       </ComponentDemo>
 
       <ComponentDemo
-        title="用 TimezoneSelect 修改全局时区"
-        description="TimezoneSelect 的变更回写到 ConfigProvider，未显式传 timeZone 的日期组件会读取新的全局值"
+        title="默认时区"
+        description="TimezoneSelect 更新全局时区；未传 timeZone 的日期组件读取该值。"
         code={`const [timeZone, setTimeZone] = useState("Asia/Shanghai");
 
 <ConfigProvider timeZone={timeZone}>
@@ -280,8 +278,8 @@ import { ConfigProvider } from "@easyfix/console-ui";
       </ComponentDemo>
 
       <ComponentDemo
-        title="自定义/扩展翻译"
-        description="通过 messages 深合并自定义文案，可补充业务键或覆盖内置 key"
+        title="扩展翻译"
+        description="messages 深合并业务文案，并可覆盖内置键。"
         code={`<ConfigProvider
   locale="zh-CN"
   messages={{

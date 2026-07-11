@@ -157,13 +157,13 @@ export default function PriceInputDoc() {
           PriceInput 金额输入框
         </h1>
         <p className="mt-2 text-muted-foreground">
-          金额输入组件默认以 PriceText 展示，点击编辑图标后才进入输入态；只有点击确认或按 Enter 才会回写 value，适合金额类谨慎编辑场景。
+          金额默认以 PriceText 展示；编辑态确认或按 Enter 后回写 value，适用于需要显式确认的金额录入。
         </p>
       </div>
 
       <ComponentDemo
-        title="基础用法"
-        description="默认展示金额文本，点击编辑图标后输入；确认后才触发 onValueChange"
+        title="默认编辑流程"
+        description="编辑态确认后触发 onValueChange。"
         code={`import { useState } from "react";
 import { EasyPriceInput } from "@easyfix/console-ui";
 

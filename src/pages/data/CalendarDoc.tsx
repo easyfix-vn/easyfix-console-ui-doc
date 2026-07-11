@@ -93,8 +93,8 @@ export default function CalendarDoc() {
       </div>
 
       <ComponentDemo
-        title="基础日历"
-        description="单选模式，点击选择一个日期"
+        title="单日期"
+        description="single 模式维护一个日期值。"
         code={`import { useState } from "react";
 import { Calendar } from "@easyfix/console-ui";
 
@@ -111,7 +111,7 @@ const [date, setDate] = useState<Date | undefined>(new Date());
 
       <ComponentDemo
         title="范围选择"
-        description="range 模式，可选择一个日期范围，支持显示多个月份"
+        description="range 模式维护起止日期，并支持多月展示。"
         code={`import { useState } from "react";
 import { Calendar } from "@easyfix/console-ui";
 import type { DateRange } from "react-day-picker";

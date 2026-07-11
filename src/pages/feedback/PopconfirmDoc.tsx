@@ -18,12 +18,12 @@ const propsData = [
   {
     name: "onConfirm",
     type: "() => void",
-    description: "点击确认的回调",
+    description: "确认操作回调",
   },
   {
     name: "onCancel",
     type: "() => void",
-    description: "点击取消的回调",
+    description: "取消操作回调",
   },
   {
     name: "confirmText",
@@ -127,13 +127,13 @@ export default function PopconfirmDoc() {
       <div>
         <h1 className="font-heading text-3xl font-bold">Popconfirm 气泡确认</h1>
         <p className="mt-2 text-muted-foreground">
-          点击元素弹出气泡式确认框，适用于需要二次确认的轻量操作场景。
+          由触发元素唤起的轻量确认框，适用于需要二次确认的操作。
         </p>
       </div>
 
       <ComponentDemo
-        title="基础用法"
-        description="包裹触发元素，点击后弹出确认框。"
+        title="基本用法"
+        description="组件包裹触发元素并在激活后显示确认框。"
         code={`import { useState } from "react";
 import { Popconfirm, Button } from "@easyfix/console-ui";
 
@@ -158,7 +158,7 @@ function Demo() {
 
       <ComponentDemo
         title="带描述信息"
-        description="通过 description 属性添加额外说明。"
+        description="description 提供补充说明。"
         code={`import { useState } from "react";
 import { Popconfirm, Button } from "@easyfix/console-ui";
 
@@ -184,7 +184,7 @@ function Demo() {
 
       <ComponentDemo
         title="自定义按钮文字"
-        description="通过 confirmText 和 cancelText 自定义操作按钮的文字。"
+        description="confirmText 与 cancelText 定义操作按钮文本。"
         code={`import { useState } from "react";
 import { Popconfirm, Button } from "@easyfix/console-ui";
 

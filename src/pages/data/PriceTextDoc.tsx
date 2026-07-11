@@ -40,8 +40,8 @@ export default function PriceTextDoc() {
       </div>
 
       <ComponentDemo
-        title="基础用法"
-        description="默认货币为 VND，越南盾按 0 位小数展示"
+        title="默认格式"
+        description="默认货币为 VND，按 0 位小数展示。"
         code={`import { EasyPriceText } from "@easyfix/console-ui";
 
 <EasyPriceText value={1280000} />
@@ -55,7 +55,7 @@ export default function PriceTextDoc() {
 
       <ComponentDemo
         title="不同货币"
-        description="currency 使用 ISO 4217 三位字母代码，组件按常见 minor unit 自动推断小数位"
+        description="currency 使用 ISO 4217 三位字母代码，并按常见 minor unit 推断小数位。"
         code={`<EasyPriceText value={1280.5} currency="USD" />
 <EasyPriceText value={1280.5} currency="CNY" unitText="元" />
 <EasyPriceText value={1280} currency="JPY" />`}
@@ -69,7 +69,7 @@ export default function PriceTextDoc() {
 
       <ComponentDemo
         title="千分位与单位位置"
-        description="可关闭千分位，也可调整千分位符号和单位前后位置"
+        description="控制千分位、分隔符和单位位置。"
         code={`<EasyPriceText value={1280000} currency="USD" unitPosition="prefix" />
 <EasyPriceText value={1280000} currency="VND" groupSeparator="." />
 <EasyPriceText value={1280000} currency="VND" useGrouping={false} />`}
@@ -83,7 +83,7 @@ export default function PriceTextDoc() {
 
       <ComponentDemo
         title="空值与复制"
-        description="空值默认显示 -；开启 copyable 后复制展示文本"
+        description="空值默认显示 -；copyable 启用展示文本复制。"
         code={`<EasyPriceText value={null} />
 <EasyPriceText value={1280000} currency="VND" copyable />`}
       >

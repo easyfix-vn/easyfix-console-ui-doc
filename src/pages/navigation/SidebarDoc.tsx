@@ -4,6 +4,10 @@ import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
+  MenuItem,
+  MenuSub,
+  MenuSubPopup,
+  MenuSubTrigger,
   Sidebar,
   SidebarContent,
   SidebarFooter,
@@ -91,7 +95,7 @@ const componentList = [
   { name: "SidebarMenuButton", description: "菜单按钮，支持高亮和 tooltip" },
   { name: "SidebarMenuSub", description: "子菜单列表" },
   { name: "SidebarMenuSubItem", description: "子菜单项" },
-  { name: "SidebarMenuSubButton", description: "子菜单按钮，支持图标、点击事件和 active 高亮" },
+  { name: "SidebarMenuSubButton", description: "子菜单按钮，支持图标、点击事件、active 高亮和展开态右侧 tooltip" },
   { name: "SidebarSeparator", description: "分隔线" },
   { name: "SidebarInset", description: "与侧边栏并列的主内容区域" },
   { name: "SidebarTrigger", description: "切换侧边栏展开/收起的按钮" },
@@ -141,6 +145,7 @@ const collapsibleSidebarDemoCode = `import type { ReactNode } from "react";
 import { useState } from "react";
 import {
   Collapsible, CollapsibleContent, CollapsibleTrigger,
+  MenuItem, MenuSub, MenuSubPopup, MenuSubTrigger,
   SidebarProvider, Sidebar, SidebarContent, SidebarHeader,
   SidebarGroup, SidebarGroupLabel, SidebarGroupContent,
   SidebarMenu, SidebarMenuItem, SidebarMenuButton,
@@ -232,13 +237,15 @@ function renderSidebarSubItems(
             defaultOpen={item.defaultOpen ?? active}
             className="group/collapsible"
           >
-            <CollapsibleTrigger
-              render={<SidebarMenuSubButton isActive={active} />}
+            <SidebarMenuSubButton
+              isActive={active}
+              tooltip={item.label}
+              render={<CollapsibleTrigger />}
             >
               <Icon />
               <span>{item.label}</span>
               <ChevronDownIcon className="ms-auto size-4 transition-transform group-data-[panel-open]/collapsible:rotate-180" />
-            </CollapsibleTrigger>
+            </SidebarMenuSubButton>
             <CollapsibleContent>
               <SidebarMenuSub className="mx-0 ms-3 py-0.5">
                 {renderSidebarSubItems(item.children, activeId, onSelect)}
@@ -253,12 +260,49 @@ function renderSidebarSubItems(
       <SidebarMenuSubItem key={item.id}>
         <SidebarMenuSubButton
           isActive={item.id === activeId}
+          tooltip={item.label}
           onClick={() => onSelect(item.id)}
         >
           <Icon />
           <span>{item.label}</span>
         </SidebarMenuSubButton>
       </SidebarMenuSubItem>
+    );
+  });
+}
+
+function renderCollapsedMenuItems(
+  items: NavItem[],
+  activeId: string,
+  onSelect: (id: string) => void,
+): ReactNode {
+  return items.map((item) => {
+    const Icon = item.icon;
+    const active = isItemActive(item, activeId);
+
+    if (hasChildren(item)) {
+      return (
+        <MenuSub key={item.id}>
+          <MenuSubTrigger isActive={active}>
+            <Icon />
+            <span>{item.label}</span>
+          </MenuSubTrigger>
+          <MenuSubPopup>
+            {renderCollapsedMenuItems(item.children, activeId, onSelect)}
+          </MenuSubPopup>
+        </MenuSub>
+      );
+    }
+
+    return (
+      <MenuItem
+        key={item.id}
+        isActive={item.id === activeId}
+        onClick={() => onSelect(item.id)}
+      >
+        <Icon />
+        <span>{item.label}</span>
+      </MenuItem>
     );
   });
 }
@@ -279,17 +323,20 @@ function renderSidebarItems(
             defaultOpen={item.defaultOpen ?? active}
             className="group/collapsible"
           >
-            <CollapsibleTrigger
-              render={
-                <SidebarMenuButton
-                  isActive={active}
-                />
-              }
+            <SidebarMenuButton
+              isActive={active}
+              tooltip={item.label}
+              collapsedMenu={renderCollapsedMenuItems(
+                item.children,
+                activeId,
+                onSelect,
+              )}
+              render={<CollapsibleTrigger />}
             >
               <Icon />
               <span>{item.label}</span>
               <ChevronDownIcon className="ms-auto size-4 transition-transform group-data-[panel-open]/collapsible:rotate-180" />
-            </CollapsibleTrigger>
+            </SidebarMenuButton>
             <CollapsibleContent>
               <SidebarMenuSub>
                 {renderSidebarSubItems(item.children, activeId, onSelect)}
@@ -304,6 +351,7 @@ function renderSidebarItems(
       <SidebarMenuItem key={item.id}>
         <SidebarMenuButton
           isActive={item.id === activeId}
+          tooltip={item.label}
           onClick={() => onSelect(item.id)}
         >
           <Icon />
@@ -402,13 +450,15 @@ function renderSidebarSubNavItems(
             className="group/collapsible"
             defaultOpen={item.defaultOpen ?? active}
           >
-            <CollapsibleTrigger
-              render={<SidebarMenuSubButton isActive={active} />}
+            <SidebarMenuSubButton
+              isActive={active}
+              tooltip={item.label}
+              render={<CollapsibleTrigger />}
             >
               <Icon />
               <span>{item.label}</span>
               <ChevronDownIcon className="ms-auto size-4 transition-transform group-data-[panel-open]/collapsible:rotate-180" />
-            </CollapsibleTrigger>
+            </SidebarMenuSubButton>
             <CollapsibleContent>
               <SidebarMenuSub className="mx-0 ms-3 py-0.5">
                 {renderSidebarSubNavItems(item.children, activeId, onSelect)}
@@ -423,12 +473,53 @@ function renderSidebarSubNavItems(
       <SidebarMenuSubItem key={item.id}>
         <SidebarMenuSubButton
           isActive={item.id === activeId}
+          tooltip={item.label}
           onClick={() => onSelect(item.id)}
         >
           <Icon />
           <span>{item.label}</span>
         </SidebarMenuSubButton>
       </SidebarMenuSubItem>
+    );
+  });
+}
+
+function renderCollapsedSidebarMenuItems(
+  items: CollapsibleNavItem[],
+  activeId: string,
+  onSelect: (id: string) => void,
+): ReactNode {
+  return items.map((item) => {
+    const Icon = item.icon;
+    const active = isCollapsibleNavItemActive(item, activeId);
+
+    if (hasChildren(item)) {
+      return (
+        <MenuSub key={item.id}>
+          <MenuSubTrigger isActive={active}>
+            <Icon />
+            <span>{item.label}</span>
+          </MenuSubTrigger>
+          <MenuSubPopup>
+            {renderCollapsedSidebarMenuItems(
+              item.children,
+              activeId,
+              onSelect,
+            )}
+          </MenuSubPopup>
+        </MenuSub>
+      );
+    }
+
+    return (
+      <MenuItem
+        key={item.id}
+        isActive={item.id === activeId}
+        onClick={() => onSelect(item.id)}
+      >
+        <Icon />
+        <span>{item.label}</span>
+      </MenuItem>
     );
   });
 }
@@ -449,17 +540,20 @@ function renderCollapsibleSidebarItems(
             className="group/collapsible"
             defaultOpen={item.defaultOpen ?? active}
           >
-            <CollapsibleTrigger
-              render={
-                <SidebarMenuButton
-                  isActive={active}
-                />
-              }
+            <SidebarMenuButton
+              isActive={active}
+              tooltip={item.label}
+              collapsedMenu={renderCollapsedSidebarMenuItems(
+                item.children,
+                activeId,
+                onSelect,
+              )}
+              render={<CollapsibleTrigger />}
             >
               <Icon />
               <span>{item.label}</span>
               <ChevronDownIcon className="ms-auto size-4 transition-transform group-data-[panel-open]/collapsible:rotate-180" />
-            </CollapsibleTrigger>
+            </SidebarMenuButton>
             <CollapsibleContent>
               <SidebarMenuSub>
                 {renderSidebarSubNavItems(item.children, activeId, onSelect)}
@@ -474,6 +568,7 @@ function renderCollapsibleSidebarItems(
       <SidebarMenuItem key={item.id}>
         <SidebarMenuButton
           isActive={item.id === activeId}
+          tooltip={item.label}
           onClick={() => onSelect(item.id)}
         >
           <Icon />
@@ -502,7 +597,7 @@ export default function SidebarDoc() {
 
       <ComponentDemo
         title="基础侧边栏"
-        description="使用 SidebarProvider + Sidebar + SidebarInset 构建完整的侧边栏布局，支持分组菜单和折叠切换。"
+        description="使用 SidebarProvider + Sidebar + SidebarInset 构建完整侧边栏；折叠为 icon 模式后，一级导航 hover 会在右侧显示菜单名称。"
         code={`import {
   SidebarProvider, Sidebar, SidebarHeader, SidebarContent,
   SidebarFooter, SidebarGroup, SidebarGroupLabel,
@@ -523,12 +618,12 @@ import { HomeIcon, UsersIcon, SettingsIcon } from "lucide-react";
         <SidebarGroupContent>
           <SidebarMenu>
             <SidebarMenuItem>
-              <SidebarMenuButton isActive>
+              <SidebarMenuButton isActive tooltip="首页">
                 <HomeIcon /> 首页
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
-              <SidebarMenuButton>
+              <SidebarMenuButton tooltip="用户">
                 <UsersIcon /> 用户
               </SidebarMenuButton>
             </SidebarMenuItem>
@@ -539,7 +634,7 @@ import { HomeIcon, UsersIcon, SettingsIcon } from "lucide-react";
     <SidebarFooter>
       <SidebarMenu>
         <SidebarMenuItem>
-          <SidebarMenuButton>
+          <SidebarMenuButton tooltip="设置">
             <SettingsIcon /> 设置
           </SidebarMenuButton>
         </SidebarMenuItem>
@@ -570,19 +665,19 @@ import { HomeIcon, UsersIcon, SettingsIcon } from "lucide-react";
                   <SidebarGroupContent>
                     <SidebarMenu>
                       <SidebarMenuItem>
-                        <SidebarMenuButton isActive>
+                        <SidebarMenuButton isActive tooltip="首页">
                           <HomeIcon />
                           <span>首页</span>
                         </SidebarMenuButton>
                       </SidebarMenuItem>
                       <SidebarMenuItem>
-                        <SidebarMenuButton>
+                        <SidebarMenuButton tooltip="仪表盘">
                           <LayoutDashboardIcon />
                           <span>仪表盘</span>
                         </SidebarMenuButton>
                       </SidebarMenuItem>
                       <SidebarMenuItem>
-                        <SidebarMenuButton>
+                        <SidebarMenuButton tooltip="用户管理">
                           <UsersIcon />
                           <span>用户管理</span>
                         </SidebarMenuButton>
@@ -596,7 +691,7 @@ import { HomeIcon, UsersIcon, SettingsIcon } from "lucide-react";
                   <SidebarGroupContent>
                     <SidebarMenu>
                       <SidebarMenuItem>
-                        <SidebarMenuButton>
+                        <SidebarMenuButton tooltip="系统设置">
                           <SettingsIcon />
                           <span>系统设置</span>
                         </SidebarMenuButton>
@@ -608,7 +703,7 @@ import { HomeIcon, UsersIcon, SettingsIcon } from "lucide-react";
               <SidebarFooter>
                 <SidebarMenu>
                   <SidebarMenuItem>
-                    <SidebarMenuButton>
+                    <SidebarMenuButton tooltip="个人中心">
                       <UserIcon />
                       <span>个人中心</span>
                     </SidebarMenuButton>
@@ -631,7 +726,7 @@ import { HomeIcon, UsersIcon, SettingsIcon } from "lucide-react";
 
       <ComponentDemo
         title="含子菜单的侧边栏"
-        description="使用 SidebarMenuSub 实现多级菜单结构。SidebarMenuSubButton 可以放置图标，并可直接绑定 onClick；点击后可更新页面状态或跳转路由。"
+        description="使用 SidebarMenuSub 实现多级菜单结构。折叠态一级导航 hover 显示名称；展开态二级导航 hover 显示名称。"
         code={`import { useState } from "react";
 import {
   SidebarProvider, Sidebar, SidebarContent,
@@ -647,20 +742,21 @@ export function SidebarWithSubMenu() {
 
   return (
     <SidebarProvider>
-      <Sidebar>
+      <Sidebar collapsible="icon">
         <SidebarContent>
           <SidebarGroup>
             <SidebarGroupLabel>文档</SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu>
                 <SidebarMenuItem>
-                  <SidebarMenuButton>
+                  <SidebarMenuButton tooltip="指南">
                     <FileTextIcon /> 指南
                   </SidebarMenuButton>
                   <SidebarMenuSub>
                     <SidebarMenuSubItem>
                       <SidebarMenuSubButton
                         isActive={activeSubMenu === "quick-start"}
+                        tooltip="快速开始"
                         onClick={() => setActiveSubMenu("quick-start")}
                       >
                         <FileTextIcon />
@@ -670,6 +766,7 @@ export function SidebarWithSubMenu() {
                     <SidebarMenuSubItem>
                       <SidebarMenuSubButton
                         isActive={activeSubMenu === "install"}
+                        tooltip="安装配置"
                         onClick={() => setActiveSubMenu("install")}
                       >
                         <SettingsIcon />
@@ -679,6 +776,7 @@ export function SidebarWithSubMenu() {
                     <SidebarMenuSubItem>
                       <SidebarMenuSubButton
                         isActive={activeSubMenu === "theme"}
+                        tooltip="主题定制"
                         onClick={() => setActiveSubMenu("theme")}
                       >
                         <LayoutDashboardIcon />
@@ -707,14 +805,14 @@ export function SidebarWithSubMenu() {
           style={{ height: 340, transform: "translateZ(0)" }}
         >
           <SidebarProvider defaultOpen className="!min-h-full">
-            <Sidebar collapsible="none" className="!h-full">
+            <Sidebar collapsible="icon" className="!h-full">
               <SidebarContent>
                 <SidebarGroup>
                   <SidebarGroupLabel>文档</SidebarGroupLabel>
                   <SidebarGroupContent>
                     <SidebarMenu>
                       <SidebarMenuItem>
-                        <SidebarMenuButton>
+                        <SidebarMenuButton tooltip="指南">
                           <FileTextIcon />
                           <span>指南</span>
                         </SidebarMenuButton>
@@ -722,6 +820,7 @@ export function SidebarWithSubMenu() {
                           <SidebarMenuSubItem>
                             <SidebarMenuSubButton
                               isActive={activeSubMenu === "quick-start"}
+                              tooltip="快速开始"
                               onClick={() => setActiveSubMenu("quick-start")}
                             >
                               <FileTextIcon />
@@ -731,6 +830,7 @@ export function SidebarWithSubMenu() {
                           <SidebarMenuSubItem>
                             <SidebarMenuSubButton
                               isActive={activeSubMenu === "install"}
+                              tooltip="安装配置"
                               onClick={() => setActiveSubMenu("install")}
                             >
                               <SettingsIcon />
@@ -740,6 +840,7 @@ export function SidebarWithSubMenu() {
                           <SidebarMenuSubItem>
                             <SidebarMenuSubButton
                               isActive={activeSubMenu === "theme"}
+                              tooltip="主题定制"
                               onClick={() => setActiveSubMenu("theme")}
                             >
                               <LayoutDashboardIcon />
@@ -749,7 +850,7 @@ export function SidebarWithSubMenu() {
                         </SidebarMenuSub>
                       </SidebarMenuItem>
                       <SidebarMenuItem>
-                        <SidebarMenuButton>
+                        <SidebarMenuButton tooltip="组件">
                           <FileTextIcon />
                           <span>组件</span>
                         </SidebarMenuButton>
@@ -757,6 +858,7 @@ export function SidebarWithSubMenu() {
                           <SidebarMenuSubItem>
                             <SidebarMenuSubButton
                               isActive={activeSubMenu === "button"}
+                              tooltip="Button 按钮"
                               onClick={() => setActiveSubMenu("button")}
                             >
                               <FileTextIcon />
@@ -766,6 +868,7 @@ export function SidebarWithSubMenu() {
                           <SidebarMenuSubItem>
                             <SidebarMenuSubButton
                               isActive={activeSubMenu === "input"}
+                              tooltip="Input 输入框"
                               onClick={() => setActiveSubMenu("input")}
                             >
                               <SettingsIcon />
@@ -781,6 +884,7 @@ export function SidebarWithSubMenu() {
             </Sidebar>
             <SidebarInset>
               <header className="flex items-center gap-2 border-b px-4 py-2">
+                <SidebarTrigger />
                 <h2 className="text-sm font-medium">{activeSubMenuLabel}</h2>
               </header>
               <main className="p-4 text-sm text-muted-foreground">
@@ -793,7 +897,7 @@ export function SidebarWithSubMenu() {
 
       <ComponentDemo
         title="可折叠子菜单"
-        description="有子节点的 SidebarMenuButton 可以作为 CollapsibleTrigger 使用；展开态和折叠态都从同一份 navItems 渲染，折叠成 icon 模式时也保持同结构导航。"
+        description="有子节点的 SidebarMenuButton 可以作为 CollapsibleTrigger 使用；折叠态一级导航 hover 在右侧显示名称并可点击打开 Menu，展开态二三级导航 hover 在右侧显示名称。"
         code={collapsibleSidebarDemoCode}
       >
         <div
@@ -848,7 +952,7 @@ export function SidebarWithSubMenu() {
       </div>
 
       <div>
-        <h2 className="font-heading mb-4 text-xl font-semibold">组件列表</h2>
+        <h2 className="font-heading mb-4 text-xl font-semibold">组件构成</h2>
         <div className="overflow-x-auto rounded-lg border">
           <table className="w-full text-sm">
             <thead>

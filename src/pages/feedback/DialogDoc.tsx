@@ -20,7 +20,7 @@ const dialogPropsData = [
     type: "boolean",
     default: "true",
     description:
-      "点击遮罩是否关闭。设为 false 时遮罩点击不会关闭，需要使用关闭按钮。",
+      "是否允许遮罩关闭；false 时需通过关闭控件关闭对话框。",
   },
   {
     name: "closeOnEscape",
@@ -78,8 +78,8 @@ export default function DialogDoc() {
       </div>
 
       <ComponentDemo
-        title="基础用法"
-        description="通过 DialogTrigger 触发对话框的显示。底部按钮统一放入 DialogFooter，避免直接挂在 DialogPopup 内导致贴边。"
+        title="基本结构"
+        description="DialogTrigger 管理显示状态，DialogFooter 承载底部操作。"
         code={`import {
   Dialog, DialogTrigger, DialogPopup,
   DialogHeader, DialogTitle, DialogDescription,
@@ -135,17 +135,17 @@ export default function DialogDoc() {
   <DialogPopup>
     <DialogHeader>
       <DialogTitle>编辑个人资料</DialogTitle>
-      <DialogDescription>修改您的个人信息。</DialogDescription>
+      <DialogDescription>维护账户资料。</DialogDescription>
     </DialogHeader>
     <DialogPanel>
       <div className="space-y-4">
         <div>
           <label className="text-sm font-medium">用户名</label>
-          <input className="mt-1 w-full rounded-md border px-3 py-2" placeholder="请输入用户名" />
+          <input className="mt-1 w-full rounded-md border px-3 py-2" placeholder="用户名" />
         </div>
         <div>
           <label className="text-sm font-medium">邮箱</label>
-          <input className="mt-1 w-full rounded-md border px-3 py-2" placeholder="请输入邮箱" />
+          <input className="mt-1 w-full rounded-md border px-3 py-2" placeholder="邮箱" />
         </div>
       </div>
     </DialogPanel>
@@ -163,7 +163,7 @@ export default function DialogDoc() {
           <DialogPopup>
             <DialogHeader>
               <DialogTitle>编辑个人资料</DialogTitle>
-              <DialogDescription>修改您的个人信息。</DialogDescription>
+              <DialogDescription>维护账户资料。</DialogDescription>
             </DialogHeader>
             <DialogPanel>
               <div className="space-y-4">
@@ -171,14 +171,14 @@ export default function DialogDoc() {
                   <label className="text-sm font-medium">用户名</label>
                   <input
                     className="mt-1 w-full rounded-md border px-3 py-2"
-                    placeholder="请输入用户名"
+                    placeholder="用户名"
                   />
                 </div>
                 <div>
                   <label className="text-sm font-medium">邮箱</label>
                   <input
                     className="mt-1 w-full rounded-md border px-3 py-2"
-                    placeholder="请输入邮箱"
+                    placeholder="邮箱"
                   />
                 </div>
               </div>
@@ -215,7 +215,7 @@ export default function DialogDoc() {
     </DialogHeader>
     <DialogPanel>
       <p className="text-sm text-muted-foreground">
-        您确定要删除项目 "my-project" 吗？所有相关数据都将被永久删除。
+        项目 "my-project" 及其关联数据将被永久删除，且无法恢复。
       </p>
     </DialogPanel>
     <DialogFooter>
@@ -240,8 +240,7 @@ export default function DialogDoc() {
             </DialogHeader>
             <DialogPanel>
               <p className="text-sm text-muted-foreground">
-                您确定要删除项目 &quot;my-project&quot;
-                吗？所有相关数据都将被永久删除。
+                项目 &quot;my-project&quot; 及其关联数据将被永久删除，且无法恢复。
               </p>
             </DialogPanel>
             <DialogFooter>
@@ -256,7 +255,7 @@ export default function DialogDoc() {
 
       <ComponentDemo
         title="自定义宽度"
-        description="通过 width 属性控制对话框宽度。支持预设值（sm/md/lg/xl/2xl~5xl/full）和自定义 CSS 值。"
+        description="width 支持预设尺寸与自定义 CSS 值。"
         code={`<Dialog>
   <DialogTrigger asChild>
     <Button variant="outline">宽对话框 (3xl)</Button>
@@ -340,16 +339,16 @@ export default function DialogDoc() {
 
       <ComponentDemo
         title="禁止遮罩 / ESC 关闭"
-        description="closeOnBackdropClick=false 阻止点击遮罩关闭；closeOnEscape=false 阻止 ESC 关闭。"
+        description="closeOnBackdropClick 与 closeOnEscape 分别控制遮罩和 Escape 关闭。"
         code={`<Dialog closeOnBackdropClick={false} closeOnEscape={false}>
   <DialogTrigger asChild>
-    <Button variant="outline">必须点击关闭</Button>
+    <Button variant="outline">关闭对话框</Button>
   </DialogTrigger>
   <DialogPopup>
     <DialogHeader>
       <DialogTitle>不可被外部关闭</DialogTitle>
       <DialogDescription>
-        点击遮罩或按 ESC 键都不会关闭，必须使用下方按钮。
+        遮罩和 Escape 均不会关闭对话框。
       </DialogDescription>
     </DialogHeader>
     <DialogFooter>
@@ -360,13 +359,13 @@ export default function DialogDoc() {
       >
         <Dialog closeOnBackdropClick={false} closeOnEscape={false}>
           <DialogTrigger asChild>
-            <Button variant="outline">必须点击关闭</Button>
+            <Button variant="outline">关闭对话框</Button>
           </DialogTrigger>
           <DialogPopup>
             <DialogHeader>
               <DialogTitle>不可被外部关闭</DialogTitle>
               <DialogDescription>
-                点击遮罩或按 ESC 键都不会关闭，必须使用下方按钮。
+                遮罩和 Escape 均不会关闭对话框。
               </DialogDescription>
             </DialogHeader>
             <DialogPanel>
@@ -391,7 +390,7 @@ export default function DialogDoc() {
   <DialogPopup>
     <DialogHeader>
       <DialogTitle>用户协议</DialogTitle>
-      <DialogDescription>请滚动查看完整条款。</DialogDescription>
+      <DialogDescription>完整条款见下方滚动区域。</DialogDescription>
     </DialogHeader>
     <DialogPanel>
       {Array.from({ length: 30 }).map((_, i) => (
@@ -414,7 +413,7 @@ export default function DialogDoc() {
           <DialogPopup>
             <DialogHeader>
               <DialogTitle>用户协议</DialogTitle>
-              <DialogDescription>请滚动查看完整条款。</DialogDescription>
+              <DialogDescription>完整条款见下方滚动区域。</DialogDescription>
             </DialogHeader>
             <DialogPanel>
               {Array.from({ length: 30 }).map((_, i) => (

@@ -41,14 +41,13 @@ export default function TooltipDoc() {
       <div>
         <h1 className="font-heading text-3xl font-bold">Tooltip 文字提示</h1>
         <p className="mt-2 text-muted-foreground">
-          鼠标悬停时显示的文字提示气泡，用于展示简短的辅助信息。需要在外层包裹
-          TooltipProvider。
+          为触发元素补充简短说明的浮层。TooltipProvider 提供全局交互配置。
         </p>
       </div>
 
       <ComponentDemo
-        title="基础用法"
-        description="鼠标悬停在按钮上时显示提示文字。"
+        title="基本用法"
+        description="悬停触发器时显示提示文字。"
         code={`import { TooltipProvider, Tooltip, TooltipTrigger, TooltipPopup, Button } from "@easyfix/console-ui";
 
 <TooltipProvider>
@@ -72,7 +71,7 @@ export default function TooltipDoc() {
 
       <ComponentDemo
         title="不同方向"
-        description="通过 side 属性控制提示的弹出方向。"
+        description="side 定义提示的弹出方向。"
         code={`import { TooltipProvider, Tooltip, TooltipTrigger, TooltipPopup, Button } from "@easyfix/console-ui";
 
 <TooltipProvider>

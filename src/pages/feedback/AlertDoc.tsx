@@ -40,7 +40,7 @@ export default function AlertDoc() {
       <div>
         <h1 className="font-heading text-3xl font-bold">Alert 提示</h1>
         <p className="mt-2 text-muted-foreground">
-          用于向用户展示重要的提示信息，支持多种语义变体和自定义操作。
+          展示需要持续关注的状态、风险或操作结果，支持语义变体和操作区。
         </p>
       </div>
 
@@ -70,13 +70,13 @@ import { InfoIcon, CircleCheckIcon, TriangleAlertIcon, CircleAlertIcon } from "l
 <Alert variant="warning">
   <TriangleAlertIcon />
   <AlertTitle>警告提示</AlertTitle>
-  <AlertDescription>请注意潜在风险。</AlertDescription>
+  <AlertDescription>存在潜在风险。</AlertDescription>
 </Alert>
 
 <Alert variant="error">
   <CircleAlertIcon />
   <AlertTitle>错误提示</AlertTitle>
-  <AlertDescription>操作失败，请重试。</AlertDescription>
+  <AlertDescription>操作失败，可稍后重试。</AlertDescription>
 </Alert>`}
       >
         <div className="w-full space-y-3">
@@ -97,12 +97,12 @@ import { InfoIcon, CircleCheckIcon, TriangleAlertIcon, CircleAlertIcon } from "l
           <Alert variant="warning">
             <TriangleAlertIcon />
             <AlertTitle>警告提示</AlertTitle>
-            <AlertDescription>请注意潜在风险。</AlertDescription>
+            <AlertDescription>存在潜在风险。</AlertDescription>
           </Alert>
           <Alert variant="error">
             <CircleAlertIcon />
             <AlertTitle>错误提示</AlertTitle>
-            <AlertDescription>操作失败，请重试。</AlertDescription>
+            <AlertDescription>操作失败，可稍后重试。</AlertDescription>
           </Alert>
         </div>
       </ComponentDemo>
@@ -117,7 +117,7 @@ import { CircleCheckIcon } from "lucide-react";
   <CircleCheckIcon />
   <AlertTitle>部署成功</AlertTitle>
   <AlertDescription>
-    您的应用已成功部署到生产环境，所有健康检查已通过。
+    应用已部署到生产环境，健康检查已通过。
   </AlertDescription>
 </Alert>`}
       >
@@ -126,7 +126,7 @@ import { CircleCheckIcon } from "lucide-react";
             <CircleCheckIcon />
             <AlertTitle>部署成功</AlertTitle>
             <AlertDescription>
-              您的应用已成功部署到生产环境，所有健康检查已通过。
+              应用已部署到生产环境，健康检查已通过。
             </AlertDescription>
           </Alert>
         </div>
@@ -142,7 +142,7 @@ import { TriangleAlertIcon } from "lucide-react";
   <TriangleAlertIcon />
   <AlertTitle>存储空间不足</AlertTitle>
   <AlertDescription>
-    您的存储空间已使用 90%，建议尽快清理或升级套餐。
+    存储空间已使用 90%，建议清理数据或调整配额。
   </AlertDescription>
   <AlertAction>
     <Button size="sm" variant="outline">升级套餐</Button>
@@ -154,7 +154,7 @@ import { TriangleAlertIcon } from "lucide-react";
             <TriangleAlertIcon />
             <AlertTitle>存储空间不足</AlertTitle>
             <AlertDescription>
-              您的存储空间已使用 90%，建议尽快清理或升级套餐。
+              存储空间已使用 90%，建议清理数据或调整配额。
             </AlertDescription>
             <AlertAction>
               <Button size="sm" variant="outline">

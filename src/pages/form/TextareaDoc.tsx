@@ -7,7 +7,7 @@ function BasicDemo() {
   const [value, setValue] = useState("");
   return (
     <Textarea
-      placeholder="请输入内容..."
+      placeholder="内容"
       value={value}
       onChange={(e) => setValue(e.target.value)}
     />
@@ -104,7 +104,7 @@ export default function TextareaDoc() {
 const [value, setValue] = useState("");
 
 <Textarea
-  placeholder="请输入内容..."
+  placeholder="内容"
   value={value}
   onChange={(e) => setValue(e.target.value)}
 />`}
@@ -114,7 +114,7 @@ const [value, setValue] = useState("");
 
       <ComponentDemo
         title="禁用状态"
-        description="设置 disabled 属性禁用文本域。"
+        description="disabled 禁用文本域。"
         code={`<Textarea placeholder="禁用状态" disabled value="这是一段只读内容" />`}
       >
         <DisabledDemo />

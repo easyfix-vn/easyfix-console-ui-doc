@@ -110,8 +110,8 @@ export default function CascaderDoc() {
       </div>
 
       <ComponentDemo
-        title="基础用法"
-        description="按列展开层级，选择叶子节点后关闭弹层"
+        title="层级选择"
+        description="按列展开层级，选择叶子节点后关闭弹层。"
         code={`const options = [
   {
     value: "china",
@@ -137,7 +137,7 @@ export default function CascaderDoc() {
 
       <ComponentDemo
         title="选择任意层级"
-        description="changeOnSelect 开启后，点击非叶子节点也会立即触发 onValueChange"
+        description="changeOnSelect 允许非叶子节点触发 onValueChange。"
         code={`<Cascader
   value={value}
   onValueChange={setValue}

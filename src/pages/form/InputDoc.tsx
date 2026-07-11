@@ -18,7 +18,7 @@ const easyInputPropsData = [
   { name: "allowClear", type: "boolean", default: "false", description: "是否在有内容时显示清除按钮" },
   { name: "maxLength", type: "number", description: "字数限制" },
   { name: "showCount", type: "boolean", default: "false", description: "是否显示当前字数（与 maxLength 配合）" },
-  { name: "onClear", type: "() => void", description: "点击清除按钮的回调" },
+  { name: "onClear", type: "() => void", description: "清除操作回调" },
 ];
 
 const passwordInputPropsData = [
@@ -33,7 +33,7 @@ function ClearableDemo() {
   return (
     <EasyInput
       allowClear
-      placeholder="点击右侧 × 清除内容"
+      placeholder="可清除内容"
       value={value}
       onChange={(e) => setValue(e.target.value)}
     />
@@ -55,7 +55,7 @@ function PasswordDemo() {
   return (
     <EasyPasswordInput
       prefix={<LockIcon />}
-      placeholder="请输入密码"
+      placeholder="密码"
       allowClear
       maxLength={32}
     />
@@ -74,13 +74,13 @@ export default function InputDoc() {
       </div>
 
       <ComponentDemo
-        title="基础用法"
-        description="默认尺寸的文本输入框"
+        title="默认样式"
+        description="默认尺寸的文本输入框。"
         code={`import { Input } from "@easyfix/console-ui";
 
-<Input placeholder="请输入内容" />`}
+<Input placeholder="内容" />`}
       >
-        <Input placeholder="请输入内容" />
+        <Input placeholder="内容" />
       </ComponentDemo>
 
       <ComponentDemo
@@ -99,7 +99,7 @@ export default function InputDoc() {
 
       <ComponentDemo
         title="禁用状态"
-        description="设置 disabled 属性禁用输入框"
+        description="disabled 禁用输入框。"
         code={`<Input disabled placeholder="禁用状态" />`}
       >
         <Input disabled placeholder="禁用状态" />
@@ -127,7 +127,7 @@ import { UserIcon, MailIcon, SearchIcon } from "lucide-react";
         description="输入框有内容时显示清除按钮"
         code={`<EasyInput
   allowClear
-  placeholder="点击右侧 × 清除内容"
+  placeholder="可清除内容"
   value={value}
   onChange={(e) => setValue(e.target.value)}
 />`}
@@ -156,7 +156,7 @@ import { LockIcon } from "lucide-react";
 
 <EasyPasswordInput
   prefix={<LockIcon />}
-  placeholder="请输入密码"
+  placeholder="密码"
   allowClear
   maxLength={32}
 />`}

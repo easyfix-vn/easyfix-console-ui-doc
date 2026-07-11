@@ -89,7 +89,7 @@ export default function EmptyDoc() {
       <div>
         <h1 className="font-heading text-3xl font-bold">Empty 空状态</h1>
         <p className="mt-2 text-muted-foreground">
-          当列表、表格或页面没有数据时展示的占位提示，由{" "}
+          用于列表、表格和页面无数据状态的占位提示，由{" "}
           <code className="rounded bg-muted px-1.5 py-0.5 text-xs font-mono">
             Empty
           </code>
@@ -118,28 +118,28 @@ export default function EmptyDoc() {
       </div>
 
       <ComponentDemo
-        title="基础用法"
-        description="最简单的空状态展示，包含标题和描述文本。"
+        title="基本结构"
+        description="空状态由标题和描述构成。"
         code={`import { Empty, EmptyHeader, EmptyTitle, EmptyDescription } from "@easyfix/console-ui";
 
 <Empty>
   <EmptyHeader>
     <EmptyTitle>暂无数据</EmptyTitle>
-    <EmptyDescription>当前列表为空，请稍后再试。</EmptyDescription>
+    <EmptyDescription>当前列表暂无数据。</EmptyDescription>
   </EmptyHeader>
 </Empty>`}
       >
         <Empty>
           <EmptyHeader>
             <EmptyTitle>暂无数据</EmptyTitle>
-            <EmptyDescription>当前列表为空，请稍后再试。</EmptyDescription>
+            <EmptyDescription>当前列表暂无数据。</EmptyDescription>
           </EmptyHeader>
         </Empty>
       </ComponentDemo>
 
       <ComponentDemo
         title="带图标"
-        description='使用 EmptyMedia 的 variant="icon" 展示图标样式，图标会包裹在卡片式容器中。'
+        description='EmptyMedia 的 variant="icon" 提供卡片式图标容器。'
         code={`import {
   Empty, EmptyHeader, EmptyMedia, EmptyTitle, EmptyDescription,
 } from "@easyfix/console-ui";
@@ -168,7 +168,7 @@ import { InboxIcon } from "lucide-react";
 
       <ComponentDemo
         title="带操作按钮"
-        description="在 EmptyContent 中添加按钮等操作元素，引导用户进行下一步。"
+        description="EmptyContent 承载创建、重试等后续操作。"
         code={`import {
   Empty, EmptyHeader, EmptyMedia, EmptyTitle,
   EmptyDescription, EmptyContent, Button,
@@ -182,7 +182,7 @@ import { InboxIcon } from "lucide-react";
     </EmptyMedia>
     <EmptyTitle>暂无项目</EmptyTitle>
     <EmptyDescription>
-      还没有创建任何项目，点击下方按钮开始。
+      当前尚未创建项目。
     </EmptyDescription>
   </EmptyHeader>
   <EmptyContent>
@@ -197,7 +197,7 @@ import { InboxIcon } from "lucide-react";
             </EmptyMedia>
             <EmptyTitle>暂无项目</EmptyTitle>
             <EmptyDescription>
-              还没有创建任何项目，点击下方按钮开始。
+              当前尚未创建项目。
             </EmptyDescription>
           </EmptyHeader>
           <EmptyContent>

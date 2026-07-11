@@ -78,8 +78,8 @@ export default function BreadcrumbDoc() {
       </div>
 
       <ComponentDemo
-        title="基础面包屑"
-        description="最基本的面包屑用法，展示页面层级关系。"
+        title="基本结构"
+        description="面包屑呈现页面层级关系。"
         code={`import {
   Breadcrumb, BreadcrumbList, BreadcrumbItem,
   BreadcrumbLink, BreadcrumbPage, BreadcrumbSeparator,
@@ -120,7 +120,7 @@ export default function BreadcrumbDoc() {
 
       <ComponentDemo
         title="自定义分隔符"
-        description="通过 BreadcrumbSeparator 的 children 属性自定义分隔符。"
+        description="BreadcrumbSeparator 的 children 定义分隔符。"
         code={`<Breadcrumb>
   <BreadcrumbList>
     <BreadcrumbItem>

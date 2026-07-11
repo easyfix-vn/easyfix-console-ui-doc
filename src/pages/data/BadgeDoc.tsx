@@ -50,7 +50,7 @@ function AsButtonDemo() {
   return (
     <div className="flex flex-wrap items-center gap-2">
       <Badge render={<button type="button" onClick={() => alert("clicked")} />} variant="default">
-        可点击
+        查看详情
       </Badge>
       <Badge render={<a href="https://easyfix.vn" target="_blank" rel="noreferrer" />} variant="outline">
         链接跳转
@@ -75,7 +75,7 @@ const propsData = [
   {
     name: "render",
     type: "ReactElement",
-    description: "替换底层元素，例如 <button> 或 <a>，让 Badge 具有交互能力",
+    description: "替换底层元素，支持按钮、链接等交互载体",
   },
 ];
 
@@ -91,7 +91,7 @@ export default function BadgeDoc() {
 
       <ComponentDemo
         title="样式变体"
-        description="通过 variant 控制语义颜色，覆盖状态、标签等多种场景"
+        description="variant 定义状态、标签等场景的语义颜色。"
         code={`import { Badge } from "@easyfix/console-ui";
 
 <Badge variant="default">默认</Badge>
@@ -108,7 +108,7 @@ export default function BadgeDoc() {
 
       <ComponentDemo
         title="尺寸"
-        description="通过 size 控制徽章大小"
+        description="size 定义徽章尺寸。"
         code={`<Badge size="sm">小</Badge>
 <Badge size="default">默认</Badge>
 <Badge size="lg">大</Badge>`}
@@ -118,9 +118,9 @@ export default function BadgeDoc() {
 
       <ComponentDemo
         title="可交互"
-        description="通过 render 替换底层元素，使 Badge 变为可点击按钮或链接"
+        description="render 将徽章渲染为按钮或链接。"
         code={`<Badge render={<button type="button" onClick={() => {}} />} variant="default">
-  可点击
+  查看详情
 </Badge>
 <Badge render={<a href="https://easyfix.vn" target="_blank" />} variant="outline">
   链接跳转

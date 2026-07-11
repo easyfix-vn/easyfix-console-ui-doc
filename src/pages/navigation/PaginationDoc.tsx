@@ -148,7 +148,7 @@ export default function PaginationDoc() {
       </div>
 
       <div>
-        <h2 className="mb-4 text-xl font-semibold">组件列表</h2>
+        <h2 className="mb-4 text-xl font-semibold">组件构成</h2>
         <div className="overflow-x-auto rounded-lg border">
           <table className="w-full text-sm">
             <thead>

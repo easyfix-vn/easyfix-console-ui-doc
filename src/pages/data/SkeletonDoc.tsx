@@ -52,14 +52,13 @@ export default function SkeletonDoc() {
       <div>
         <h1 className="font-heading text-3xl font-bold">Skeleton 骨架屏</h1>
         <p className="mt-2 text-muted-foreground">
-          在内容加载时提供占位动画，减少用户等待的焦虑感。通过 className
-          控制尺寸和形状。
+          在内容加载期间提供占位动画，className 控制尺寸和形状。
         </p>
       </div>
 
       <ComponentDemo
-        title="基础骨架屏"
-        description="通过不同的宽度模拟文本行的加载占位。"
+        title="文本占位"
+        description="不同宽度模拟文本行的加载状态。"
         code={`import { Skeleton } from "@easyfix/console-ui";
 
 <div className="flex w-full flex-col gap-3">
@@ -73,7 +72,7 @@ export default function SkeletonDoc() {
 
       <ComponentDemo
         title="卡片骨架"
-        description="组合多个 Skeleton 模拟卡片内容的加载状态。"
+        description="多个 Skeleton 组合为卡片加载状态。"
         code={`<div className="w-full max-w-sm rounded-xl border p-4">
   <div className="flex items-center gap-3">
     <Skeleton className="size-10 rounded-full" />

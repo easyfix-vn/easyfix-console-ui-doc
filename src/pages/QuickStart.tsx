@@ -41,7 +41,7 @@ export default function QuickStart() {
           </a>
         </div>
         <p className="mt-2 text-muted-foreground">
-          在几分钟内将 Easyfix Console UI 集成到你的 React 项目中。
+          为 React 应用集成 Easyfix Console UI，并完成样式与语言配置。
         </p>
         <div className="mt-4 flex gap-3 text-sm">
           <a
@@ -71,13 +71,13 @@ export default function QuickStart() {
 
       <Section title="安装">
         <p className="text-sm text-muted-foreground">
-          使用 npm、pnpm 或 yarn 安装包及必要的对等依赖。
+          安装组件包及其对等依赖。
         </p>
         <CodeBlock code="npm install @easyfix/console-ui @base-ui/react @dnd-kit/core @dnd-kit/modifiers @dnd-kit/sortable @dnd-kit/utilities react react-dom" language="bash" />
-        <p className="text-sm text-muted-foreground">或使用 pnpm：</p>
+        <p className="text-sm text-muted-foreground">pnpm：</p>
         <CodeBlock code="pnpm add @easyfix/console-ui @base-ui/react @dnd-kit/core @dnd-kit/modifiers @dnd-kit/sortable @dnd-kit/utilities react react-dom" language="bash" />
         <p className="text-sm text-muted-foreground">
-          完整对等依赖列表见{" "}
+          对等依赖以{" "}
           <a
             href={NPM_URL}
             target="_blank"
@@ -86,26 +86,26 @@ export default function QuickStart() {
           >
             npm 页面
           </a>
-          ，包括 tailwindcss v4、class-variance-authority、lucide-react 等。
+          为准，其中包括 tailwindcss v4、class-variance-authority、lucide-react 等。
         </p>
       </Section>
 
       <Section title="配置样式">
         <p className="text-sm text-muted-foreground">
-          在宿主应用的入口文件中引入样式（只需引入一次）：
+          在宿主应用入口引入一次样式文件：
         </p>
         <CodeBlock code={`// main.tsx 或 App.tsx
 import "@easyfix/console-ui/styles.css";`} />
         <p className="text-sm text-muted-foreground">
-          确保 tailwindcss v4 已在项目中配置，并使用{" "}
+          宿主应用需启用 Tailwind CSS v4，可通过{" "}
           <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">@import</code>{" "}
           或 Vite 插件加载 Tailwind。
         </p>
       </Section>
 
-      <Section title="基础使用">
+      <Section title="组件引用">
         <p className="text-sm text-muted-foreground">
-          直接从包中按需导入组件，所有组件均支持 Tree-shaking：
+          组件支持按需导入与 Tree-shaking：
         </p>
         <CodeBlock code={`import {
   EasyButton,
@@ -128,7 +128,7 @@ export function App() {
 
       <Section title="国际化（i18n）">
         <p className="text-sm text-muted-foreground">
-          使用 <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">ConfigProvider</code> 在应用顶层配置语言：
+          在应用顶层通过 <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">ConfigProvider</code> 配置语言：
         </p>
         <CodeBlock code={`import { ConfigProvider } from "@easyfix/console-ui";
 
@@ -136,7 +136,7 @@ export function App() {
   <App />
 </ConfigProvider>`} />
         <p className="text-sm text-muted-foreground">
-          支持的语言：<code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">zh-CN</code>（简体中文）、
+          内置语言：<code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">zh-CN</code>（简体中文）、
           <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs ml-1">en-US</code>（英语）、
           <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs ml-1">vi</code>（越南语）。
         </p>
@@ -144,7 +144,7 @@ export function App() {
 
       <Section title="本地开发">
         <p className="text-sm text-muted-foreground">
-          在 easyfix_3.x 中开发时，从 easyfix_dev/fe 构建组件库，再在宿主应用中安装本地包：
+          在 easyfix_3.x 中开发时，先构建组件库，再在宿主应用安装本地包：
         </p>
         <CodeBlock code={`# 构建组件库
 cd easyfix_dev/fe/easyfix_console_ui

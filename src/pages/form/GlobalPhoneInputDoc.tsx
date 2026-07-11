@@ -165,7 +165,7 @@ function FormDemo() {
     const newErrors: Record<string, string> = {};
 
     if (!name.trim()) {
-      newErrors.name = "请输入姓名";
+      newErrors.name = "姓名不能为空";
     }
 
     const phoneError = validatePhone(cc, phone, undefined, t);
@@ -192,7 +192,7 @@ function FormDemo() {
             setName((e.target as HTMLInputElement).value);
             setErrors((prev) => ({ ...prev, name: "" }));
           }}
-          placeholder="请输入姓名"
+          placeholder="姓名"
           aria-invalid={!!errors.name}
         />
         {errors.name ? <FieldError>{errors.name}</FieldError> : null}
@@ -239,7 +239,7 @@ export default function GlobalPhoneInputDoc() {
       </div>
 
       <ComponentDemo
-        title="基础用法"
+        title="默认区号"
         description="默认内置 +84（越南 10 位）和 +86（中国 11 位）两个区号选项"
         code={`import { useState } from "react";
 import { EasyGlobalPhoneInput } from "@easyfix/console-ui";

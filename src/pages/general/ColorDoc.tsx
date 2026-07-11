@@ -1,3 +1,14 @@
+import { useEffect, useState } from "react";
+import { CopyableText } from "@easyfix/console-ui";
+
+type ColorToken = {
+  name: string;
+  var: string;
+  bg: string;
+  fg: string;
+  border?: boolean;
+};
+
 const colorGroups = [
   {
     title: "主题色",
@@ -41,14 +52,137 @@ const colorGroups = [
   },
 ];
 
+type ResolvedColorValue = {
+  hex: string;
+  rgb: string;
+};
+
+function toHexByte(value: number): string {
+  return value.toString(16).padStart(2, "0").toUpperCase();
+}
+
+function getColorValue(cssVariable: string): ResolvedColorValue {
+  const probe = document.createElement("span");
+  probe.style.color = `var(${cssVariable})`;
+  probe.style.position = "fixed";
+  probe.style.pointerEvents = "none";
+  probe.style.visibility = "hidden";
+  document.body.appendChild(probe);
+
+  const resolvedColor = window.getComputedStyle(probe).color;
+  probe.remove();
+
+  const canvas = document.createElement("canvas");
+  canvas.width = 1;
+  canvas.height = 1;
+  const context = canvas.getContext("2d", { willReadFrequently: true });
+
+  if (!context) {
+    return { hex: "", rgb: resolvedColor };
+  }
+
+  context.clearRect(0, 0, 1, 1);
+  context.fillStyle = resolvedColor;
+  context.fillRect(0, 0, 1, 1);
+  const [red, green, blue, alpha] = context.getImageData(0, 0, 1, 1).data;
+
+  const rgb =
+    alpha === 255
+      ? `rgb(${red}, ${green}, ${blue})`
+      : `rgba(${red}, ${green}, ${blue}, ${(alpha / 255).toFixed(2)})`;
+  const hex = `#${toHexByte(red)}${toHexByte(green)}${toHexByte(blue)}${
+    alpha === 255 ? "" : toHexByte(alpha)
+  }`;
+
+  return { hex, rgb };
+}
+
+function ColorSwatch({ color, revision }: { color: ColorToken; revision: number }) {
+  const [resolvedValue, setResolvedValue] = useState<ResolvedColorValue>({
+    hex: "",
+    rgb: "",
+  });
+
+  useEffect(() => {
+    setResolvedValue(getColorValue(color.var));
+  }, [color.var, revision]);
+
+  return (
+    <div className="overflow-hidden rounded-lg border">
+      <div
+        className={`flex h-20 items-end p-3 ${color.bg} ${color.border ? "border-b" : ""}`}
+      >
+        <span className={`text-xs font-medium ${color.fg}`}>{color.name}</span>
+      </div>
+      <div className="space-y-1 bg-background px-3 py-2">
+        <p className="font-mono text-xs text-muted-foreground">
+          var({color.var})
+        </p>
+        <p className="font-mono text-xs text-muted-foreground">{color.bg}</p>
+        <div className="grid min-h-6 grid-cols-[2rem_minmax(0,1fr)_auto] items-center gap-2">
+          <span className="text-[10px] font-medium text-muted-foreground">HEX</span>
+          <span className="min-w-0 truncate font-mono text-xs text-foreground">
+            {resolvedValue.hex || "-"}
+          </span>
+          {resolvedValue.hex && (
+            <CopyableText
+              value={resolvedValue.hex}
+              iconOnly
+              size="xs"
+              copyTooltip="复制 HEX"
+              copiedTooltip="已复制"
+            />
+          )}
+        </div>
+        <div className="grid min-h-6 grid-cols-[2rem_minmax(0,1fr)_auto] items-center gap-2">
+          <span className="text-[10px] font-medium text-muted-foreground">RGB</span>
+          <span className="min-w-0 truncate font-mono text-xs text-foreground">
+            {resolvedValue.rgb || "-"}
+          </span>
+          {resolvedValue.rgb && (
+            <CopyableText
+              value={resolvedValue.rgb}
+              iconOnly
+              size="xs"
+              copyTooltip="复制 RGB"
+              copiedTooltip="已复制"
+            />
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function ColorDoc() {
+  const [themeRevision, setThemeRevision] = useState(0);
+
+  useEffect(() => {
+    const root = document.documentElement;
+    const observer = new MutationObserver(() => {
+      setThemeRevision((revision) => revision + 1);
+    });
+    observer.observe(root, { attributes: true, attributeFilter: ["class", "style"] });
+
+    const colorScheme = window.matchMedia("(prefers-color-scheme: dark)");
+    const handleColorSchemeChange = () => {
+      setThemeRevision((revision) => revision + 1);
+    };
+    colorScheme.addEventListener("change", handleColorSchemeChange);
+
+    return () => {
+      observer.disconnect();
+      colorScheme.removeEventListener("change", handleColorSchemeChange);
+    };
+  }, []);
+
   return (
     <div className="space-y-10">
       <div>
         <h1 className="font-heading text-3xl font-bold">Color 色彩</h1>
         <p className="mt-2 text-muted-foreground">
           项目基于 TailwindCSS 的 CSS 变量体系定义颜色令牌，支持亮色 / 暗色主题自动切换。
-          所有颜色均通过 CSS 自定义属性管理，可在 TailwindCSS 类名中直接引用。
+          所有颜色均由 CSS 自定义属性管理，并映射为 Tailwind CSS 语义类名。
         </p>
       </div>
 
@@ -57,23 +191,11 @@ export default function ColorDoc() {
           <h2 className="mb-4 text-xl font-semibold">{group.title}</h2>
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
             {group.colors.map((color) => (
-              <div key={color.name} className="overflow-hidden rounded-lg border">
-                <div
-                  className={`flex h-20 items-end p-3 ${color.bg} ${color.border ? "border-b" : ""}`}
-                >
-                  <span className={`text-xs font-medium ${color.fg}`}>
-                    {color.name}
-                  </span>
-                </div>
-                <div className="space-y-0.5 bg-background px-3 py-2">
-                  <p className="font-mono text-xs text-muted-foreground">
-                    var({color.var})
-                  </p>
-                  <p className="font-mono text-xs text-muted-foreground">
-                    {color.bg}
-                  </p>
-                </div>
-              </div>
+              <ColorSwatch
+                key={color.name}
+                color={color}
+                revision={themeRevision}
+              />
             ))}
           </div>
         </div>
@@ -83,7 +205,7 @@ export default function ColorDoc() {
         <h2 className="mb-4 text-xl font-semibold">使用方式</h2>
         <div className="rounded-xl border p-5">
           <p className="mb-3 text-sm text-muted-foreground">
-            在 TailwindCSS 中直接使用语义化类名即可引用颜色令牌：
+            Tailwind CSS 通过语义类名引用颜色令牌：
           </p>
           <pre className="overflow-x-auto rounded-lg bg-muted p-4 text-sm">
             <code>{`<!-- 背景色 -->

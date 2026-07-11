@@ -132,7 +132,7 @@ const [value, setValue] = useState(30);
 
       <ComponentDemo
         title="范围滑块"
-        description="传入数组作为 value 或 defaultValue 即可开启范围选择模式。"
+        description="数组形式的 value 或 defaultValue 启用范围模式。"
         code={`const [value, setValue] = useState([20, 80]);
 
 <Slider value={value} onValueChange={setValue}>
@@ -144,7 +144,7 @@ const [value, setValue] = useState(30);
 
       <ComponentDemo
         title="禁用状态"
-        description="设置 disabled 属性禁用滑块。"
+        description="disabled 禁用滑块。"
         code={`<Slider defaultValue={40} disabled />`}
       >
         <div className="w-full max-w-xs">

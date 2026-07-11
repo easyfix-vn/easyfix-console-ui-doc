@@ -42,7 +42,7 @@ export default function LabelDoc() {
 
       <ComponentDemo
         title="基础标签"
-        description="最基本的 Label 用法"
+        description="Label 提供表单控件的可访问名称。"
         code={`import { Label } from "@easyfix/console-ui";
 
 <Label>用户名</Label>
@@ -56,22 +56,22 @@ export default function LabelDoc() {
 
       <ComponentDemo
         title="配合 Input 使用"
-        description="通过 htmlFor 属性关联表单控件，点击标签可聚焦输入框"
+        description="htmlFor 关联表单控件；激活标签时焦点移至输入框。"
         code={`import { Input, Label } from "@easyfix/console-ui";
 
 <div className="flex flex-col gap-2">
   <Label htmlFor="username">用户名</Label>
-  <Input id="username" placeholder="请输入用户名" />
+  <Input id="username" placeholder="用户名" />
 </div>`}
       >
         <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-2">
             <Label htmlFor="demo-username">用户名</Label>
-            <Input id="demo-username" placeholder="请输入用户名" />
+            <Input id="demo-username" placeholder="用户名" />
           </div>
           <div className="flex flex-col gap-2">
             <Label htmlFor="demo-email">邮箱地址</Label>
-            <Input id="demo-email" placeholder="请输入邮箱" type="email" />
+            <Input id="demo-email" placeholder="邮箱" type="email" />
           </div>
         </div>
       </ComponentDemo>

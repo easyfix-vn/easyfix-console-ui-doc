@@ -10,8 +10,7 @@ export default function Overview() {
         <div>
           <h1 className="font-heading text-3xl font-bold">Easyfix Console UI</h1>
           <p className="mt-1 text-muted-foreground">
-            基于 React + TailwindCSS v4 + Base UI 构建的企业级组件库，为 Easyfix
-            控制台系统提供统一的 UI 组件。
+            面向 Easyfix 控制台的 React 组件库，基于 Tailwind CSS v4 与 Base UI 构建。
           </p>
         </div>
       </div>

@@ -58,24 +58,24 @@ export default function PasswordInputDoc() {
       </div>
 
       <ComponentDemo
-        title="基础用法"
-        description="默认密文输入，右侧有显示/隐藏切换图标。"
+        title="默认样式"
+        description="默认以密文显示，并提供可见性切换。"
         code={`import { EasyPasswordInput } from "@easyfix/console-ui";
 
-<EasyPasswordInput placeholder="请输入密码" />`}
+<EasyPasswordInput placeholder="密码" />`}
       >
         <div className="w-72">
-          <EasyPasswordInput placeholder="请输入密码" />
+          <EasyPasswordInput placeholder="密码" />
         </div>
       </ComponentDemo>
 
       <ComponentDemo
         title="默认明文"
-        description="设置 defaultVisible 让密码默认可见。"
-        code={`<EasyPasswordInput placeholder="请输入密码" defaultVisible />`}
+        description="defaultVisible 定义初始可见性。"
+        code={`<EasyPasswordInput placeholder="密码" defaultVisible />`}
       >
         <div className="w-72">
-          <EasyPasswordInput placeholder="请输入密码" defaultVisible />
+          <EasyPasswordInput placeholder="密码" defaultVisible />
         </div>
       </ComponentDemo>
 
@@ -83,7 +83,7 @@ export default function PasswordInputDoc() {
         title="可清除 + 字数"
         description="结合 allowClear 和 showCount 能力。"
         code={`<EasyPasswordInput
-  placeholder="请输入密码"
+  placeholder="密码"
   allowClear
   showCount
   maxLength={20}
@@ -91,7 +91,7 @@ export default function PasswordInputDoc() {
       >
         <div className="w-72">
           <EasyPasswordInput
-            placeholder="请输入密码"
+            placeholder="密码"
             allowClear
             showCount
             maxLength={20}
@@ -102,10 +102,10 @@ export default function PasswordInputDoc() {
       <ComponentDemo
         title="禁用状态"
         description="disabled 时输入框和切换按钮均不可交互。"
-        code={`<EasyPasswordInput placeholder="请输入密码" disabled />`}
+        code={`<EasyPasswordInput placeholder="密码" disabled />`}
       >
         <div className="w-72">
-          <EasyPasswordInput placeholder="请输入密码" disabled />
+          <EasyPasswordInput placeholder="密码" disabled />
         </div>
       </ComponentDemo>
 

@@ -32,7 +32,7 @@ export default function SeparatorDoc() {
 
       <ComponentDemo
         title="水平分隔线"
-        description="默认的水平方向分隔线，用于上下内容的分隔。"
+        description="默认水平方向分隔线，用于上下内容分组。"
         code={`import { Separator } from "@easyfix/console-ui";
 
 <div>
@@ -50,7 +50,7 @@ export default function SeparatorDoc() {
 
       <ComponentDemo
         title="垂直分隔线"
-        description="设置 orientation='vertical' 使用垂直方向的分隔线，适合行内元素分隔。"
+        description="orientation='vertical' 定义行内元素之间的垂直分隔线。"
         code={`<div className="flex items-center gap-3 h-5">
   <span>首页</span>
   <Separator orientation="vertical" />
@@ -70,7 +70,7 @@ export default function SeparatorDoc() {
 
       <ComponentDemo
         title="内容分组"
-        description="在列表或卡片中使用分隔线组织内容结构。"
+        description="分隔线组织列表或卡片的内容层级。"
         code={`<div className="rounded-lg border p-4 space-y-3">
   <div>
     <h4 className="font-medium">标题</h4>

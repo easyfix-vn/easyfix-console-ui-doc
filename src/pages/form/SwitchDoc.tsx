@@ -89,7 +89,7 @@ const [checked, setChecked] = useState(false);
 
       <ComponentDemo
         title="禁用状态"
-        description="设置 disabled 属性禁用开关。"
+        description="disabled 禁用开关。"
         code={`<Switch disabled />
 <Switch disabled defaultChecked />`}
       >
@@ -101,7 +101,7 @@ const [checked, setChecked] = useState(false);
 
       <ComponentDemo
         title="带标签"
-        description="配合 label 使用，点击标签也可切换开关状态。"
+        description="label 与开关关联后可同步切换状态。"
         code={`<label className="inline-flex items-center gap-2" data-slot="label">
   <Switch checked={checked} onCheckedChange={setChecked} />
   <span className="text-sm">接收通知</span>

@@ -123,7 +123,7 @@ export default function ModelSelectorDoc() {
       </div>
 
       <ComponentDemo
-        title="基础用法"
+        title="默认档位"
         description="默认内置 Light、Medium、High、Extra High、Ultra 五档能力"
         code={`import { EasyModelSelector } from "@easyfix/console-ui";
 

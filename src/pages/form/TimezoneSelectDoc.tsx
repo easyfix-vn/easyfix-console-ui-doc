@@ -45,17 +45,17 @@ function ConfigTimezoneSelect() {
 const propsData = [
   {
     name: "value",
-    type: "string",
+    type: "IanaTimeZone",
     description: "受控 IANA 时区值；未传时使用 ConfigProvider.timeZone",
   },
   {
     name: "defaultValue",
-    type: "string",
+    type: "IanaTimeZone",
     description: "非受控默认 IANA 时区，优先级高于 ConfigProvider.timeZone",
   },
   {
     name: "onValueChange",
-    type: "(timeZone: string) => void",
+    type: "(timeZone: IanaTimeZone) => void",
     description: "时区变化回调，返回 IANA 时区标识",
   },
   {
@@ -85,8 +85,11 @@ export default function TimezoneSelectDoc() {
           TimezoneSelect 时区选择器
         </h1>
         <p className="mt-2 text-muted-foreground">
-          提供从 UTC-12 到 UTC+14 的代表性时区选项。UTC+07 使用 Vietnam · Hanoi，
-          UTC+08 使用 China · Beijing；选项名称会随 ConfigProvider.locale 国际化。
+          提供从 UTC-12 到 UTC+14 的代表性时区选项。UTC+07 使用 Vietnam · Ho Chi
+          Minh，UTC+08 使用 China · Shanghai；选项名称会随 ConfigProvider.locale
+          国际化。
+          当 value 是同一 UTC 偏移下的其它 IANA 时区时，选择结果会显示实际的 IANA
+          值，不再借用代表城市名称。
           城市范围参考{" "}
           <a
             href="https://time.is/time_zones"
@@ -102,7 +105,7 @@ export default function TimezoneSelectDoc() {
 
       <ComponentDemo
         title="受控选择"
-        description="左侧为勾选状态，浏览器当前时区在右侧显示“当前时区”标签"
+        description="左侧为勾选状态；仅当选项 IANA 值与浏览器时区完全一致时，右侧显示“当前时区”标签"
         code={`import { TimezoneSelect } from "@easyfix/console-ui";
 
 const [timeZone, setTimeZone] = useState("Asia/Shanghai");
@@ -118,7 +121,7 @@ const [timeZone, setTimeZone] = useState("Asia/Shanghai");
 
       <ComponentDemo
         title="读取 ConfigProvider 默认值"
-        description="未传 value 或 defaultValue 时，组件直接读取 ConfigProvider.timeZone；日期组件也遵循同样的默认值"
+        description="未传 value 和 defaultValue 时读取 ConfigProvider.timeZone；日期组件遵循相同默认值。"
         code={`<ConfigProvider timeZone="Asia/Ho_Chi_Minh">
   <TimezoneSelect label="默认时区" />
 </ConfigProvider>`}

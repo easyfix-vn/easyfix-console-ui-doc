@@ -66,10 +66,14 @@ export default defineConfig(({ command }) => {
             useLocalConsoleUiSource ? "app.dev.css" : "app.build.css",
           ),
         },
-        {
-          find: "@",
-          replacement: docsSrc,
-        },
+        ...(!useLocalConsoleUiSource
+          ? [
+              {
+                find: "@",
+                replacement: docsSrc,
+              },
+            ]
+          : []),
       ],
       dedupe: ["react", "react-dom", "react/jsx-runtime", "@base-ui/react"],
     },

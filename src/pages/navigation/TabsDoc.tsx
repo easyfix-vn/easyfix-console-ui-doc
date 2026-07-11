@@ -113,8 +113,8 @@ export default function TabsDoc() {
       <h2 className="font-heading text-xl font-semibold">组合式 API</h2>
 
       <ComponentDemo
-        title="基础用法"
-        description="默认 pill 背景样式，带平滑滑动指示器，面板内容区自带边框"
+        title="默认样式"
+        description="默认 pill 样式包含滑动指示器和内容边框。"
         code={`import { Tabs, TabsList, TabsTab, TabsContent } from "@easyfix/console-ui";
 
 <Tabs defaultValue="account">
@@ -162,12 +162,12 @@ export default function TabsDoc() {
 
       <h2 className="font-heading text-xl font-semibold">声明式 API（EasyTabContainer）</h2>
       <p className="text-sm text-muted-foreground">
-        传入 items 数组即可快速创建标签页，无需手动组合子组件。
+        items 数组定义声明式标签页，无需手动组合子组件。
       </p>
 
       <ComponentDemo
         title="EasyTabContainer 基础"
-        description="传入 items 数组快速创建标签页"
+        description="items 定义声明式标签页。"
         code={`import { EasyTabContainer } from "@easyfix/console-ui";
 
 const items = [

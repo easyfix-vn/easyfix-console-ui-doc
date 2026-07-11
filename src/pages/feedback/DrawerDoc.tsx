@@ -27,21 +27,21 @@ const drawerPropsData = [
     type: "boolean",
     default: "true",
     description:
-      "点击遮罩是否关闭。设为 false 时遮罩点击不会关闭抽屉，必须显式调用关闭按钮。",
+      "是否允许遮罩关闭；false 时需通过关闭控件关闭抽屉。",
   },
   {
     name: "closeOnEscape",
     type: "boolean",
     default: "true",
     description:
-      "ESC 键是否关闭。设为 false 时按下 ESC 键不会关闭抽屉，常用于流程不可中断的场景。",
+      "是否允许 Escape 关闭；false 适用于流程不可中断的场景。",
   },
   {
     name: "closeOnSwipe",
     type: "boolean",
     default: "true",
     description:
-      "拖拽（滑动）是否关闭。设为 false 时拖拽不会关闭抽屉；当三个关闭开关同时为 false 时，组件自动显示右上角关闭按钮。",
+      "是否允许滑动关闭；全部关闭策略禁用时自动显示关闭按钮。",
   },
   {
     name: "showSwipeHandle",
@@ -77,13 +77,34 @@ const contentPropsData = [
   },
 ];
 
+const panelPropsData = [
+  {
+    name: "scrollable",
+    type: "boolean",
+    default: "true",
+    description: "是否以 ScrollArea 渲染可滚动正文。",
+  },
+  {
+    name: "scrollFade",
+    type: "boolean",
+    default: "true",
+    description: "是否在滚动边缘显示渐隐提示。",
+  },
+  {
+    name: "allowSelection",
+    type: "boolean",
+    default: "true",
+    description: "正文内容是否允许文本选择。",
+  },
+];
+
 export default function DrawerDoc() {
   return (
     <div className="space-y-10">
       <div>
         <h1 className="font-heading text-3xl font-bold">Drawer 抽屉</h1>
         <p className="mt-2 text-muted-foreground">
-          从屏幕边缘滑出的面板，适合展示详细信息或收集用户输入，支持多个方向。
+          从视口边缘滑出的面板，用于展示详情或承载表单内容。
         </p>
       </div>
 
@@ -108,7 +129,7 @@ export default function DrawerDoc() {
     </DrawerHeader>
     <DrawerPanel>
       <p className="text-sm text-muted-foreground">
-        抽屉内容区域，可以放置任意内容。
+        抽屉内容区域可承载任意内容。
       </p>
     </DrawerPanel>
     <DrawerFooter>
@@ -134,7 +155,7 @@ export default function DrawerDoc() {
             </DrawerHeader>
             <DrawerPanel>
               <p className="text-sm text-muted-foreground">
-                抽屉内容区域，可以放置任意内容。
+                抽屉内容区域可承载任意内容。
               </p>
             </DrawerPanel>
             <DrawerFooter>
@@ -148,8 +169,68 @@ export default function DrawerDoc() {
       </ComponentDemo>
 
       <ComponentDemo
+        title="固定操作区"
+        description="DrawerPanel 承载可滚动正文，DrawerFooter 固定在底部。"
+        code={`<Drawer position="right">
+  <DrawerTrigger asChild>
+    <Button variant="outline">打开长内容抽屉</Button>
+  </DrawerTrigger>
+  <DrawerContent>
+    <DrawerHeader>
+      <DrawerTitle>编辑项目</DrawerTitle>
+      <DrawerDescription>Footer 始终固定，只有正文区域滚动。</DrawerDescription>
+    </DrawerHeader>
+    <DrawerPanel scrollFade>
+      <div className="space-y-3">
+        {Array.from({ length: 18 }, (_, index) => (
+          <div key={index} className="rounded-md border p-3 text-sm">
+            配置项 {index + 1}
+          </div>
+        ))}
+      </div>
+    </DrawerPanel>
+    <DrawerFooter>
+      <DrawerClose asChild>
+        <Button variant="outline">取消</Button>
+      </DrawerClose>
+      <Button>保存</Button>
+    </DrawerFooter>
+  </DrawerContent>
+</Drawer>`}
+      >
+        <Drawer position="right">
+          <DrawerTrigger asChild>
+            <Button variant="outline">打开长内容抽屉</Button>
+          </DrawerTrigger>
+          <DrawerContent>
+            <DrawerHeader>
+              <DrawerTitle>编辑项目</DrawerTitle>
+              <DrawerDescription>
+                Footer 始终固定，只有正文区域滚动。
+              </DrawerDescription>
+            </DrawerHeader>
+            <DrawerPanel scrollFade>
+              <div className="space-y-3">
+                {Array.from({ length: 18 }, (_, index) => (
+                  <div key={index} className="rounded-md border p-3 text-sm">
+                    配置项 {index + 1}
+                  </div>
+                ))}
+              </div>
+            </DrawerPanel>
+            <DrawerFooter>
+              <DrawerClose asChild>
+                <Button variant="outline">取消</Button>
+              </DrawerClose>
+              <Button>保存</Button>
+            </DrawerFooter>
+          </DrawerContent>
+        </Drawer>
+      </ComponentDemo>
+
+      <ComponentDemo
         title="右侧抽屉"
-        description="设置 position='right' 从右侧滑出，默认与视口边缘保留间距，适合展示详情或设置面板。"
+        description="position='right' 将抽屉置于右侧，适合详情和设置面板。"
         code={`import {
   Drawer, DrawerTrigger, DrawerContent,
   DrawerHeader, DrawerTitle, DrawerDescription,
@@ -227,7 +308,7 @@ export default function DrawerDoc() {
 
       <ComponentDemo
         title="左侧抽屉与自定义宽度"
-        description="侧边抽屉默认带有视口间距，也可以通过 className 调整宽度。"
+        description="侧边抽屉默认保留视口间距，className 可调整宽度。"
         code={`<Drawer position="left">
   <DrawerTrigger render={<Button variant="outline" />}>
     打开左侧抽屉
@@ -341,7 +422,7 @@ export default function DrawerDoc() {
 
       <ComponentDemo
         title="全部关闭方式禁用时的安全关闭"
-        description="当 closeOnBackdropClick、closeOnEscape、closeOnSwipe 都为 false 时，组件自动展示右上角关闭按钮。"
+        description="全部关闭策略禁用时，组件自动显示右上角关闭按钮。"
         code={`<Drawer
   position="right"
   closeOnBackdropClick={false}
@@ -349,13 +430,13 @@ export default function DrawerDoc() {
   closeOnSwipe={false}
 >
   <DrawerTrigger asChild>
-    <Button variant="outline">必须点击关闭</Button>
+    <Button variant="outline">关闭抽屉</Button>
   </DrawerTrigger>
   <DrawerContent>
     <DrawerHeader>
       <DrawerTitle>不可被外部关闭</DrawerTitle>
       <DrawerDescription>
-        点击遮罩、按 ESC 键或拖拽都不会关闭，必须使用右上角关闭按钮。
+        遮罩、Escape 和滑动均不会关闭抽屉。
       </DrawerDescription>
     </DrawerHeader>
   </DrawerContent>
@@ -368,13 +449,13 @@ export default function DrawerDoc() {
           closeOnSwipe={false}
         >
           <DrawerTrigger asChild>
-            <Button variant="outline">必须点击关闭</Button>
+            <Button variant="outline">关闭抽屉</Button>
           </DrawerTrigger>
           <DrawerContent>
             <DrawerHeader>
               <DrawerTitle>不可被外部关闭</DrawerTitle>
               <DrawerDescription>
-                点击遮罩、按 ESC 键或拖拽都不会关闭，必须使用右上角关闭按钮。
+                遮罩、Escape 和滑动均不会关闭抽屉。
               </DrawerDescription>
             </DrawerHeader>
             <DrawerPanel>
@@ -388,7 +469,7 @@ export default function DrawerDoc() {
 
       <ComponentDemo
         title="禁止拖拽关闭"
-        description="closeOnSwipe=false 禁止拖拽（滑动）关闭抽屉，松手后抽屉自动弹回原位。适用于内容可滑动或拖拽误触场景。"
+        description="closeOnSwipe=false 禁用滑动关闭；释放后抽屉恢复原位。"
         code={`<Drawer closeOnSwipe={false}>
   <DrawerTrigger asChild>
     <Button variant="outline">拖拽不会关闭</Button>
@@ -446,6 +527,8 @@ export default function DrawerDoc() {
         <PropsTable data={drawerPropsData} />
         <h3 className="mb-3 mt-6 text-lg font-medium">DrawerContent</h3>
         <PropsTable data={contentPropsData} />
+        <h3 className="mb-3 mt-6 text-lg font-medium">DrawerPanel</h3>
+        <PropsTable data={panelPropsData} />
       </div>
     </div>
   );

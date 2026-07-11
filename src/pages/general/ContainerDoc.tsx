@@ -49,8 +49,8 @@ export default function ContainerDoc() {
       </div>
 
       <ComponentDemo
-        title="基础用法"
-        description="最简单的容器用法，仅传入 children 内容。"
+        title="基本结构"
+        description="children 承载页面主体内容。"
         code={`import { EasyPageContainer } from "@easyfix/console-ui";
 
 <EasyPageContainer>
@@ -68,7 +68,7 @@ export default function ContainerDoc() {
 
       <ComponentDemo
         title="带头部"
-        description="通过 header 属性添加页面标题栏。"
+        description="header 定义页面标题区。"
         code={`import { EasyPageContainer } from "@easyfix/console-ui";
 
 <EasyPageContainer
@@ -98,7 +98,7 @@ export default function ContainerDoc() {
 
       <ComponentDemo
         title="带头部和底部"
-        description="同时使用 header 和 footer 构建完整的页面结构。"
+        description="header 与 footer 组成完整页面框架。"
         code={`import { EasyPageContainer } from "@easyfix/console-ui";
 
 <EasyPageContainer

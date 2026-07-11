@@ -117,8 +117,8 @@ export default function ProgressDoc() {
       </div>
 
       <ComponentDemo
-        title="基础进度条"
-        description="最简单的进度条用法。"
+        title="默认样式"
+        description="value 定义当前进度。"
         code={`import { Progress } from "@easyfix/console-ui";
 
 <Progress value={45} />`}
@@ -128,7 +128,7 @@ export default function ProgressDoc() {
 
       <ComponentDemo
         title="带百分比标签"
-        description="通过 ProgressLabel 和 ProgressValue 组合显示标签和百分比值。"
+        description="ProgressLabel 与 ProgressValue 显示标签和百分比。"
         code={`import {
   Progress, ProgressLabel, ProgressTrack,
   ProgressIndicator, ProgressValue,
@@ -149,7 +149,7 @@ export default function ProgressDoc() {
 
       <ComponentDemo
         title="不同状态"
-        description="通过自定义 ProgressIndicator 的 className 实现不同状态的颜色。"
+        description="ProgressIndicator 的 className 定义状态颜色。"
         code={`<Progress value={100}>
   <ProgressTrack>
     <ProgressIndicator className="bg-green-500" />

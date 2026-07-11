@@ -29,7 +29,7 @@ const propsData = [
   {
     name: "className",
     type: "string",
-    description: "自定义样式类名，可用于控制尺寸（如 size-4）和颜色",
+    description: "自定义样式类名，用于控制尺寸和颜色",
   },
   {
     name: "size",
@@ -55,7 +55,7 @@ export default function SpinnerDoc() {
       <div>
         <h1 className="font-heading text-3xl font-bold">Spinner 加载中</h1>
         <p className="mt-2 text-muted-foreground">
-          用于表示内容或操作正在加载中的旋转图标，基于 Lucide 的{" "}
+          表示内容或操作正在加载的旋转图标，基于 Lucide 的{" "}
           <code className="rounded bg-muted px-1.5 py-0.5 text-xs font-mono">
             Loader2Icon
           </code>{" "}
@@ -64,7 +64,7 @@ export default function SpinnerDoc() {
       </div>
 
       <ComponentDemo
-        title="基础加载中"
+        title="默认样式"
         description="默认尺寸的加载旋转图标。"
         code={`import { Spinner } from "@easyfix/console-ui";
 
@@ -75,7 +75,7 @@ export default function SpinnerDoc() {
 
       <ComponentDemo
         title="不同尺寸"
-        description="通过 className 设置不同的尺寸。"
+        description="className 控制图标尺寸。"
         code={`<Spinner className="size-4" />
 <Spinner className="size-6" />
 <Spinner className="size-8" />`}

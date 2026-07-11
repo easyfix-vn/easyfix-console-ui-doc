@@ -62,8 +62,8 @@ export default function CardDoc() {
       </div>
 
       <ComponentDemo
-        title="基础卡片"
-        description="使用 CardHeader + CardTitle + CardDescription + CardContent + CardFooter 组合基础卡片。"
+        title="基本结构"
+        description="CardHeader、CardContent 和 CardFooter 组织卡片内容。"
         code={`import {
   Card, CardHeader, CardTitle, CardDescription,
   CardContent, CardFooter,
@@ -102,7 +102,7 @@ export default function CardDoc() {
 
       <ComponentDemo
         title="带操作按钮的卡片"
-        description="在 CardHeader 中放置 CardAction，用于添加快捷操作。"
+        description="CardAction 位于 CardHeader 的操作区。"
         code={`import {
   Card, CardHeader, CardTitle, CardDescription,
   CardAction, CardContent,
@@ -111,7 +111,7 @@ export default function CardDoc() {
 <Card>
   <CardHeader>
     <CardTitle>通知设置</CardTitle>
-    <CardDescription>管理你的通知偏好。</CardDescription>
+    <CardDescription>管理通知偏好。</CardDescription>
     <CardAction>
       <button className="rounded-md bg-primary px-3 py-1.5 text-xs text-primary-foreground">
         保存
@@ -126,7 +126,7 @@ export default function CardDoc() {
         <Card className="w-full">
           <CardHeader>
             <CardTitle>通知设置</CardTitle>
-            <CardDescription>管理你的通知偏好。</CardDescription>
+            <CardDescription>管理通知偏好。</CardDescription>
             <CardAction>
               <button
                 type="button"
@@ -143,8 +143,8 @@ export default function CardDoc() {
       </ComponentDemo>
 
       <ComponentDemo
-        title="Frame 风格卡片"
-        description="CardFrame 提供更简洁的卡片风格，带有 muted 背景。可在内部嵌套 Card 组件。"
+        title="Frame 样式"
+        description="CardFrame 提供带 muted 背景的简化容器，并可嵌套 Card。"
         code={`import {
   CardFrame, CardFrameHeader, CardFrameTitle,
   CardFrameDescription, CardFrameAction, CardFrameFooter,
@@ -218,7 +218,7 @@ export default function CardDoc() {
       </div>
 
       <div>
-        <h2 className="mb-4 text-xl font-semibold">组件列表</h2>
+        <h2 className="mb-4 text-xl font-semibold">组件构成</h2>
         <div className="overflow-x-auto rounded-lg border">
           <table className="w-full text-sm">
             <thead>

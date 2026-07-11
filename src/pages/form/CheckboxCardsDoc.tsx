@@ -74,8 +74,8 @@ export default function CheckboxCardsDoc() {
       </div>
 
       <ComponentDemo
-        title="基础用法"
-        description="基本的卡片复选组，支持多选"
+        title="默认样式"
+        description="卡片形式的多选控件。"
         code={`import { CheckboxCards, CheckboxCardItem } from "@easyfix/console-ui";
 
 const [value, setValue] = useState<string[]>(["monitor"]);
@@ -91,7 +91,7 @@ const [value, setValue] = useState<string[]>(["monitor"]);
 
       <ComponentDemo
         title="带描述文字"
-        description="通过 description 属性添加详细说明"
+        description="description 承载选项说明。"
         code={`<CheckboxCards value={value} onValueChange={setValue}>
   <CheckboxCardItem
     value="read"

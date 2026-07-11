@@ -84,7 +84,7 @@ export default function CopyableTextDoc() {
 
       <ComponentDemo
         title="Block：单行胶囊"
-        description="默认变体。左侧文本，右侧复制按钮，常用于 token / ID。"
+        description="默认变体适用于 Token、ID 等单行文本。"
         code={`import { CopyableText } from "@easyfix/console-ui";
 
 <CopyableText value="u_2k9j7m" />`}
@@ -97,7 +97,7 @@ export default function CopyableTextDoc() {
 
       <ComponentDemo
         title="Inline：嵌入文本"
-        description="按钮在 hover 时浮现，方便嵌入到段落中"
+        description="悬停时显示复制控件，适合嵌入段落。"
         code={`<p>
   当前 commit hash 为 <CopyableText variant="inline" value="3a7c2f9" />。
 </p>`}
@@ -105,13 +105,13 @@ export default function CopyableTextDoc() {
         <p className="text-sm">
           当前 commit hash 为{" "}
           <CopyableText variant="inline" value="3a7c2f9b1e" />
-          ，请将其粘贴到工单备注中。
+          ，可复制到工单备注。
         </p>
       </ComponentDemo>
 
       <ComponentDemo
         title="Card：多行内容"
-        description="适合 JSON / 代码片段，按钮浮在右上角，正文区域可滚动"
+        description="多行卡片适用于 JSON 和代码片段，正文区域可滚动。"
         code={`<CopyableText variant="card" value={json}>
   {json}
 </CopyableText>`}
@@ -123,7 +123,7 @@ export default function CopyableTextDoc() {
 
       <ComponentDemo
         title="超长文本截断"
-        description="搭配 truncate 截断展示并通过 hover title 显示完整内容"
+        description="truncate 截断单行文本，title 保留完整内容。"
         code={`<CopyableText truncate value={longToken} />`}
       >
         <div className="max-w-md">
@@ -133,7 +133,7 @@ export default function CopyableTextDoc() {
 
       <ComponentDemo
         title="自定义文案与回调"
-        description="copyTooltip / copiedTooltip 控制提示文案，onCopy 触发后续逻辑"
+        description="copyTooltip、copiedTooltip 和 onCopy 分别定义反馈文案与回调。"
         code={`<CopyableText
   value="ord_20260509_001"
   copyTooltip="复制订单号"

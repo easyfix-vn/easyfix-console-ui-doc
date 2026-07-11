@@ -43,16 +43,16 @@ export default function ButtonDoc() {
       <div>
         <h1 className="font-heading text-3xl font-bold">Button 按钮</h1>
         <p className="mt-2 text-muted-foreground">
-          用于触发操作或事件，支持多种样式变体和尺寸。同时导出了{" "}
+          用于触发操作，提供语义变体、尺寸和加载状态，并导出{" "}
           <code className="rounded bg-muted px-1.5 py-0.5 text-xs font-mono">
             buttonVariants
           </code>{" "}
-          工具函数，可用于为非按钮元素添加按钮样式。
+          工具函数，为非按钮元素复用按钮样式。
         </p>
       </div>
 
       <ComponentDemo
-        title="基础用法 - 变体"
+        title="变体"
         description="Button 提供多种 variant 样式，适用于不同操作语义。"
         code={`import { Button } from "@easyfix/console-ui";
 
@@ -77,7 +77,7 @@ export default function ButtonDoc() {
 
       <ComponentDemo
         title="尺寸"
-        description="通过 size 属性控制按钮的大小。"
+        description="size 定义按钮尺寸。"
         code={`import { Button } from "@easyfix/console-ui";
 
 <Button size="xs">XS</Button>
@@ -128,7 +128,7 @@ import { PlusIcon, DownloadIcon, TrashIcon } from "lucide-react";
 
       <ComponentDemo
         title="加载状态"
-        description="设置 loading 属性后按钮会显示加载指示器并自动禁用交互。"
+        description="loading 显示加载指示器并禁用交互。"
         code={`import { Button } from "@easyfix/console-ui";
 
 <Button loading>提交中...</Button>
@@ -148,7 +148,7 @@ import { PlusIcon, DownloadIcon, TrashIcon } from "lucide-react";
 
       <ComponentDemo
         title="禁用状态"
-        description="设置 disabled 属性后按钮不可点击。"
+        description="disabled 禁用按钮交互。"
         code={`import { Button } from "@easyfix/console-ui";
 
 <Button disabled>Default</Button>
@@ -172,7 +172,7 @@ import { PlusIcon, DownloadIcon, TrashIcon } from "lucide-react";
 
       <ComponentDemo
         title="buttonVariants 工具函数"
-        description="使用 buttonVariants 为非按钮元素（如链接）添加按钮样式。"
+        description="buttonVariants 为链接等元素复用按钮样式。"
         code={`import { buttonVariants } from "@easyfix/console-ui";
 
 <a href="#" className={buttonVariants({ variant: "outline" })}>

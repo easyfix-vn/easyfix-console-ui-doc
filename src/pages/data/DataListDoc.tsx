@@ -121,7 +121,7 @@ const longValue =
   "这是一段非常非常长的描述内容，它会随着 DataList 容器宽度变化而决定是否触发折叠。" +
   "在折叠状态下，会显示「展开」按钮；点开后切换为「收起」。" +
   "DataList 的 Value 适合放可能溢出的文案，例如错误堆栈、长备注、JSON 摘要等。" +
-  "通过 collapsible 属性即可开启该行为。";
+  "collapsible 控制该行为。";
 
 function OverflowAndCopyDemo() {
   return (
@@ -260,8 +260,8 @@ export default function DataListDoc() {
       </div>
 
       <ComponentDemo
-        title="基础用法"
-        description="水平排版（默认），Label 自适应宽度，Value 占据剩余空间"
+        title="默认布局"
+        description="水平布局中，Label 自适应宽度，Value 占据剩余空间。"
         code={`import {
   DataList, DataListItem, DataListLabel, DataListValue,
 } from "@easyfix/console-ui";
@@ -282,7 +282,7 @@ export default function DataListDoc() {
 
       <ComponentDemo
         title="尺寸 size"
-        description="size 控制文本大小与行间距，1 紧凑 / 2 默认 / 3 宽松"
+        description="size 定义文本尺寸与行间距：1 紧凑、2 默认、3 宽松。"
         code={`<DataList size="1">...</DataList>
 <DataList size="2">...</DataList>
 <DataList size="3">...</DataList>`}
@@ -292,7 +292,7 @@ export default function DataListDoc() {
 
       <ComponentDemo
         title="垂直排版"
-        description="orientation='vertical'：Label 单独成行，适合内容较长或可换行的 Value"
+        description="orientation='vertical' 将 Label 单独成行，适用于长内容。"
         code={`<DataList orientation="vertical">
   <DataListItem>
     <DataListLabel>工作描述</DataListLabel>
@@ -305,7 +305,7 @@ export default function DataListDoc() {
 
       <ComponentDemo
         title="Label 列对齐"
-        description="使用 labelMinWidth 让所有 Label 列等宽对齐"
+        description="labelMinWidth 统一 Label 列宽度。"
         code={`<DataList labelMinWidth={120}>
   <DataListItem>
     <DataListLabel>项目名</DataListLabel>
@@ -318,7 +318,7 @@ export default function DataListDoc() {
 
       <ComponentDemo
         title="Label 溢出 Tooltip / Value 折叠 / 一键复制"
-        description="Label 默认 truncate 单行，悬浮时通过 Tooltip 展示完整名称；Value 通过 collapsible 控制多行折叠；通过 copyable 在末尾追加复制按钮，复用 CopyableText 组件。"
+        description="labelMaxWidth 截断标签并显示 Tooltip；collapsible 折叠多行 Value；copyable 追加复制控件。"
         code={`<DataList labelMinWidth={120} labelMaxWidth="40%">
   {/* Label 超长 → 悬浮显示完整 */}
   <DataListItem>

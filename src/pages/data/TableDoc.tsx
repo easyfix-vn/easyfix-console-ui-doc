@@ -56,8 +56,8 @@ export default function TableDoc() {
       </div>
 
       <ComponentDemo
-        title="基础表格"
-        description="使用 Table + TableHeader + TableBody + TableRow 等子组件组合基础表格。"
+        title="基本结构"
+        description="Table、TableHeader、TableBody 和 TableRow 组成基础表格。"
         code={`import {
   Table, TableHeader, TableBody, TableRow,
   TableHead, TableCell,
@@ -106,7 +106,7 @@ export default function TableDoc() {
 
       <ComponentDemo
         title="带 Caption 和 Footer"
-        description="通过 TableCaption 添加表格标题，通过 TableFooter 添加汇总行。"
+        description="TableCaption 提供标题，TableFooter 承载汇总行。"
         code={`<Table>
   <TableCaption>近期交易记录</TableCaption>
   <TableHeader>
@@ -159,7 +159,7 @@ export default function TableDoc() {
 
       <ComponentDemo
         title="Card 风格表格"
-        description='设置 variant="card" 使表格单元格带有卡片风格的背景和圆角效果。'
+        description='variant="card" 为单元格提供卡片式背景和圆角。'
         code={`<Table variant="card">
   <TableHeader>
     <TableRow>
@@ -207,7 +207,7 @@ export default function TableDoc() {
       </div>
 
       <div>
-        <h2 className="mb-4 text-xl font-semibold">组件列表</h2>
+        <h2 className="mb-4 text-xl font-semibold">组件构成</h2>
         <div className="overflow-x-auto rounded-lg border">
           <table className="w-full text-sm">
             <thead>

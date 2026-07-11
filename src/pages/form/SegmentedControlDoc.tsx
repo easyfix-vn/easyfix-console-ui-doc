@@ -149,7 +149,7 @@ export default function SegmentedControlDoc() {
       </div>
 
       <ComponentDemo
-        title="基础用法"
+        title="默认样式"
         description="带平滑滑动背景指示器的单选控制器"
         code={`import {
   SegmentedControl,

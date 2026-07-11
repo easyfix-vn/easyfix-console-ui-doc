@@ -133,7 +133,7 @@ export default function DatePickerDoc() {
         <p className="mt-2 text-muted-foreground">
           用于选择单个日期的弹出式选择器，内置日历面板。支持字符串模板格式化，并随
           ConfigProvider 的 locale 自动选择合适的默认模板与文案。
-          如需选择日期范围，请使用{" "}
+          日期范围由{" "}
           <a href="/form/date-range-picker" className="text-primary underline underline-offset-4">
             DateRangePicker
           </a>
@@ -142,8 +142,8 @@ export default function DatePickerDoc() {
       </div>
 
       <ComponentDemo
-        title="基础用法"
-        description="点击触发日历弹窗选择日期；占位文本与默认格式跟随当前 locale"
+        title="单日期"
+        description="触发器展开日历；占位文本与默认格式跟随当前 locale。"
         code={`import { DatePicker } from "@easyfix/console-ui";
 
 const [date, setDate] = useState<Date | undefined>();
@@ -155,7 +155,7 @@ const [date, setDate] = useState<Date | undefined>();
 
       <ComponentDemo
         title="字符串模板"
-        description={`通过 format 传入字符串模板，支持 YYYY / MM / DD / HH / mm / ss 等 token`}
+        description={`format 接收字符串模板，支持 YYYY、MM、DD、HH、mm、ss 等 token。`}
         code={`<DatePicker format="YYYY/MM/DD" />
 <DatePicker format="DD-MM-YYYY" />
 <DatePicker format="YYYY 年 M 月 D 日" />`}
@@ -165,7 +165,7 @@ const [date, setDate] = useState<Date | undefined>();
 
       <ComponentDemo
         title="时区与时间戳"
-        description="输入框内展示当前 UTC+07 形式的偏移 tag；切换时区或选择日期后，通过 dayjs.tz 输出对应毫秒时间戳"
+        description="输入框展示 UTC 偏移；dayjs.tz 按当前时区输出毫秒时间戳。"
         code={`const [date, setDate] = useState<Date | undefined>();
 const [timeZone, setTimeZone] = useState("Asia/Ho_Chi_Minh");
 const [timestamp, setTimestamp] = useState<number | undefined>();
@@ -183,7 +183,7 @@ const [timestamp, setTimestamp] = useState<number | undefined>();
 
       <ComponentDemo
         title="禁用状态"
-        description="设置 disabled 禁用日期选择"
+        description="disabled 禁用日期选择。"
         code={`<DatePicker disabled placeholder="不可选择" />`}
       >
         <DatePicker disabled placeholder="不可选择" />
@@ -191,7 +191,7 @@ const [timestamp, setTimestamp] = useState<number | undefined>();
 
       <ComponentDemo
         title="自定义格式函数"
-        description="format 也支持函数，便于做更复杂的本地化逻辑"
+        description="format 支持函数，适用于自定义本地化逻辑。"
         code={`<DatePicker
   format={(d) => \`\${d.getFullYear()}年\${d.getMonth() + 1}月\${d.getDate()}日\`}
 />`}

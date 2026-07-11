@@ -40,7 +40,7 @@ const accordionPropsData = [
 const componentList = [
   { name: "Accordion", description: "手风琴根容器" },
   { name: "AccordionItem", description: "单个折叠项" },
-  { name: "AccordionTrigger", description: "触发器（点击展开/收起）" },
+  { name: "AccordionTrigger", description: "展开状态触发器" },
   { name: "AccordionPanel", description: "内容区（展开时可见）" },
 ];
 
@@ -59,8 +59,8 @@ export default function AccordionDoc() {
       </div>
 
       <ComponentDemo
-        title="基础手风琴"
-        description="包含 3 个折叠项的基础手风琴"
+        title="基本结构"
+        description="由多个可折叠项组成。"
         code={`import {
   Accordion, AccordionItem, AccordionTrigger, AccordionPanel,
 } from "@easyfix/console-ui";
@@ -75,7 +75,7 @@ export default function AccordionDoc() {
   <AccordionItem>
     <AccordionTrigger>如何开始使用？</AccordionTrigger>
     <AccordionPanel>
-      参考快速开始文档，按照步骤安装并配置项目。
+      参考快速入门完成安装和配置。
     </AccordionPanel>
   </AccordionItem>
   <AccordionItem>
@@ -97,7 +97,7 @@ export default function AccordionDoc() {
             <AccordionItem>
               <AccordionTrigger>如何开始使用？</AccordionTrigger>
               <AccordionPanel>
-                参考快速开始文档，按照步骤安装并配置项目，即可快速搭建你的运维平台。
+                参考快速入门完成安装和配置，可搭建运维平台。
               </AccordionPanel>
             </AccordionItem>
             <AccordionItem>
@@ -112,7 +112,7 @@ export default function AccordionDoc() {
 
       <ComponentDemo
         title="默认展开某一项"
-        description="通过 defaultValue 设置初始展开项"
+        description="defaultValue 定义初始展开项。"
         code={`<Accordion defaultValue={[0]}>
   <AccordionItem>
     <AccordionTrigger>默认展开项</AccordionTrigger>
@@ -120,7 +120,7 @@ export default function AccordionDoc() {
   </AccordionItem>
   <AccordionItem>
     <AccordionTrigger>收起项</AccordionTrigger>
-    <AccordionPanel>点击可展开此项。</AccordionPanel>
+    <AccordionPanel>该项支持展开。</AccordionPanel>
   </AccordionItem>
 </Accordion>`}
       >
@@ -129,19 +129,19 @@ export default function AccordionDoc() {
             <AccordionItem>
               <AccordionTrigger>默认展开项</AccordionTrigger>
               <AccordionPanel>
-                通过设置 defaultValue 为 [0]，使该项在初始渲染时展开。
+                defaultValue 为 [0] 时，该项在初始渲染时展开。
               </AccordionPanel>
             </AccordionItem>
             <AccordionItem>
               <AccordionTrigger>收起项 A</AccordionTrigger>
               <AccordionPanel>
-                这一项默认是收起的，点击触发器即可展开。
+                该项初始处于收起状态。
               </AccordionPanel>
             </AccordionItem>
             <AccordionItem>
               <AccordionTrigger>收起项 B</AccordionTrigger>
               <AccordionPanel>
-                支持同时展开多个项，设置 openMultiple=false 可切换为单项模式。
+                openMultiple=false 时切换为单项展开模式。
               </AccordionPanel>
             </AccordionItem>
           </Accordion>
@@ -149,12 +149,13 @@ export default function AccordionDoc() {
       </ComponentDemo>
 
       <div>
-        <h2 className="mb-4 text-xl font-semibold">Accordion API</h2>
+        <h2 className="mb-4 text-xl font-semibold">API</h2>
+        <h3 className="mb-3 text-lg font-medium">Accordion</h3>
         <PropsTable data={accordionPropsData} />
       </div>
 
       <div>
-        <h2 className="mb-4 text-xl font-semibold">组件列表</h2>
+        <h2 className="mb-4 text-xl font-semibold">组件构成</h2>
         <div className="overflow-x-auto rounded-lg border">
           <table className="w-full text-sm">
             <thead>

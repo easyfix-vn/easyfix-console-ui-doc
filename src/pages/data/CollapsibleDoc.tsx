@@ -100,8 +100,8 @@ export default function CollapsibleDoc() {
       </div>
 
       <ComponentDemo
-        title="基础折叠面板"
-        description="点击触发器切换内容的展开和收起"
+        title="默认状态"
+        description="触发器切换面板的展开状态。"
         code={`import { Collapsible, CollapsibleTrigger, CollapsiblePanel, Button } from "@easyfix/console-ui";
 
 <Collapsible>
@@ -117,19 +117,19 @@ export default function CollapsibleDoc() {
       >
         <Collapsible>
           <CollapsibleTrigger render={<Button variant="outline" size="sm" />}>
-            点击切换
+            切换状态
           </CollapsibleTrigger>
           <CollapsiblePanel>
             <div className="mt-3 rounded-md border p-4 text-sm">
-              这是一段可折叠的内容，点击上方按钮可以展开或收起此区域。
+              该区域支持展开和收起。
             </div>
           </CollapsiblePanel>
         </Collapsible>
       </ComponentDemo>
 
       <ComponentDemo
-        title="默认展开"
-        description="通过 defaultOpen 设置面板初始为展开状态"
+        title="初始展开"
+        description="defaultOpen 定义非受控模式的初始状态。"
         code={`<Collapsible defaultOpen>
   <CollapsibleTrigger render={<Button variant="outline" size="sm" />}>
     切换
@@ -143,11 +143,11 @@ export default function CollapsibleDoc() {
       >
         <Collapsible defaultOpen>
           <CollapsibleTrigger render={<Button variant="outline" size="sm" />}>
-            点击切换
+            切换状态
           </CollapsibleTrigger>
           <CollapsiblePanel>
             <div className="mt-3 rounded-md border p-4 text-sm">
-              这段内容默认是展开的，点击按钮可以收起。
+              该区域初始处于展开状态。
             </div>
           </CollapsiblePanel>
         </Collapsible>
@@ -155,7 +155,7 @@ export default function CollapsibleDoc() {
 
       <ComponentDemo
         title="受控模式"
-        description="通过 open 和 onOpenChange 完全控制展开状态"
+        description="open 与 onOpenChange 管理受控展开状态。"
         code={`const [open, setOpen] = useState(false);
 
 <Collapsible open={open} onOpenChange={setOpen}>

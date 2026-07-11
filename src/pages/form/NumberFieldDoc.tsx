@@ -168,7 +168,7 @@ const [value, setValue] = useState<number | null>(0);
 
       <ComponentDemo
         title="最小最大值"
-        description="通过 min 和 max 属性限制输入范围。"
+        description="min 与 max 限制输入范围。"
         code={`const [value, setValue] = useState<number | null>(5);
 
 <NumberField value={value} onValueChange={setValue} min={0} max={10}>
@@ -186,7 +186,7 @@ const [value, setValue] = useState<number | null>(0);
 
       <ComponentDemo
         title="自定义步长"
-        description="通过 step 属性设置每次增减的步长值。"
+        description="step 定义增减步长。"
         code={`const [value, setValue] = useState<number | null>(0);
 
 <NumberField value={value} onValueChange={setValue} step={5} min={0} max={100}>

@@ -80,7 +80,7 @@ export default function IconDoc() {
 
       <ComponentDemo
         title="Lucide 图标"
-        description="使用 lucide-react 提供丰富的通用图标集，按需导入即可使用。"
+        description="lucide-react 提供按需导入的通用图标集。"
         code={`import { HomeIcon, SettingsIcon, UserIcon, SearchIcon, BellIcon } from "lucide-react";
 
 <HomeIcon />
@@ -101,7 +101,7 @@ export default function IconDoc() {
 
       <ComponentDemo
         title="图标尺寸"
-        description="通过 size 属性或 className 控制图标大小。"
+        description="size 或 className 控制图标尺寸。"
         code={`import { HomeIcon } from "lucide-react";
 
 <HomeIcon size={16} />

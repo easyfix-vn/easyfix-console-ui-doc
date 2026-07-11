@@ -119,8 +119,8 @@ export default function MeterDoc() {
       </div>
 
       <ComponentDemo
-        title="基础仪表盘"
-        description="最简单的仪表盘用法，传入 value 即可展示当前值。"
+        title="默认样式"
+        description="value 定义当前仪表值。"
         code={`import { Meter } from "@easyfix/console-ui";
 
 <Meter value={60} />`}
@@ -130,7 +130,7 @@ export default function MeterDoc() {
 
       <ComponentDemo
         title="带标签和不同状态"
-        description="通过 MeterLabel 和 MeterValue 组合显示标签和数值，通过自定义 MeterIndicator 的 className 实现不同状态颜色。"
+        description="MeterLabel 与 MeterValue 显示标签和数值；MeterIndicator 定义状态颜色。"
         code={`import {
   Meter, MeterLabel, MeterTrack,
   MeterIndicator, MeterValue,
@@ -161,7 +161,7 @@ export default function MeterDoc() {
 
       <ComponentDemo
         title="不同值"
-        description="展示不同进度值下的仪表盘效果。"
+        description="不同数值的仪表呈现。"
         code={`<Meter value={0} />
 <Meter value={25} />
 <Meter value={50} />

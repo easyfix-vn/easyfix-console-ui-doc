@@ -144,7 +144,7 @@ export default function AlertDialogDoc() {
     <AlertDialogHeader>
       <AlertDialogTitle>确认删除账户</AlertDialogTitle>
       <AlertDialogDescription>
-        此操作不可撤销。删除账户后，您的所有数据将被永久清除，且无法恢复。
+        此操作不可撤销。账户数据删除后无法恢复。
       </AlertDialogDescription>
     </AlertDialogHeader>
     <AlertDialogFooter>
@@ -164,7 +164,7 @@ export default function AlertDialogDoc() {
             <AlertDialogHeader>
               <AlertDialogTitle>确认删除账户</AlertDialogTitle>
               <AlertDialogDescription>
-                此操作不可撤销。删除账户后，您的所有数据将被永久清除，且无法恢复。
+                此操作不可撤销。账户数据删除后无法恢复。
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
@@ -188,7 +188,7 @@ export default function AlertDialogDoc() {
     <AlertDialogHeader>
       <AlertDialogTitle>退出登录</AlertDialogTitle>
       <AlertDialogDescription>
-        您确定要退出当前账户吗？
+        确认退出当前账户？
       </AlertDialogDescription>
     </AlertDialogHeader>
     <AlertDialogFooter variant="bare">
@@ -206,7 +206,7 @@ export default function AlertDialogDoc() {
             <AlertDialogHeader>
               <AlertDialogTitle>退出登录</AlertDialogTitle>
               <AlertDialogDescription>
-                您确定要退出当前账户吗？
+                确认退出当前账户？
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter variant="bare">

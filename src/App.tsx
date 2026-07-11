@@ -75,7 +75,7 @@ function OverviewLink() {
   const location = useLocation();
   const isActive = location.pathname === "/";
   return (
-    <SidebarMenuButton asChild isActive={isActive}>
+    <SidebarMenuButton asChild isActive={isActive} tooltip="概览">
       <NavLink to="/" end className="inline-flex items-center gap-2">
         <Home className="size-4" />
         <span>概览</span>
@@ -88,7 +88,7 @@ function QuickStartLink() {
   const location = useLocation();
   const isActive = location.pathname === "/quick-start";
   return (
-    <SidebarMenuButton asChild isActive={isActive}>
+    <SidebarMenuButton asChild isActive={isActive} tooltip="快速入门">
       <NavLink to="/quick-start" end className="inline-flex items-center gap-2">
         <RocketIcon className="size-4" />
         <span>快速入门</span>
@@ -101,7 +101,11 @@ function ConfigProviderLink() {
   const location = useLocation();
   const isActive = location.pathname === "/config-provider";
   return (
-    <SidebarMenuButton asChild isActive={isActive}>
+    <SidebarMenuButton
+      asChild
+      isActive={isActive}
+      tooltip="ConfigProvider 全局配置"
+    >
       <NavLink to="/config-provider" end className="inline-flex items-center gap-2">
         <SettingsIcon className="size-4" />
         <span>ConfigProvider 全局配置</span>
@@ -134,7 +138,11 @@ function NavGroupTree({
                     const isActive = location.pathname === item.path;
                     return (
                       <SidebarMenuSubItem key={item.path}>
-                        <SidebarMenuSubButton asChild isActive={isActive}>
+                        <SidebarMenuSubButton
+                          asChild
+                          isActive={isActive}
+                          tooltip={item.label}
+                        >
                           <NavLink to={item.path} end title={item.label}>
                             <span className="min-w-0 truncate">{item.label}</span>
                           </NavLink>

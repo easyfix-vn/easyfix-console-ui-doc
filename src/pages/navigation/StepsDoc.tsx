@@ -55,7 +55,7 @@ function StatusSteps() {
   return (
     <Steps current={1} statuses={["completed", "error", "upcoming"]}>
       <StepItem title="数据上传" description="文件已上传" />
-      <StepItem title="数据校验" description="格式错误，请检查" />
+      <StepItem title="数据校验" description="数据格式不符合要求" />
       <StepItem title="数据处理" />
     </Steps>
   );
@@ -111,7 +111,7 @@ export default function StepsDoc() {
       </div>
 
       <ComponentDemo
-        title="基础用法"
+        title="默认状态"
         description="水平步骤条，通过 current 控制当前激活步骤"
         code={`import { Steps, StepItem } from "@easyfix/console-ui";
 
@@ -142,7 +142,7 @@ export default function StepsDoc() {
         description="通过 statuses 数组覆盖各步骤状态，支持 completed / active / upcoming / error"
         code={`<Steps current={1} statuses={["completed", "error", "upcoming"]}>
   <StepItem title="数据上传" description="文件已上传" />
-  <StepItem title="数据校验" description="格式错误，请检查" />
+  <StepItem title="数据校验" description="数据格式不符合要求" />
   <StepItem title="数据处理" />
 </Steps>`}
       >

@@ -245,7 +245,7 @@ export default function ToggleDoc() {
 
       <ComponentDemo
         title="不同尺寸"
-        description="通过 size 属性设置切换按钮的大小。"
+        description="size 定义切换按钮尺寸。"
         code={`import { Toggle } from "@easyfix/console-ui";
 
 <Toggle size="sm" variant="outline">

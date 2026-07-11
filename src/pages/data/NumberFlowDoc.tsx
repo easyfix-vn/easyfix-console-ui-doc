@@ -14,6 +14,7 @@ const propsData = [
   { name: "duration", type: "number", default: "520", description: "动画时长，单位毫秒" },
   { name: "trend", type: "number | (oldValue, value) => number", default: "Math.sign(value - oldValue)", description: "控制趋势方向；正数上升，负数下降，0 为中性" },
   { name: "respectMotionPreference", type: "boolean", default: "true", description: "是否遵循系统减少动态效果设置" },
+  { name: "reserveWidth", type: "boolean", default: "true", description: "动画开始前按最终格式化文本预留宽度，避免数字横向漂移" },
   { name: "size", type: '"sm" | "default" | "lg" | "xl"', default: '"default"', description: "文字尺寸" },
   { name: "variant", type: '"default" | "muted" | "success" | "danger"', default: '"default"', description: "语义颜色" },
   { name: "onAnimationsStart", type: "() => void", description: "动画开始回调" },
@@ -147,8 +148,8 @@ export default function NumberFlowDoc() {
       </div>
 
       <ComponentDemo
-        title="基础用法"
-        description="value 变化时自动过渡到新数字"
+        title="数值过渡"
+        description="value 变化时过渡到新数值。"
         code={`import { NumberFlow } from "@easyfix/console-ui";
 
 <NumberFlow value={431.1} />`}
@@ -158,7 +159,7 @@ export default function NumberFlowDoc() {
 
       <ComponentDemo
         title="货币与后缀"
-        description="format 使用 Intl.NumberFormatOptions，suffix 可用于单位或周期"
+        description="format 接收 Intl.NumberFormatOptions，suffix 定义单位或周期。"
         code={`<NumberFlow
   value={value}
   locales="en-US"
@@ -171,7 +172,7 @@ export default function NumberFlowDoc() {
 
       <ComponentDemo
         title="Locale 示例"
-        description="覆盖越南、中国和紧凑数字场景"
+        description="覆盖越南、中国和紧凑数字格式。"
         code={`<NumberFlow value={1280000} locales="vi-VN" format={{ style: "currency", currency: "VND" }} />
 <NumberFlow value={9824.56} locales="zh-CN" format={{ style: "currency", currency: "CNY" }} />
 <NumberFlow value={982456} locales="en-US" format={{ notation: "compact" }} suffix=" visits" />`}
@@ -181,7 +182,7 @@ export default function NumberFlowDoc() {
 
       <ComponentDemo
         title="趋势展示"
-        description="趋势值可驱动默认颜色，也可以用 variant 显式指定语义颜色"
+        description="趋势值驱动默认颜色，variant 可显式指定语义颜色。"
         code={`<NumberFlowGroup>
   <NumberFlow value={revenue} format={{ style: "currency", currency: "USD" }} />
   <NumberFlow

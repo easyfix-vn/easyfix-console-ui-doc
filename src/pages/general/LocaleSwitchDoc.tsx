@@ -136,7 +136,7 @@ function MyApp() {
 
       <ComponentDemo
         title="仅图标"
-        description="设置 showLabel={false} 只显示国旗图标，节省空间。"
+        description="showLabel={false} 仅显示国旗图标。"
         code={`<EasyLocaleSwitch
   value={locale}
   onChange={setLocale}
