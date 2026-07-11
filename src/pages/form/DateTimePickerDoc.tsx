@@ -28,12 +28,38 @@ function FormatTemplateDateTimePicker() {
   );
 }
 
+function TimeZoneDateTimePicker() {
+  const [date, setDate] = useState<Date | undefined>();
+  const [timeZone, setTimeZone] = useState("Asia/Ho_Chi_Minh");
+  const [timestamp, setTimestamp] = useState<number | undefined>();
+
+  return (
+    <div className="space-y-2">
+      <DateTimePicker
+        value={date}
+        onChange={setDate}
+        timeZone={timeZone}
+        onTimeZoneChange={setTimeZone}
+        onTimestampChange={setTimestamp}
+      />
+      <p className="text-xs text-muted-foreground">
+        timeZone：{timeZone}；timestamp：{timestamp ?? "—"}
+      </p>
+    </div>
+  );
+}
+
 const propsData = [
   { name: "value", type: "Date", description: "选中的日期时间（受控）" },
   {
     name: "onChange",
     type: "(date: Date | undefined) => void",
     description: "日期时间变化回调",
+  },
+  {
+    name: "onTimestampChange",
+    type: "(timestamp: number | undefined) => void",
+    description: "按当前 timeZone 通过 dayjs.tz 转换后的毫秒时间戳回调",
   },
   {
     name: "placeholder",
@@ -46,6 +72,28 @@ const propsData = [
     type: "boolean",
     default: "false",
     description: "是否禁用",
+  },
+  {
+    name: "timeZone",
+    type: "string",
+    default: "浏览器/系统时区",
+    description: "IANA 时区；输入框内展示 UTC+07 形式的偏移 tag，弹层中可切换",
+  },
+  {
+    name: "onTimeZoneChange",
+    type: "(timeZone: string) => void",
+    description: "时区变化回调",
+  },
+  {
+    name: "timeZoneOptions",
+    type: "TimeZoneOption[]",
+    description: "自定义时区选项",
+  },
+  {
+    name: "showTimeZone",
+    type: "boolean",
+    default: "true",
+    description: "是否展示 UTC+07 形式的偏移 tag 和时区选择",
   },
   {
     name: "format",
@@ -92,6 +140,24 @@ const [date, setDate] = useState<Date | undefined>();
 <DateTimePicker format="YYYY-MM-DD HH:mm:ss" />`}
       >
         <FormatTemplateDateTimePicker />
+      </ComponentDemo>
+
+      <ComponentDemo
+        title="时区与时间戳"
+        description="输入框内展示当前 UTC+07 形式的偏移 tag；日期时间按当前时区展示和编辑，并通过 dayjs.tz 转换为毫秒时间戳"
+        code={`const [date, setDate] = useState<Date | undefined>();
+const [timeZone, setTimeZone] = useState("Asia/Ho_Chi_Minh");
+const [timestamp, setTimestamp] = useState<number | undefined>();
+
+<DateTimePicker
+  value={date}
+  onChange={setDate}
+  timeZone={timeZone}
+  onTimeZoneChange={setTimeZone}
+  onTimestampChange={setTimestamp}
+/>`}
+      >
+        <TimeZoneDateTimePicker />
       </ComponentDemo>
 
       <ComponentDemo

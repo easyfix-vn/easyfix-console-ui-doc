@@ -154,6 +154,85 @@ function SearchTableToolbarDemo() {
   );
 }
 
+function SearchTableSearchModeDemo() {
+  const [data, setData] = useState<UserRecord[]>(allData.slice(0, 5));
+  const [page, setPage] = useState(1);
+  const [total, setTotal] = useState(allData.length);
+  const [loading, setLoading] = useState(false);
+  const [searchMode, setSearchMode] = useState<"auto" | "manual">("auto");
+  const [lastParams, setLastParams] = useState<SearchParams>({
+    page: 1,
+    pageSize: 5,
+  });
+
+  const handleSearch = useCallback((params: SearchParams) => {
+    setLoading(true);
+    setLastParams(params);
+    setTimeout(() => {
+      let filtered = [...allData];
+      if (params.name) {
+        filtered = filtered.filter((item) =>
+          item.name.includes(params.name as string),
+        );
+      }
+      if (params.status) {
+        filtered = filtered.filter((item) => item.status === params.status);
+      }
+      const start = (params.page - 1) * params.pageSize;
+      setData(filtered.slice(start, start + params.pageSize));
+      setTotal(filtered.length);
+      setPage(params.page);
+      setLoading(false);
+    }, 300);
+  }, []);
+
+  return (
+    <div className="w-full space-y-3">
+      <div className="flex flex-wrap items-center justify-between gap-2 text-sm">
+        <span className="text-muted-foreground">
+          当前搜索模式：
+          <code className="rounded bg-muted px-1.5 py-0.5 text-xs text-foreground">
+            {searchMode}
+          </code>
+        </span>
+        <div className="flex items-center gap-2">
+          <Button
+            size="sm"
+            variant={searchMode === "auto" ? "default" : "outline"}
+            onClick={() => setSearchMode("auto")}
+          >
+            auto
+          </Button>
+          <Button
+            size="sm"
+            variant={searchMode === "manual" ? "default" : "outline"}
+            onClick={() => setSearchMode("manual")}
+          >
+            manual
+          </Button>
+        </div>
+      </div>
+      <EasySearchTable<UserRecord>
+        columns={columns}
+        searchFields={searchFields}
+        searchMode={searchMode}
+        data={data}
+        total={total}
+        page={page}
+        pageSize={5}
+        onSearch={handleSearch}
+        loading={loading}
+      />
+      <div className="text-xs text-muted-foreground">
+        最近一次 onSearch 参数：
+        <code className="ml-1 break-all rounded bg-muted px-1.5 py-0.5 text-foreground">
+          {JSON.stringify(lastParams)}
+        </code>
+      </div>
+    </div>
+  );
+}
+
 function SearchTableExportDemo() {
   const [data, setData] = useState<UserRecord[]>(allData.slice(0, 5));
   const [page, setPage] = useState(1);
@@ -697,7 +776,15 @@ const propsData = [
   {
     name: "searchFields",
     type: "SearchFieldDef[]",
-    description: "搜索表单字段配置，支持 input、select、dateRange 和 custom 类型",
+    description:
+      "搜索表单字段配置，支持 input、select、dateRange 和 custom 类型。input 内置清空按钮；select 会自动在首项追加 i18n 文案的“全部”选项，值为 \"\"",
+  },
+  {
+    name: "searchMode",
+    type: '"auto" | "manual"',
+    default: '"auto"',
+    description:
+      "搜索触发模式。auto 会在 select/dateRange/custom 变更或 input 失焦时自动触发 onSearch；manual 仅通过搜索按钮或 input 回车触发",
   },
   {
     name: "data",
@@ -744,7 +831,8 @@ const propsData = [
   {
     name: "toolbarActions",
     type: "ReactNode",
-    description: "工具栏操作区插槽，用于放置自定义操作按钮（新增、批量操作等）",
+    description:
+      "工具栏操作区插槽，用于放置自定义操作按钮（新增、批量操作等）。小屏或移动端视图下，搜索的重置、搜索、展开/收起按钮会渲染在该区域右侧，并保持垂直对齐与一致间距",
   },
   {
     name: "showExport",
@@ -864,7 +952,8 @@ const searchFieldDefData = [
   {
     name: "type",
     type: '"input" | "select" | "dateRange" | "custom"',
-    description: "字段类型。custom 类型可注入任意组件",
+    description:
+      "字段类型。input 类型有右侧清空按钮；select 类型首项自动为“全部”（value: \"\"）；custom 类型可注入任意组件",
   },
   {
     name: "placeholder",
@@ -879,7 +968,8 @@ const searchFieldDefData = [
   {
     name: "options",
     type: "Array<{ label: string; value: string }>",
-    description: "select 类型时的选项列表",
+    description:
+      "select 类型时的业务选项列表。组件会自动在列表前增加“全部”选项，value 为空字符串，无需在 options 中重复声明",
   },
   {
     name: "showTime",
@@ -903,13 +993,14 @@ export default function SearchTableDoc() {
         </h1>
         <p className="mt-2 text-muted-foreground">
           集成搜索表单、数据表格和分页的复合组件，适用于后台管理中常见的数据列表页。业务只需声明列和搜索字段即可完成典型
-          CRUD 列表。支持 input、select、dateRange 和 custom（自定义组件）四种搜索字段类型，以及表格、卡片、列表三种数据视图。
+          CRUD 列表。支持 input、select、dateRange 和 custom（自定义组件）四种搜索字段类型，支持 auto/manual 两种搜索触发模式，
+          input 字段内置清空按钮，select 字段自动提供“全部”选项，小屏视图下会将搜索操作按钮收敛到工具栏操作区，以及表格、卡片、列表三种数据视图。
         </p>
       </div>
 
       <ComponentDemo
         title="基础用法"
-        description="配置 columns 和 searchFields，通过 onSearch 回调获取搜索和分页参数。"
+        description="配置 columns 和 searchFields，通过 onSearch 回调获取搜索和分页参数。input 搜索框有右侧清空按钮；select 搜索框会自动在首项提供“全部”（value 为空字符串）。"
         code={`import { useState, useCallback } from "react";
 import {
   EasySearchTable,
@@ -1001,7 +1092,7 @@ function MyPage() {
 
       <ComponentDemo
         title="工具栏操作插槽"
-        description="通过 toolbarActions 插槽在工具栏左侧放置自定义操作按钮，如新增、批量删除等。"
+        description="通过 toolbarActions 插槽在工具栏左侧放置自定义操作按钮，如新增、批量删除等。小屏或移动端视图下，搜索表单底部的重置、搜索、展开/收起按钮会隐藏，并自动渲染到 toolbarActions 右侧，和自定义操作保持同一行的垂直对齐与间距。"
         code={`import { EasySearchTable, Button } from "@easyfix/console-ui";
 import { Plus, Trash2 } from "lucide-react";
 
@@ -1029,6 +1120,36 @@ import { Plus, Trash2 } from "lucide-react";
       >
         <div className="w-full">
           <SearchTableToolbarDemo />
+        </div>
+      </ComponentDemo>
+
+      <ComponentDemo
+        title="搜索触发模式"
+        description="searchMode 默认为 auto：select、dateRange、custom 变更时立即触发 onSearch，input 在失焦或点击清空按钮时触发。设置为 manual 后，仅点击搜索按钮或在 input 中按 Enter 时触发 onSearch。"
+        code={`const [searchMode, setSearchMode] = useState<"auto" | "manual">("auto");
+
+<EasySearchTable<UserRecord>
+  columns={columns}
+  searchFields={searchFields}
+  searchMode={searchMode}
+  data={data}
+  total={total}
+  page={page}
+  pageSize={5}
+  onSearch={(params) => {
+    // auto:
+    // - select / dateRange / custom 变更后立即进入这里
+    // - input 失焦后进入这里
+    // - input 清空按钮点击后进入这里
+    //
+    // manual:
+    // - 点击“搜索”按钮或 input 按 Enter 后进入这里
+    fetchData(params);
+  }}
+/>`}
+      >
+        <div className="w-full">
+          <SearchTableSearchModeDemo />
         </div>
       </ComponentDemo>
 

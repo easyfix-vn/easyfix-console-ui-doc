@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { EasyLocaleSwitch, type EasyLocale } from "@easyfix/console-ui";
+import { EasyLocaleSwitch } from "@easyfix/console-ui";
 import { ComponentDemo } from "@/components/ComponentDemo";
 import { PropsTable } from "@/components/PropsTable";
 
@@ -8,14 +8,32 @@ function LocaleSwitchDefault() {
   return <EasyLocaleSwitch value={locale} onChange={setLocale} />;
 }
 
-function LocaleSwitchPill() {
+function LocaleSwitchButton() {
   const [locale, setLocale] = useState<string>("zh-CN");
-  return <EasyLocaleSwitch value={locale} onChange={setLocale} variant="pill" />;
+  return (
+    <EasyLocaleSwitch
+      value={locale}
+      onChange={setLocale}
+      variant="default"
+    />
+  );
 }
 
 function LocaleSwitchNoLabel() {
   const [locale, setLocale] = useState<string>("zh-CN");
   return <EasyLocaleSwitch value={locale} onChange={setLocale} showLabel={false} />;
+}
+
+function LocaleSwitchSizes() {
+  const [locale, setLocale] = useState<string>("zh-CN");
+  return (
+    <div className="flex flex-col items-start gap-3">
+      <EasyLocaleSwitch value={locale} onChange={setLocale} size="xs" />
+      <EasyLocaleSwitch value={locale} onChange={setLocale} size="sm" />
+      <EasyLocaleSwitch value={locale} onChange={setLocale} size="md" />
+      <EasyLocaleSwitch value={locale} onChange={setLocale} size="lg" />
+    </div>
+  );
 }
 
 const propsData = [
@@ -32,14 +50,14 @@ const propsData = [
   {
     name: "locales",
     type: "EasyLocaleOption[]",
-    default: "内置中英越三项",
+    default: "内置 vi | en | zh 三项",
     description: "可选的语言列表，每项包含 locale、label、flag",
   },
   {
     name: "variant",
     type: '"default" | "pill"',
-    default: '"default"',
-    description: "展示风格。default 使用独立按钮，pill 使用胶囊切换",
+    default: '"pill"',
+    description: "展示风格。pill 使用胶囊切换，default 使用独立按钮",
   },
   {
     name: "showLabel",
@@ -49,9 +67,32 @@ const propsData = [
   },
   {
     name: "size",
-    type: "EasyButton size",
+    type: '"xs" | "sm" | "md" | "lg" | EasyButton size',
     default: '"xs"',
-    description: "按钮尺寸（仅 default 变体有效）",
+    description: "尺寸。pill 变体映射到 SegmentedControl size，default 变体映射到 EasyButton size",
+  },
+];
+
+const optionData = [
+  {
+    name: "locale",
+    type: "string",
+    description: '语言值，会作为 value 和 onChange 的参数，例如 "vi"、"en-US"、"zh-CN"',
+  },
+  {
+    name: "label",
+    type: "string",
+    description: "语言展示文本，showLabel 为 true 时显示在国旗旁边",
+  },
+  {
+    name: "flag",
+    type: "string",
+    description: 'flag-icons 的国家/地区代码，例如 "vn"、"gb"、"cn"',
+  },
+  {
+    name: "flagSrc",
+    type: "string",
+    description: "自定义国旗图片地址；未传时使用 flag-icons className",
   },
 ];
 
@@ -63,13 +104,13 @@ export default function LocaleSwitchDoc() {
           LocaleSwitch 语言切换
         </h1>
         <p className="mt-2 text-muted-foreground">
-          多语言切换组件，内置中文、英文、越南语三种语言，支持按钮和胶囊两种展示风格。
+          多语言切换组件，默认使用胶囊风格，内置语言顺序为越南语、英文、中文。
         </p>
       </div>
 
       <ComponentDemo
-        title="默认风格"
-        description="按钮式语言切换，每种语言对应一个带国旗的按钮。"
+        title="默认胶囊风格"
+        description="默认以紧凑的胶囊切换控件展示，内置语言顺序为 vi | en | zh。"
         code={`import { useState } from "react";
 import { EasyLocaleSwitch } from "@easyfix/console-ui";
 
@@ -82,15 +123,15 @@ function MyApp() {
       </ComponentDemo>
 
       <ComponentDemo
-        title="胶囊风格"
-        description='variant="pill" 以紧凑的分段控件形式展示。'
+        title="按钮风格"
+        description='variant="default" 使用独立按钮展示每种语言。'
         code={`<EasyLocaleSwitch
   value={locale}
   onChange={setLocale}
-  variant="pill"
+  variant="default"
 />`}
       >
-        <LocaleSwitchPill />
+        <LocaleSwitchButton />
       </ComponentDemo>
 
       <ComponentDemo
@@ -105,9 +146,32 @@ function MyApp() {
         <LocaleSwitchNoLabel />
       </ComponentDemo>
 
+      <ComponentDemo
+        title="胶囊尺寸"
+        description="胶囊模式基于 SegmentedControl 渲染，size 控制整体高度、内边距和图标尺寸。"
+        code={`<EasyLocaleSwitch
+  value={locale}
+  onChange={setLocale}
+  size="xs"
+/>
+
+<EasyLocaleSwitch
+  value={locale}
+  onChange={setLocale}
+  size="lg"
+/>`}
+      >
+        <LocaleSwitchSizes />
+      </ComponentDemo>
+
       <div>
         <h2 className="mb-4 text-xl font-semibold">API</h2>
         <PropsTable data={propsData} />
+      </div>
+
+      <div>
+        <h2 className="mb-4 text-xl font-semibold">EasyLocaleOption</h2>
+        <PropsTable data={optionData} />
       </div>
     </div>
   );

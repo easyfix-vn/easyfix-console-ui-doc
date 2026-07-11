@@ -27,6 +27,7 @@ import {
   Monitor,
   Moon,
   RocketIcon,
+  SettingsIcon,
   Sun,
 } from "lucide-react";
 import { Suspense } from "react";
@@ -96,6 +97,19 @@ function QuickStartLink() {
   );
 }
 
+function ConfigProviderLink() {
+  const location = useLocation();
+  const isActive = location.pathname === "/config-provider";
+  return (
+    <SidebarMenuButton asChild isActive={isActive}>
+      <NavLink to="/config-provider" end className="inline-flex items-center gap-2">
+        <SettingsIcon className="size-4" />
+        <span>ConfigProvider 全局配置</span>
+      </NavLink>
+    </SidebarMenuButton>
+  );
+}
+
 function NavGroupTree({
   group,
 }: {
@@ -159,6 +173,9 @@ function DocsSidebar() {
               </SidebarMenuItem>
               <SidebarMenuItem>
                 <QuickStartLink />
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <ConfigProviderLink />
               </SidebarMenuItem>
             </SidebarMenu>
           </SidebarGroupContent>

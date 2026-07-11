@@ -86,7 +86,7 @@ import { HomeIcon, LayoutDashboardIcon, UsersIcon, SettingsIcon } from "lucide-r
 <SidebarProvider>
   <Sidebar>
     <SidebarHeader>
-      <span className="text-lg font-bold px-2">Easyfix</span>
+      <span className="block max-w-full truncate px-2 text-lg font-bold">Easyfix</span>
     </SidebarHeader>
     <SidebarContent>
       <SidebarGroup>
@@ -135,7 +135,7 @@ import { HomeIcon, LayoutDashboardIcon, UsersIcon, SettingsIcon } from "lucide-r
           <SidebarProvider defaultOpen className="!min-h-full">
             <Sidebar collapsible="icon" className="!h-full">
               <SidebarHeader>
-                <span className="px-2 text-lg font-bold">Easyfix</span>
+                <span className="block max-w-full truncate px-2 text-lg font-bold">Easyfix</span>
               </SidebarHeader>
               <SidebarContent>
                 <SidebarGroup>

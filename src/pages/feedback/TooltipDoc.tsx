@@ -28,7 +28,7 @@ const propsData = [
     description: "对齐方式",
   },
   {
-    name: "delayDuration",
+    name: "delay",
     type: "number",
     default: "200",
     description: "延迟显示时间（毫秒）",

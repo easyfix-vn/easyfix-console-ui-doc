@@ -1,7 +1,13 @@
-import { StepItem, Steps } from "@easyfix/console-ui";
-import { useState } from "react";
+import {
+  StepItem as ConsoleStepItem,
+  Steps,
+  type StepItemProps,
+} from "@easyfix/console-ui";
+import { useState, type ComponentType } from "react";
 import { ComponentDemo } from "@/components/ComponentDemo";
 import { PropsTable } from "@/components/PropsTable";
+
+const StepItem = ConsoleStepItem as ComponentType<StepItemProps>;
 
 function BasicSteps() {
   const [current, setCurrent] = useState(1);

@@ -47,6 +47,46 @@ function IconSegmentedControl() {
   );
 }
 
+function SizeSegmentedControl() {
+  const [size, setSize] = useState("sm");
+  return (
+    <div className="flex flex-col items-start gap-4">
+      <SegmentedControl size="xs" value={size} onValueChange={setSize}>
+        <SegmentedControlList>
+          <SegmentedControlItem value="xs">XS</SegmentedControlItem>
+          <SegmentedControlItem value="sm">SM</SegmentedControlItem>
+          <SegmentedControlItem value="md">MD</SegmentedControlItem>
+          <SegmentedControlItem value="lg">LG</SegmentedControlItem>
+        </SegmentedControlList>
+      </SegmentedControl>
+      <SegmentedControl size="sm" value={size} onValueChange={setSize}>
+        <SegmentedControlList>
+          <SegmentedControlItem value="xs">XS</SegmentedControlItem>
+          <SegmentedControlItem value="sm">SM</SegmentedControlItem>
+          <SegmentedControlItem value="md">MD</SegmentedControlItem>
+          <SegmentedControlItem value="lg">LG</SegmentedControlItem>
+        </SegmentedControlList>
+      </SegmentedControl>
+      <SegmentedControl size="md" value={size} onValueChange={setSize}>
+        <SegmentedControlList>
+          <SegmentedControlItem value="xs">XS</SegmentedControlItem>
+          <SegmentedControlItem value="sm">SM</SegmentedControlItem>
+          <SegmentedControlItem value="md">MD</SegmentedControlItem>
+          <SegmentedControlItem value="lg">LG</SegmentedControlItem>
+        </SegmentedControlList>
+      </SegmentedControl>
+      <SegmentedControl size="lg" value={size} onValueChange={setSize}>
+        <SegmentedControlList>
+          <SegmentedControlItem value="xs">XS</SegmentedControlItem>
+          <SegmentedControlItem value="sm">SM</SegmentedControlItem>
+          <SegmentedControlItem value="md">MD</SegmentedControlItem>
+          <SegmentedControlItem value="lg">LG</SegmentedControlItem>
+        </SegmentedControlList>
+      </SegmentedControl>
+    </div>
+  );
+}
+
 function DisabledSegmentedControl() {
   return (
     <SegmentedControl defaultValue="active">
@@ -73,10 +113,21 @@ const rootProps = [
     type: "(value: string) => void",
     description: "选中项变化回调",
   },
+  {
+    name: "size",
+    type: '"xs" | "sm" | "md" | "lg"',
+    default: '"sm"',
+    description: "整体尺寸，会传递给 List 和 Item",
+  },
 ];
 
 const itemProps = [
   { name: "value", type: "string", description: "该项的唯一标识" },
+  {
+    name: "size",
+    type: '"xs" | "sm" | "md" | "lg"',
+    description: "单个选项尺寸；默认继承 Root/List",
+  },
   {
     name: "disabled",
     type: "boolean",
@@ -133,6 +184,26 @@ export default function SegmentedControlDoc() {
 </SegmentedControl>`}
       >
         <IconSegmentedControl />
+      </ComponentDemo>
+
+      <ComponentDemo
+        title="不同尺寸"
+        description='通过 size 设置分段控制器尺寸，支持 "xs"、"sm"、"md"、"lg"。'
+        code={`<SegmentedControl size="xs" value={value} onValueChange={setValue}>
+  <SegmentedControlList>
+    <SegmentedControlItem value="xs">XS</SegmentedControlItem>
+    <SegmentedControlItem value="sm">SM</SegmentedControlItem>
+  </SegmentedControlList>
+</SegmentedControl>
+
+<SegmentedControl size="lg" value={value} onValueChange={setValue}>
+  <SegmentedControlList>
+    <SegmentedControlItem value="md">MD</SegmentedControlItem>
+    <SegmentedControlItem value="lg">LG</SegmentedControlItem>
+  </SegmentedControlList>
+</SegmentedControl>`}
+      >
+        <SizeSegmentedControl />
       </ComponentDemo>
 
       <ComponentDemo

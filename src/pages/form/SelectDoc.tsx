@@ -1,14 +1,16 @@
+import { useState } from "react";
 import {
+  SearchableSelect,
   Select,
-  SelectTrigger,
-  SelectValue,
-  SelectPopup,
-  SelectItem,
   SelectGroup,
   SelectGroupLabel,
+  SelectItem,
+  SelectPopup,
+  SelectTrigger,
+  SelectValue,
+  type SelectOption,
 } from "@easyfix/console-ui";
-import { InfoIcon } from "lucide-react";
-import { Link } from "react-router-dom";
+import { SearchIcon } from "lucide-react";
 import { ComponentDemo } from "@/components/ComponentDemo";
 import { PropsTable } from "@/components/PropsTable";
 
@@ -27,13 +29,109 @@ const selectItemPropsData = [
   { name: "children", type: "ReactNode", description: "选项文本" },
 ];
 
+const searchableSelectPropsData = [
+  { name: "options", type: "SelectOption[]", description: "搜索选择选项数据" },
+  { name: "value", type: "string | null", description: "当前选中值（受控）" },
+  { name: "defaultValue", type: "string | null", description: "默认选中值（非受控）" },
+  { name: "onValueChange", type: "(value, option) => void", description: "选中值变化回调" },
+  { name: "filter", type: "(option, query) => boolean", description: "自定义搜索函数，返回 true 表示匹配" },
+  { name: "clearable", type: "boolean", default: "false", description: "是否显示清除按钮" },
+  { name: "size", type: '"sm" | "default" | "lg"', default: '"default"', description: "触发器尺寸" },
+  { name: "startAddon", type: "ReactNode", description: "触发器前置图标或内容" },
+  { name: "placeholder", type: "string", default: '"请选择"', description: "未选择时的占位文本" },
+  { name: "searchPlaceholder", type: "string", default: '"搜索..."', description: "搜索框占位文本" },
+  { name: "emptyText", type: "ReactNode", default: '"无匹配结果"', description: "空结果展示" },
+];
+
+const frameworkOptions: SelectOption[] = [
+  { value: "react", label: "React", group: "前端框架" },
+  { value: "vue", label: "Vue", group: "前端框架" },
+  { value: "angular", label: "Angular", group: "前端框架" },
+  { value: "express", label: "Express", group: "后端框架" },
+  { value: "nestjs", label: "NestJS", group: "后端框架" },
+  { value: "fastify", label: "Fastify", group: "后端框架" },
+];
+
+const cities: SelectOption[] = [
+  { value: "beijing", label: "北京 Beijing", searchText: "北京 Beijing beijing" },
+  { value: "shanghai", label: "上海 Shanghai", searchText: "上海 Shanghai shanghai" },
+  { value: "guangzhou", label: "广州 Guangzhou", searchText: "广州 Guangzhou guangzhou" },
+  { value: "shenzhen", label: "深圳 Shenzhen", searchText: "深圳 Shenzhen shenzhen" },
+  { value: "chengdu", label: "成都 Chengdu", searchText: "成都 Chengdu chengdu" },
+  { value: "hangzhou", label: "杭州 Hangzhou", searchText: "杭州 Hangzhou hangzhou" },
+  { value: "nanjing", label: "南京 Nanjing", searchText: "南京 Nanjing nanjing" },
+  { value: "wuhan", label: "武汉 Wuhan", searchText: "武汉 Wuhan wuhan" },
+];
+
+function BasicSearchDemo() {
+  const [value, setValue] = useState<string | null>(null);
+  const selected = frameworkOptions.find((item) => item.value === value);
+
+  return (
+    <div className="w-72 space-y-3">
+      <SearchableSelect
+        value={value}
+        onValueChange={setValue}
+        options={frameworkOptions}
+        placeholder="选择框架"
+        searchPlaceholder="搜索框架..."
+        clearable
+        startAddon={<SearchIcon />}
+      />
+      <p className="text-xs text-muted-foreground">
+        选中：{selected?.label ?? "无"}
+      </p>
+    </div>
+  );
+}
+
+function fuzzyMatch(text: string, query: string): boolean {
+  const lowerText = text.toLowerCase();
+  const lowerQuery = query.toLowerCase();
+  let queryIndex = 0;
+
+  for (let textIndex = 0; textIndex < lowerText.length && queryIndex < lowerQuery.length; textIndex++) {
+    if (lowerText[textIndex] === lowerQuery[queryIndex]) {
+      queryIndex++;
+    }
+  }
+
+  return queryIndex === lowerQuery.length;
+}
+
+function FuzzySearchDemo() {
+  const [value, setValue] = useState<string | null>(null);
+  const selected = cities.find((item) => item.value === value);
+
+  return (
+    <div className="w-72 space-y-3">
+      <SearchableSelect
+        value={value}
+        onValueChange={setValue}
+        options={cities}
+        placeholder="选择城市"
+        searchPlaceholder="输入城市名或拼音..."
+        emptyText="未找到匹配城市"
+        startAddon={<SearchIcon />}
+        clearable
+        filter={(option, query) =>
+          fuzzyMatch(option.searchText ?? String(option.label), query)
+        }
+      />
+      <p className="text-xs text-muted-foreground">
+        选中：{selected?.label ?? "无"}
+      </p>
+    </div>
+  );
+}
+
 export default function SelectDoc() {
   return (
     <div className="space-y-8">
       <div>
         <h1 className="font-heading text-3xl font-bold">Select 选择器</h1>
         <p className="mt-2 text-muted-foreground">
-          下拉选择组件，基于 Base UI Select 封装，支持单选、分组和自定义触发器。
+          下拉选择组件，支持基础单选、分组、搜索选择和自定义模糊搜索。
         </p>
       </div>
 
@@ -81,11 +179,6 @@ export default function SelectDoc() {
       <SelectItem value="apple">苹果</SelectItem>
       <SelectItem value="banana">香蕉</SelectItem>
     </SelectGroup>
-    <SelectGroup>
-      <SelectGroupLabel>蔬菜</SelectGroupLabel>
-      <SelectItem value="carrot">胡萝卜</SelectItem>
-      <SelectItem value="potato">土豆</SelectItem>
-    </SelectGroup>
   </SelectPopup>
 </Select>`}
       >
@@ -120,7 +213,7 @@ export default function SelectDoc() {
   </SelectPopup>
 </Select>`}
       >
-        <div className="flex gap-4">
+        <div className="flex flex-wrap gap-4">
           <Select disabled>
             <SelectTrigger>
               <SelectValue placeholder="已禁用" />
@@ -142,28 +235,57 @@ export default function SelectDoc() {
         </div>
       </ComponentDemo>
 
-      <div className="flex items-start gap-3 rounded-lg border border-blue-200 bg-blue-50 p-4 dark:border-blue-900 dark:bg-blue-950/50">
-        <InfoIcon className="mt-0.5 size-5 shrink-0 text-blue-600 dark:text-blue-400" />
-        <div className="text-sm text-blue-800 dark:text-blue-200">
-          <p className="font-medium">需要搜索过滤？</p>
-          <p className="mt-1">
-            Select 是纯下拉选择组件，不支持输入搜索。如果需要搜索/过滤功能，请使用{" "}
-            <Link
-              to="/form/combobox"
-              className="font-medium underline underline-offset-2 hover:text-blue-600"
-            >
-              Combobox 组合框
-            </Link>
-            ，它支持内置过滤、自定义模糊搜索和多选。
-          </p>
-        </div>
-      </div>
+      <ComponentDemo
+        title="搜索选择"
+        description="SearchableSelect 继承 Select 视觉风格，支持搜索、分组和清除"
+        code={`const options = [
+  { value: "react", label: "React", group: "前端框架" },
+  { value: "nestjs", label: "NestJS", group: "后端框架" },
+];
+
+<SearchableSelect
+  value={value}
+  onValueChange={setValue}
+  options={options}
+  placeholder="选择框架"
+  searchPlaceholder="搜索框架..."
+  clearable
+/>`}
+      >
+        <BasicSearchDemo />
+      </ComponentDemo>
+
+      <ComponentDemo
+        title="自定义模糊搜索"
+        description="通过 filter 属性自定义搜索能力，可按拼音、别名或业务字段匹配"
+        code={`function fuzzyMatch(text, query) {
+  let qi = 0;
+  for (let ti = 0; ti < text.length && qi < query.length; ti++) {
+    if (text[ti].toLowerCase() === query[qi].toLowerCase()) qi++;
+  }
+  return qi === query.length;
+}
+
+<SearchableSelect
+  value={value}
+  onValueChange={setValue}
+  options={cities}
+  filter={(option, query) =>
+    fuzzyMatch(option.searchText ?? String(option.label), query)
+  }
+/>`}
+      >
+        <FuzzySearchDemo />
+      </ComponentDemo>
 
       <h2 className="font-heading text-xl font-semibold">Select API</h2>
       <PropsTable data={selectPropsData} />
 
       <h2 className="font-heading text-xl font-semibold">SelectItem API</h2>
       <PropsTable data={selectItemPropsData} />
+
+      <h2 className="font-heading text-xl font-semibold">SearchableSelect API</h2>
+      <PropsTable data={searchableSelectPropsData} />
     </div>
   );
 }

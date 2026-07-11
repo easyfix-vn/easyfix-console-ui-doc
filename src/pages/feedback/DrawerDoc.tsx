@@ -1,14 +1,14 @@
 import {
   Drawer,
   DrawerTrigger,
-  DrawerPopup,
+  DrawerContent,
   DrawerHeader,
   DrawerTitle,
   DrawerDescription,
   DrawerPanel,
   DrawerFooter,
   DrawerClose,
-  DrawerBar,
+  DrawerSwipeHandle,
   Button,
 } from "@easyfix/console-ui";
 
@@ -41,26 +41,39 @@ const drawerPropsData = [
     type: "boolean",
     default: "true",
     description:
-      "拖拽（滑动）是否关闭。设为 false 时拖拽不会关闭抽屉，松手后抽屉自动弹回原位。",
+      "拖拽（滑动）是否关闭。设为 false 时拖拽不会关闭抽屉；当三个关闭开关同时为 false 时，组件自动显示右上角关闭按钮。",
+  },
+  {
+    name: "showSwipeHandle",
+    type: "boolean",
+    default: "false",
+    description: "是否显示可拖拽手柄。",
   },
 ];
 
-const popupPropsData = [
+const contentPropsData = [
   {
     name: "position",
     type: '"right" | "left" | "top" | "bottom"',
     description: "覆盖 Drawer 的 position 属性",
   },
   {
-    name: "width",
-    type: "string",
-    description: "抽屉宽度（侧边抽屉时生效）",
-  },
-  {
     name: "showCloseButton",
     type: "boolean",
-    default: "true",
+    default: "false",
     description: "是否显示关闭按钮",
+  },
+  {
+    name: "showSwipeHandle",
+    type: "boolean",
+    default: "false",
+    description: "覆盖 Drawer 的手柄显示设置。",
+  },
+  {
+    name: "variant",
+    type: '"default" | "straight" | "inset"',
+    default: '"default"',
+    description: "抽屉外观变体；侧边抽屉默认与视口保持间距。",
   },
 ];
 
@@ -78,17 +91,17 @@ export default function DrawerDoc() {
         title="底部抽屉"
         description="默认从底部滑出，适合移动端交互场景。"
         code={`import {
-  Drawer, DrawerTrigger, DrawerPopup,
+  Drawer, DrawerTrigger, DrawerContent,
   DrawerHeader, DrawerTitle, DrawerDescription,
-  DrawerPanel, DrawerFooter, DrawerClose, DrawerBar, Button,
+  DrawerPanel, DrawerFooter, DrawerClose, DrawerSwipeHandle, Button,
 } from "@easyfix/console-ui";
 
 <Drawer>
   <DrawerTrigger asChild>
     <Button variant="outline">打开底部抽屉</Button>
   </DrawerTrigger>
-  <DrawerPopup>
-    <DrawerBar />
+  <DrawerContent>
+    <DrawerSwipeHandle />
     <DrawerHeader>
       <DrawerTitle>底部抽屉</DrawerTitle>
       <DrawerDescription>这是一个从底部滑出的抽屉示例。</DrawerDescription>
@@ -104,15 +117,15 @@ export default function DrawerDoc() {
       </DrawerClose>
       <Button>确认</Button>
     </DrawerFooter>
-  </DrawerPopup>
+  </DrawerContent>
 </Drawer>`}
       >
         <Drawer>
           <DrawerTrigger asChild>
             <Button variant="outline">打开底部抽屉</Button>
           </DrawerTrigger>
-          <DrawerPopup>
-            <DrawerBar />
+          <DrawerContent>
+            <DrawerSwipeHandle />
             <DrawerHeader>
               <DrawerTitle>底部抽屉</DrawerTitle>
               <DrawerDescription>
@@ -130,15 +143,15 @@ export default function DrawerDoc() {
               </DrawerClose>
               <Button>确认</Button>
             </DrawerFooter>
-          </DrawerPopup>
+          </DrawerContent>
         </Drawer>
       </ComponentDemo>
 
       <ComponentDemo
         title="右侧抽屉"
-        description="设置 position='right' 从右侧滑出，适合展示详情或设置面板。"
+        description="设置 position='right' 从右侧滑出，默认与视口边缘保留间距，适合展示详情或设置面板。"
         code={`import {
-  Drawer, DrawerTrigger, DrawerPopup,
+  Drawer, DrawerTrigger, DrawerContent,
   DrawerHeader, DrawerTitle, DrawerDescription,
   DrawerPanel, DrawerFooter, DrawerClose, Button,
 } from "@easyfix/console-ui";
@@ -147,7 +160,7 @@ export default function DrawerDoc() {
   <DrawerTrigger asChild>
     <Button variant="outline">打开右侧抽屉</Button>
   </DrawerTrigger>
-  <DrawerPopup>
+  <DrawerContent>
     <DrawerHeader>
       <DrawerTitle>详情面板</DrawerTitle>
       <DrawerDescription>从右侧滑出的抽屉面板。</DrawerDescription>
@@ -173,14 +186,14 @@ export default function DrawerDoc() {
         <Button variant="outline">关闭</Button>
       </DrawerClose>
     </DrawerFooter>
-  </DrawerPopup>
+  </DrawerContent>
 </Drawer>`}
       >
         <Drawer position="right">
           <DrawerTrigger asChild>
             <Button variant="outline">打开右侧抽屉</Button>
           </DrawerTrigger>
-          <DrawerPopup>
+          <DrawerContent>
             <DrawerHeader>
               <DrawerTitle>详情面板</DrawerTitle>
               <DrawerDescription>
@@ -208,47 +221,160 @@ export default function DrawerDoc() {
                 <Button variant="outline">关闭</Button>
               </DrawerClose>
             </DrawerFooter>
-          </DrawerPopup>
+          </DrawerContent>
         </Drawer>
       </ComponentDemo>
 
       <ComponentDemo
-        title="禁止遮罩 / ESC 关闭"
-        description="closeOnBackdropClick=false 阻止点击遮罩关闭；closeOnEscape=false 阻止 ESC 关闭。常用于流程性、强提交场景，强制用户使用底部按钮。"
+        title="左侧抽屉与自定义宽度"
+        description="侧边抽屉默认带有视口间距，也可以通过 className 调整宽度。"
+        code={`<Drawer position="left">
+  <DrawerTrigger render={<Button variant="outline" />}>
+    打开左侧抽屉
+  </DrawerTrigger>
+  <DrawerContent className="w-80 sm:w-96">
+    <DrawerSwipeHandle />
+    <DrawerHeader>
+      <DrawerTitle>导航面板</DrawerTitle>
+      <DrawerDescription>左侧抽屉与右侧抽屉使用相同的间距规则。</DrawerDescription>
+    </DrawerHeader>
+    <DrawerPanel>
+      <nav className="space-y-1 text-sm">
+        <div className="rounded-md bg-accent px-3 py-2">概览</div>
+        <div className="rounded-md px-3 py-2 text-muted-foreground">设置</div>
+      </nav>
+    </DrawerPanel>
+  </DrawerContent>
+</Drawer>`}
+      >
+        <Drawer position="left">
+          <DrawerTrigger asChild>
+            <Button variant="outline">打开左侧抽屉</Button>
+          </DrawerTrigger>
+          <DrawerContent className="w-80 sm:w-96">
+            <DrawerSwipeHandle />
+            <DrawerHeader>
+              <DrawerTitle>导航面板</DrawerTitle>
+              <DrawerDescription>
+                左侧抽屉与右侧抽屉使用相同的间距规则。
+              </DrawerDescription>
+            </DrawerHeader>
+            <DrawerPanel>
+              <nav className="space-y-1 text-sm">
+                <div className="rounded-md bg-accent px-3 py-2">概览</div>
+                <div className="rounded-md px-3 py-2 text-muted-foreground">
+                  设置
+                </div>
+              </nav>
+            </DrawerPanel>
+          </DrawerContent>
+        </Drawer>
+      </ComponentDemo>
+
+      <ComponentDemo
+        title="Nested 嵌套抽屉"
+        description="在父抽屉内容中继续组合 Drawer，父抽屉保持挂载，子抽屉叠加在前面。"
+        code={`<Drawer position="right">
+  <DrawerTrigger render={<Button variant="outline" />}>
+    打开父抽屉
+  </DrawerTrigger>
+  <DrawerContent>
+    <DrawerHeader>
+      <DrawerTitle>父抽屉</DrawerTitle>
+      <DrawerDescription>从这里继续打开一个子抽屉。</DrawerDescription>
+    </DrawerHeader>
+    <DrawerPanel>
+      <Drawer position="right">
+        <DrawerTrigger render={<Button variant="outline" />}>
+          打开子抽屉
+        </DrawerTrigger>
+        <DrawerContent>
+          <DrawerHeader>
+            <DrawerTitle>子抽屉</DrawerTitle>
+            <DrawerDescription>子抽屉会叠加在父抽屉上方。</DrawerDescription>
+          </DrawerHeader>
+          <DrawerPanel>
+            <p className="text-sm text-muted-foreground">
+              关闭子抽屉后，父抽屉仍然保持打开。
+            </p>
+          </DrawerPanel>
+        </DrawerContent>
+      </Drawer>
+    </DrawerPanel>
+  </DrawerContent>
+</Drawer>`}
+      >
+        <Drawer position="right">
+          <DrawerTrigger asChild>
+            <Button variant="outline">打开父抽屉</Button>
+          </DrawerTrigger>
+          <DrawerContent>
+            <DrawerHeader>
+              <DrawerTitle>父抽屉</DrawerTitle>
+              <DrawerDescription>
+                从这里继续打开一个子抽屉。
+              </DrawerDescription>
+            </DrawerHeader>
+            <DrawerPanel>
+              <Drawer position="right">
+                <DrawerTrigger asChild>
+                  <Button variant="outline">打开子抽屉</Button>
+                </DrawerTrigger>
+                <DrawerContent>
+                  <DrawerHeader>
+                    <DrawerTitle>子抽屉</DrawerTitle>
+                    <DrawerDescription>
+                      子抽屉会叠加在父抽屉上方。
+                    </DrawerDescription>
+                  </DrawerHeader>
+                  <DrawerPanel>
+                    <p className="text-sm text-muted-foreground">
+                      关闭子抽屉后，父抽屉仍然保持打开。
+                    </p>
+                  </DrawerPanel>
+                </DrawerContent>
+              </Drawer>
+            </DrawerPanel>
+          </DrawerContent>
+        </Drawer>
+      </ComponentDemo>
+
+      <ComponentDemo
+        title="全部关闭方式禁用时的安全关闭"
+        description="当 closeOnBackdropClick、closeOnEscape、closeOnSwipe 都为 false 时，组件自动展示右上角关闭按钮。"
         code={`<Drawer
   position="right"
   closeOnBackdropClick={false}
   closeOnEscape={false}
+  closeOnSwipe={false}
 >
   <DrawerTrigger asChild>
     <Button variant="outline">必须点击关闭</Button>
   </DrawerTrigger>
-  <DrawerPopup>
+  <DrawerContent>
     <DrawerHeader>
       <DrawerTitle>不可被外部关闭</DrawerTitle>
       <DrawerDescription>
-        点击遮罩或按 ESC 键都不会关闭，必须使用下方按钮。
+        点击遮罩、按 ESC 键或拖拽都不会关闭，必须使用右上角关闭按钮。
       </DrawerDescription>
     </DrawerHeader>
-    <DrawerFooter>
-      <DrawerClose render={<Button />}>我已确认</DrawerClose>
-    </DrawerFooter>
-  </DrawerPopup>
+  </DrawerContent>
 </Drawer>`}
       >
         <Drawer
           position="right"
           closeOnBackdropClick={false}
           closeOnEscape={false}
+          closeOnSwipe={false}
         >
           <DrawerTrigger asChild>
             <Button variant="outline">必须点击关闭</Button>
           </DrawerTrigger>
-          <DrawerPopup>
+          <DrawerContent>
             <DrawerHeader>
               <DrawerTitle>不可被外部关闭</DrawerTitle>
               <DrawerDescription>
-                点击遮罩或按 ESC 键都不会关闭，必须使用下方按钮。
+                点击遮罩、按 ESC 键或拖拽都不会关闭，必须使用右上角关闭按钮。
               </DrawerDescription>
             </DrawerHeader>
             <DrawerPanel>
@@ -256,10 +382,7 @@ export default function DrawerDoc() {
                 适用于流程性、强提交场景，避免误关导致用户输入丢失。
               </p>
             </DrawerPanel>
-            <DrawerFooter>
-              <DrawerClose render={<Button />}>我已确认</DrawerClose>
-            </DrawerFooter>
-          </DrawerPopup>
+          </DrawerContent>
         </Drawer>
       </ComponentDemo>
 
@@ -270,8 +393,8 @@ export default function DrawerDoc() {
   <DrawerTrigger asChild>
     <Button variant="outline">拖拽不会关闭</Button>
   </DrawerTrigger>
-  <DrawerPopup>
-    <DrawerBar />
+  <DrawerContent>
+    <DrawerSwipeHandle />
     <DrawerHeader>
       <DrawerTitle>禁止拖拽关闭</DrawerTitle>
       <DrawerDescription>
@@ -288,15 +411,15 @@ export default function DrawerDoc() {
         <Button variant="outline">关闭</Button>
       </DrawerClose>
     </DrawerFooter>
-  </DrawerPopup>
+  </DrawerContent>
 </Drawer>`}
       >
         <Drawer closeOnSwipe={false}>
           <DrawerTrigger asChild>
             <Button variant="outline">拖拽不会关闭</Button>
           </DrawerTrigger>
-          <DrawerPopup>
-            <DrawerBar />
+          <DrawerContent>
+            <DrawerSwipeHandle />
             <DrawerHeader>
               <DrawerTitle>禁止拖拽关闭</DrawerTitle>
               <DrawerDescription>
@@ -313,7 +436,7 @@ export default function DrawerDoc() {
                 <Button variant="outline">关闭</Button>
               </DrawerClose>
             </DrawerFooter>
-          </DrawerPopup>
+          </DrawerContent>
         </Drawer>
       </ComponentDemo>
 
@@ -321,8 +444,8 @@ export default function DrawerDoc() {
         <h2 className="mb-4 text-xl font-semibold">API</h2>
         <h3 className="mb-3 text-lg font-medium">Drawer</h3>
         <PropsTable data={drawerPropsData} />
-        <h3 className="mb-3 mt-6 text-lg font-medium">DrawerPopup</h3>
-        <PropsTable data={popupPropsData} />
+        <h3 className="mb-3 mt-6 text-lg font-medium">DrawerContent</h3>
+        <PropsTable data={contentPropsData} />
       </div>
     </div>
   );

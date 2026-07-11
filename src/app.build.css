@@ -1,0 +1,6 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "@easyfix/console-ui/styles.css";
+@source "../node_modules/@easyfix/console-ui/dist/easyfix-console-ui.js";
+
+@import "./app.css";

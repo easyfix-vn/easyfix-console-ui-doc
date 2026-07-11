@@ -1,10 +1,3 @@
-@import "tailwindcss";
-@import "tw-animate-css";
-@import "@easyfix/console-ui/styles.css";
-@source "../node_modules/@easyfix/console-ui/dist/easyfix-console-ui.js";
-/* dev 指向源码时，同步扫描组件库 TSX，避免仅 dist 内出现的 class 不进文档站 CSS */
-@source "../easyfix_console_ui/src/**/*.tsx";
-
 @custom-variant dark (&:is(.dark *));
 
 /*

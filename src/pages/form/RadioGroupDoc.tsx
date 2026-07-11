@@ -46,6 +46,12 @@ const radioGroupPropsData = [
     description: "是否禁用整个单选组",
   },
   {
+    name: "orientation",
+    type: '"vertical" | "horizontal"',
+    default: '"vertical"',
+    description: "选项排列方向；horizontal 时横向排列并自动换行",
+  },
+  {
     name: "className",
     type: "string",
     description: "自定义样式类名",
@@ -112,6 +118,31 @@ const [value, setValue] = useState("apple");
 </RadioGroup>`}
       >
         <BasicDemo />
+      </ComponentDemo>
+
+      <ComponentDemo
+        title="水平排列"
+        description="设置 orientation=horizontal 让选项横向排列，空间不足时自动换行"
+        code={`<RadioGroup orientation="horizontal" defaultValue="apple">
+  <label className="flex items-center gap-2"><Radio value="apple" /><span>苹果</span></label>
+  <label className="flex items-center gap-2"><Radio value="banana" /><span>香蕉</span></label>
+  <label className="flex items-center gap-2"><Radio value="orange" /><span>橙子</span></label>
+</RadioGroup>`}
+      >
+        <RadioGroup orientation="horizontal" defaultValue="apple">
+          <label className="flex items-center gap-2 text-sm">
+            <Radio value="apple" />
+            <span>苹果</span>
+          </label>
+          <label className="flex items-center gap-2 text-sm">
+            <Radio value="banana" />
+            <span>香蕉</span>
+          </label>
+          <label className="flex items-center gap-2 text-sm">
+            <Radio value="orange" />
+            <span>橙子</span>
+          </label>
+        </RadioGroup>
       </ComponentDemo>
 
       <ComponentDemo

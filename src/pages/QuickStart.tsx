@@ -144,15 +144,15 @@ export function App() {
 
       <Section title="本地开发">
         <p className="text-sm text-muted-foreground">
-          克隆仓库后，从同级目录安装本地包进行开发调试：
+          在 easyfix_3.x 中开发时，从 easyfix_dev/fe 构建组件库，再在宿主应用中安装本地包：
         </p>
         <CodeBlock code={`# 构建组件库
-cd easyfix_fe/easyfix_console_ui
+cd easyfix_dev/fe/easyfix_console_ui
 pnpm install && pnpm build
 
 # 在宿主项目中使用本地版本
-cd ../your-app
-pnpm add ../easyfix_console_ui`} language="bash" />
+cd ../../../easyfix_fe/easy-identity-hub
+pnpm add ../../easyfix_dev/fe/easyfix_console_ui`} language="bash" />
         <p className="text-sm text-muted-foreground">
           源码仓库：
           <a

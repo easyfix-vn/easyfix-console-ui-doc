@@ -27,25 +27,25 @@ function BasicDemo() {
   return (
     <Toolbar>
       <ToolbarGroup>
-        <ToolbarButton render={<Toggle size="sm" />}>
+        <ToolbarButton label="加粗" render={<Toggle size="sm" />}>
           <BoldIcon />
         </ToolbarButton>
-        <ToolbarButton render={<Toggle size="sm" />}>
+        <ToolbarButton label="斜体" render={<Toggle size="sm" />}>
           <ItalicIcon />
         </ToolbarButton>
-        <ToolbarButton render={<Toggle size="sm" />}>
+        <ToolbarButton label="下划线" render={<Toggle size="sm" />}>
           <UnderlineIcon />
         </ToolbarButton>
       </ToolbarGroup>
       <ToolbarSeparator orientation="vertical" />
       <ToolbarGroup>
-        <ToolbarButton render={<Button variant="ghost" size="icon-sm" />}>
+        <ToolbarButton label="复制" render={<Button variant="ghost" size="icon-sm" />}>
           <CopyIcon />
         </ToolbarButton>
-        <ToolbarButton render={<Button variant="ghost" size="icon-sm" />}>
+        <ToolbarButton label="剪切" render={<Button variant="ghost" size="icon-sm" />}>
           <ScissorsIcon />
         </ToolbarButton>
-        <ToolbarButton render={<Button variant="ghost" size="icon-sm" />}>
+        <ToolbarButton label="粘贴" render={<Button variant="ghost" size="icon-sm" />}>
           <ClipboardIcon />
         </ToolbarButton>
       </ToolbarGroup>
@@ -71,10 +71,10 @@ function GroupDemo() {
   return (
     <Toolbar>
       <ToolbarGroup>
-        <ToolbarButton render={<Button variant="ghost" size="icon-sm" />}>
+        <ToolbarButton label="撤销" render={<Button variant="ghost" size="icon-sm" />}>
           <Undo2Icon />
         </ToolbarButton>
-        <ToolbarButton render={<Button variant="ghost" size="icon-sm" />}>
+        <ToolbarButton label="重做" render={<Button variant="ghost" size="icon-sm" />}>
           <Redo2Icon />
         </ToolbarButton>
       </ToolbarGroup>
@@ -114,6 +114,17 @@ const toolbarPropsData = [
 ];
 
 const buttonPropsData = [
+  {
+    name: "label",
+    type: "ReactNode",
+    description: "按钮标签；默认作为 hover Tooltip 内容，同时用于文本 aria-label",
+  },
+  {
+    name: "showLabel",
+    type: "boolean",
+    default: "false",
+    description: "是否在按钮内直接显示 label；为 false 时 hover 在按钮下方显示 Tooltip",
+  },
   {
     name: "render",
     type: "ReactElement",
@@ -182,16 +193,16 @@ export default function ToolbarDoc() {
 
 <Toolbar>
   <ToolbarGroup>
-    <ToolbarButton render={<Toggle size="sm" />}>
+    <ToolbarButton label="加粗" render={<Toggle size="sm" />}>
       <BoldIcon />
     </ToolbarButton>
-    <ToolbarButton render={<Toggle size="sm" />}>
+    <ToolbarButton label="斜体" render={<Toggle size="sm" />}>
       <ItalicIcon />
     </ToolbarButton>
   </ToolbarGroup>
   <ToolbarSeparator orientation="vertical" />
   <ToolbarGroup>
-    <ToolbarButton render={<Button variant="ghost" size="icon-sm" />}>
+    <ToolbarButton label="复制" render={<Button variant="ghost" size="icon-sm" />}>
       <CopyIcon />
     </ToolbarButton>
   </ToolbarGroup>
@@ -215,10 +226,10 @@ export default function ToolbarDoc() {
 
 <Toolbar>
   <ToolbarGroup>
-    <ToolbarButton render={<Button variant="ghost" size="icon-sm" />}>
+    <ToolbarButton label="撤销" render={<Button variant="ghost" size="icon-sm" />}>
       <Undo2Icon />
     </ToolbarButton>
-    <ToolbarButton render={<Button variant="ghost" size="icon-sm" />}>
+    <ToolbarButton label="重做" render={<Button variant="ghost" size="icon-sm" />}>
       <Redo2Icon />
     </ToolbarButton>
   </ToolbarGroup>

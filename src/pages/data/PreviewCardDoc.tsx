@@ -11,7 +11,7 @@ const previewCardPropsData = [
   {
     name: "delay",
     type: "number",
-    default: "600",
+    default: "200",
     description: "鼠标悬停多少毫秒后展示卡片",
   },
 ];

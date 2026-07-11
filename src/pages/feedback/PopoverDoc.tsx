@@ -183,14 +183,12 @@ export default function PopoverDoc() {
     <Button variant="outline">带关闭按钮</Button>
   </PopoverTrigger>
   <PopoverPopup>
-    <div className="flex items-start justify-between gap-4">
-      <div>
+    <div className="flex items-start gap-4">
+      <div className="min-w-0 flex-1">
         <PopoverTitle>通知设置</PopoverTitle>
         <PopoverDescription>配置您的通知偏好设置。</PopoverDescription>
       </div>
-      <PopoverClose render={<Button variant="ghost" size="icon-xs" />}>
-        X
-      </PopoverClose>
+      <PopoverClose aria-label="关闭" />
     </div>
   </PopoverPopup>
 </Popover>`}
@@ -200,18 +198,14 @@ export default function PopoverDoc() {
             <Button variant="outline">带关闭按钮</Button>
           </PopoverTrigger>
           <PopoverPopup>
-            <div className="flex items-start justify-between gap-4">
-              <div>
+            <div className="flex items-start gap-4">
+              <div className="min-w-0 flex-1">
                 <PopoverTitle>通知设置</PopoverTitle>
                 <PopoverDescription>
                   配置您的通知偏好设置。
                 </PopoverDescription>
               </div>
-              <PopoverClose
-                render={<Button variant="ghost" size="icon-xs" />}
-              >
-                X
-              </PopoverClose>
+              <PopoverClose aria-label="关闭" />
             </div>
           </PopoverPopup>
         </Popover>
