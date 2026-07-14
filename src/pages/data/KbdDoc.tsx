@@ -2,6 +2,7 @@ import { Kbd, KbdGroup } from "@easyfix/console-ui";
 
 import { ComponentDemo } from "@/components/ComponentDemo";
 import { PropsTable } from "@/components/PropsTable";
+import { ComponentDocPage } from "@/components/ComponentDocPage";
 
 const kbdPropsData = [
   {
@@ -31,6 +32,7 @@ const kbdGroupPropsData = [
 
 export default function KbdDoc() {
   return (
+    <ComponentDocPage>
     <div className="space-y-8">
       <div>
         <h1 className="font-heading text-3xl font-bold">Kbd 键盘标签</h1>
@@ -46,7 +48,8 @@ export default function KbdDoc() {
 
 <Kbd>Enter</Kbd>
 <Kbd>Esc</Kbd>
-<Kbd>Tab</Kbd>`}
+<Kbd>Tab</Kbd>
+<Kbd>Space</Kbd>`}
       >
         <div className="flex items-center gap-3">
           <Kbd>Enter</Kbd>
@@ -64,6 +67,11 @@ export default function KbdDoc() {
 <KbdGroup>
   <Kbd>Ctrl</Kbd>
   <Kbd>C</Kbd>
+</KbdGroup>
+
+<KbdGroup>
+  <Kbd>Ctrl</Kbd>
+  <Kbd>V</Kbd>
 </KbdGroup>
 
 <KbdGroup>
@@ -95,5 +103,6 @@ export default function KbdDoc() {
       <h2 className="font-heading text-xl font-semibold">KbdGroup API</h2>
       <PropsTable data={kbdGroupPropsData} />
     </div>
+    </ComponentDocPage>
   );
 }

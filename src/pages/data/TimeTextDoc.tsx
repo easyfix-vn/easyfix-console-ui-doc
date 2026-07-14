@@ -1,6 +1,7 @@
 import { EasyTimeText } from "@easyfix/console-ui";
 import { ComponentDemo } from "@/components/ComponentDemo";
 import { PropsTable } from "@/components/PropsTable";
+import { ComponentDocPage } from "@/components/ComponentDocPage";
 
 const timestamp = Date.UTC(2026, 6, 11, 13, 30);
 const sameDateRange = [
@@ -46,13 +47,14 @@ const ianaLocaleData = [
 
 export default function TimeTextDoc() {
   return (
+    <ComponentDocPage>
     <div className="space-y-8">
       <div>
         <h1 className="font-heading text-3xl font-bold">
           TimeText 时间文本
         </h1>
         <p className="mt-2 text-muted-foreground">
-          时间文本组件支持秒级/毫秒级时间戳、Date、时间字符串和时间数组；未传 timeZone 时默认使用当前浏览器或操作系统时区。
+          时间文本组件，支持时间戳、Date、时间字符串和时区格式化。
         </p>
       </div>
 
@@ -220,5 +222,6 @@ export default function TimeTextDoc() {
       </h2>
       <PropsTable data={propsData} />
     </div>
+    </ComponentDocPage>
   );
 }

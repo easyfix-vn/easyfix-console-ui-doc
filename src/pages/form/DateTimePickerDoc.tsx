@@ -2,6 +2,7 @@ import { DateTimePicker } from "@easyfix/console-ui";
 import { useState } from "react";
 import { ComponentDemo } from "@/components/ComponentDemo";
 import { PropsTable } from "@/components/PropsTable";
+import { ComponentDocPage } from "@/components/ComponentDocPage";
 
 function BasicDateTimePicker() {
   const [date, setDate] = useState<Date | undefined>();
@@ -107,18 +108,14 @@ const propsData = [
 
 export default function DateTimePickerDoc() {
   return (
+    <ComponentDocPage>
     <div className="space-y-8">
       <div>
         <h1 className="font-heading text-3xl font-bold">
           DateTimePicker 日期时间选择器
         </h1>
         <p className="mt-2 text-muted-foreground">
-          在日期选择器的基础上增加了时间输入，时间输入控件已重写以适配主题色（包含暗色模式）。
-          日期时间范围由{" "}
-          <a href="/form/date-range-picker" className="text-primary underline underline-offset-4">
-            DateRangePicker（showTime）
-          </a>
-          。
+          日期时间选择器，支持日期、时间输入和主题适配。
         </p>
       </div>
 
@@ -136,8 +133,12 @@ const [date, setDate] = useState<Date | undefined>();
       <ComponentDemo
         title="字符串模板"
         description="format 接收包含 HH:mm:ss 的时间模板。"
-        code={`<DateTimePicker format="YYYY/MM/DD HH:mm" />
-<DateTimePicker format="YYYY-MM-DD HH:mm:ss" />`}
+        code={`const [date, setDate] = useState<Date | undefined>();
+
+<div className="flex flex-wrap items-center gap-2">
+  <DateTimePicker value={date} onChange={setDate} format="YYYY/MM/DD HH:mm" placeholder="YYYY/MM/DD HH:mm" />
+  <DateTimePicker value={date} onChange={setDate} format="YYYY-MM-DD HH:mm:ss" placeholder="带秒" />
+</div>`}
       >
         <FormatTemplateDateTimePicker />
       </ComponentDemo>
@@ -171,5 +172,6 @@ const [timestamp, setTimestamp] = useState<number | undefined>();
       <h2 className="font-heading text-xl font-semibold">DateTimePicker API</h2>
       <PropsTable data={propsData} />
     </div>
+    </ComponentDocPage>
   );
 }

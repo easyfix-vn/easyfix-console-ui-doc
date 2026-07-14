@@ -29,6 +29,7 @@ import {
 import { useState } from "react";
 import { ComponentDemo } from "@/components/ComponentDemo";
 import { PropsTable } from "@/components/PropsTable";
+import { ComponentDocPage } from "@/components/ComponentDocPage";
 
 function BasicDemo() {
   return (
@@ -212,22 +213,14 @@ const itemPropsData = [
 
 export default function DropdownMenuDoc() {
   return (
+    <ComponentDocPage>
     <div className="space-y-10">
       <div>
         <h1 className="font-heading text-3xl font-bold">
           DropdownMenu 下拉菜单
         </h1>
         <p className="mt-2 text-muted-foreground">
-          由触发器展开的可选项列表，支持图标、快捷键、子菜单、单选和多选。设计参考{" "}
-          <a
-            className="text-primary hover:underline"
-            href="https://www.radix-ui.com/themes/docs/components/dropdown-menu"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Radix Themes DropdownMenu
-          </a>
-          。
+          由触发器展开的选项列表，支持图标、快捷键、子菜单、单选和多选。
         </p>
       </div>
 
@@ -244,7 +237,7 @@ export default function DropdownMenuDoc() {
   <DropdownMenuTrigger asChild>
     <Button variant="outline">打开菜单</Button>
   </DropdownMenuTrigger>
-  <DropdownMenuContent className="w-56">
+  <DropdownMenuContent align="start" className="w-56">
     <DropdownMenuLabel>我的账户</DropdownMenuLabel>
     <DropdownMenuSeparator />
     <DropdownMenuItem>
@@ -290,13 +283,27 @@ export default function DropdownMenuDoc() {
         title="多选 Checkbox"
         description="使用 DropdownMenuCheckboxItem 实现多选项，每个项独立 checked 状态"
         code={`const [statusBar, setStatusBar] = useState(true);
+const [activityBar, setActivityBar] = useState(false);
+const [panel, setPanel] = useState(true);
 
-<DropdownMenuCheckboxItem
-  checked={statusBar}
-  onCheckedChange={(v) => setStatusBar(v === true)}
->
-  状态栏
-</DropdownMenuCheckboxItem>`}
+<DropdownMenu>
+  <DropdownMenuTrigger asChild>
+    <Button variant="outline">视图</Button>
+  </DropdownMenuTrigger>
+  <DropdownMenuContent className="w-56">
+    <DropdownMenuLabel>显示项</DropdownMenuLabel>
+    <DropdownMenuSeparator />
+    <DropdownMenuCheckboxItem checked={statusBar} onCheckedChange={(v) => setStatusBar(v === true)}>
+      状态栏
+    </DropdownMenuCheckboxItem>
+    <DropdownMenuCheckboxItem checked={activityBar} onCheckedChange={(v) => setActivityBar(v === true)}>
+      活动栏
+    </DropdownMenuCheckboxItem>
+    <DropdownMenuCheckboxItem checked={panel} onCheckedChange={(v) => setPanel(v === true)}>
+      面板
+    </DropdownMenuCheckboxItem>
+  </DropdownMenuContent>
+</DropdownMenu>`}
       >
         <CheckboxDemo />
       </ComponentDemo>
@@ -306,12 +313,21 @@ export default function DropdownMenuDoc() {
         description="使用 DropdownMenuRadioGroup + DropdownMenuRadioItem 实现单选"
         code={`const [position, setPosition] = useState("bottom");
 
-<DropdownMenuRadioGroup value={position} onValueChange={setPosition}>
-  <DropdownMenuRadioItem value="top">顶部</DropdownMenuRadioItem>
-  <DropdownMenuRadioItem value="right">右侧</DropdownMenuRadioItem>
-  <DropdownMenuRadioItem value="bottom">底部</DropdownMenuRadioItem>
-  <DropdownMenuRadioItem value="left">左侧</DropdownMenuRadioItem>
-</DropdownMenuRadioGroup>`}
+<DropdownMenu>
+  <DropdownMenuTrigger asChild>
+    <Button variant="outline">位置：{position}</Button>
+  </DropdownMenuTrigger>
+  <DropdownMenuContent className="w-56">
+    <DropdownMenuLabel>面板位置</DropdownMenuLabel>
+    <DropdownMenuSeparator />
+    <DropdownMenuRadioGroup value={position} onValueChange={setPosition}>
+      <DropdownMenuRadioItem value="top">顶部</DropdownMenuRadioItem>
+      <DropdownMenuRadioItem value="right">右侧</DropdownMenuRadioItem>
+      <DropdownMenuRadioItem value="bottom">底部</DropdownMenuRadioItem>
+      <DropdownMenuRadioItem value="left">左侧</DropdownMenuRadioItem>
+    </DropdownMenuRadioGroup>
+  </DropdownMenuContent>
+</DropdownMenu>`}
       >
         <RadioDemo />
       </ComponentDemo>
@@ -329,5 +345,6 @@ export default function DropdownMenuDoc() {
         <PropsTable data={itemPropsData} />
       </div>
     </div>
+    </ComponentDocPage>
   );
 }

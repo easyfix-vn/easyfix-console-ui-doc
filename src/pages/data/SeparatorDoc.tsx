@@ -1,6 +1,7 @@
 import { Separator } from "@easyfix/console-ui";
 import { ComponentDemo } from "@/components/ComponentDemo";
 import { PropsTable } from "@/components/PropsTable";
+import { ComponentDocPage } from "@/components/ComponentDocPage";
 
 const propsData = [
   {
@@ -18,6 +19,7 @@ const propsData = [
 
 export default function SeparatorDoc() {
   return (
+    <ComponentDocPage>
     <div className="space-y-8">
       <div>
         <h1 className="font-heading text-3xl font-bold">Separator 分隔线</h1>
@@ -106,5 +108,6 @@ export default function SeparatorDoc() {
       </p>
       <PropsTable data={propsData} />
     </div>
+    </ComponentDocPage>
   );
 }

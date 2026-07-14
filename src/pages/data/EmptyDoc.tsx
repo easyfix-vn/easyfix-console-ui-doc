@@ -11,6 +11,7 @@ import { InboxIcon } from "lucide-react";
 
 import { ComponentDemo } from "@/components/ComponentDemo";
 import { PropsTable } from "@/components/PropsTable";
+import { ComponentDocPage } from "@/components/ComponentDocPage";
 
 const emptyPropsData = [
   {
@@ -85,6 +86,7 @@ const contentPropsData = [
 
 export default function EmptyDoc() {
   return (
+    <ComponentDocPage>
     <div className="space-y-10">
       <div>
         <h1 className="font-heading text-3xl font-bold">Empty 空状态</h1>
@@ -225,5 +227,6 @@ import { InboxIcon } from "lucide-react";
         <PropsTable data={contentPropsData} />
       </div>
     </div>
+    </ComponentDocPage>
   );
 }

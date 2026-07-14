@@ -2,6 +2,7 @@ import { DatePicker } from "@easyfix/console-ui";
 import { useState } from "react";
 import { ComponentDemo } from "@/components/ComponentDemo";
 import { PropsTable } from "@/components/PropsTable";
+import { ComponentDocPage } from "@/components/ComponentDocPage";
 
 function BasicDatePicker() {
   const [date, setDate] = useState<Date | undefined>();
@@ -93,6 +94,12 @@ const propsData = [
     description: "是否禁用",
   },
   {
+    name: "clearable",
+    type: "boolean",
+    default: "true",
+    description: "是否显示清除按钮",
+  },
+  {
     name: "timeZone",
     type: "string",
     default: "浏览器/系统时区",
@@ -127,17 +134,12 @@ const propsData = [
 
 export default function DatePickerDoc() {
   return (
+    <ComponentDocPage>
     <div className="space-y-8">
       <div>
         <h1 className="font-heading text-3xl font-bold">DatePicker 日期选择器</h1>
         <p className="mt-2 text-muted-foreground">
-          用于选择单个日期的弹出式选择器，内置日历面板。支持字符串模板格式化，并随
-          ConfigProvider 的 locale 自动选择合适的默认模板与文案。
-          日期范围由{" "}
-          <a href="/form/date-range-picker" className="text-primary underline underline-offset-4">
-            DateRangePicker
-          </a>
-          。
+          单日期选择器，支持字符串模板格式化并随 locale 适配默认文案。
         </p>
       </div>
 
@@ -156,9 +158,13 @@ const [date, setDate] = useState<Date | undefined>();
       <ComponentDemo
         title="字符串模板"
         description={`format 接收字符串模板，支持 YYYY、MM、DD、HH、mm、ss 等 token。`}
-        code={`<DatePicker format="YYYY/MM/DD" />
-<DatePicker format="DD-MM-YYYY" />
-<DatePicker format="YYYY 年 M 月 D 日" />`}
+        code={`const [date, setDate] = useState<Date | undefined>();
+
+<div className="flex flex-wrap items-center gap-2">
+  <DatePicker value={date} onChange={setDate} format="YYYY/MM/DD" placeholder="YYYY/MM/DD" />
+  <DatePicker value={date} onChange={setDate} format="DD-MM-YYYY" placeholder="DD-MM-YYYY" />
+  <DatePicker value={date} onChange={setDate} format="YYYY 年 M 月 D 日" placeholder="中文格式" />
+</div>`}
       >
         <FormatTemplateDatePicker />
       </ComponentDemo>
@@ -192,7 +198,11 @@ const [timestamp, setTimestamp] = useState<number | undefined>();
       <ComponentDemo
         title="自定义格式函数"
         description="format 支持函数，适用于自定义本地化逻辑。"
-        code={`<DatePicker
+        code={`const [date, setDate] = useState<Date | undefined>();
+
+<DatePicker
+  value={date}
+  onChange={setDate}
   format={(d) => \`\${d.getFullYear()}年\${d.getMonth() + 1}月\${d.getDate()}日\`}
 />`}
       >
@@ -202,5 +212,6 @@ const [timestamp, setTimestamp] = useState<number | undefined>();
       <h2 className="font-heading text-xl font-semibold">DatePicker API</h2>
       <PropsTable data={propsData} />
     </div>
+    </ComponentDocPage>
   );
 }

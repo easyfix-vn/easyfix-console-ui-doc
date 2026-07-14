@@ -2,6 +2,7 @@ import { useState } from "react";
 import { RadioCards, RadioCardItem } from "@easyfix/console-ui";
 import { ComponentDemo } from "@/components/ComponentDemo";
 import { PropsTable } from "@/components/PropsTable";
+import { ComponentDocPage } from "@/components/ComponentDocPage";
 
 function BasicRadioCards() {
   const [value, setValue] = useState("standard");
@@ -64,11 +65,12 @@ const radioCardItemPropsData = [
 
 export default function RadioCardsDoc() {
   return (
+    <ComponentDocPage>
     <div className="space-y-8">
       <div>
         <h1 className="font-heading text-3xl font-bold">RadioCards 单选卡片</h1>
         <p className="mt-2 text-muted-foreground">
-          以卡片形式展示的单选组，适用于少量选项且需要突出展示的场景。
+          卡片式单选组件，适合少量选项。
         </p>
       </div>
 
@@ -130,5 +132,6 @@ const [value, setValue] = useState("standard");
       <h2 className="font-heading text-xl font-semibold">RadioCardItem API</h2>
       <PropsTable data={radioCardItemPropsData} />
     </div>
+    </ComponentDocPage>
   );
 }

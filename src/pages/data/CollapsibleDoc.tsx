@@ -8,6 +8,7 @@ import {
 
 import { ComponentDemo } from "@/components/ComponentDemo";
 import { PropsTable } from "@/components/PropsTable";
+import { ComponentDocPage } from "@/components/ComponentDocPage";
 
 const collapsiblePropsData = [
   {
@@ -85,6 +86,7 @@ function ControlledDemo() {
 
 export default function CollapsibleDoc() {
   return (
+    <ComponentDocPage>
     <div className="space-y-8">
       <div>
         <h1 className="font-heading text-3xl font-bold">
@@ -185,5 +187,6 @@ export default function CollapsibleDoc() {
       </h2>
       <PropsTable data={panelPropsData} />
     </div>
+    </ComponentDocPage>
   );
 }

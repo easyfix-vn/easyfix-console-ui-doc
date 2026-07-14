@@ -3,6 +3,7 @@ import { Calendar } from "@easyfix/console-ui";
 import type { DateRange } from "react-day-picker";
 import { ComponentDemo } from "@/components/ComponentDemo";
 import { PropsTable } from "@/components/PropsTable";
+import { ComponentDocPage } from "@/components/ComponentDocPage";
 
 const propsData = [
   {
@@ -72,13 +73,13 @@ function RangeDemo() {
       mode="range"
       selected={range}
       onSelect={setRange}
-      numberOfMonths={2}
     />
   );
 }
 
 export default function CalendarDoc() {
   return (
+    <ComponentDocPage>
     <div className="space-y-8">
       <div>
         <h1 className="font-heading text-3xl font-bold">Calendar 日历</h1>
@@ -111,7 +112,7 @@ const [date, setDate] = useState<Date | undefined>(new Date());
 
       <ComponentDemo
         title="范围选择"
-        description="range 模式维护起止日期，并支持多月展示。"
+        description="range 模式维护起止日期，通过翻页切换其他月份。"
         code={`import { useState } from "react";
 import { Calendar } from "@easyfix/console-ui";
 import type { DateRange } from "react-day-picker";
@@ -125,7 +126,6 @@ const [range, setRange] = useState<DateRange | undefined>({
   mode="range"
   selected={range}
   onSelect={setRange}
-  numberOfMonths={2}
 />`}
       >
         <RangeDemo />
@@ -134,5 +134,6 @@ const [range, setRange] = useState<DateRange | undefined>({
       <h2 className="font-heading text-xl font-semibold">API</h2>
       <PropsTable data={propsData} />
     </div>
+    </ComponentDocPage>
   );
 }

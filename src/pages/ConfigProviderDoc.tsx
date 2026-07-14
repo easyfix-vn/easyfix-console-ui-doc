@@ -12,6 +12,7 @@ import {
 import { useMemo, useState } from "react";
 import { ComponentDemo } from "@/components/ComponentDemo";
 import { PropsTable } from "@/components/PropsTable";
+import { ComponentDocPage } from "@/components/ComponentDocPage";
 import { useAppConfig } from "@/providers/AppConfigProvider";
 
 function ConfigDisplay() {
@@ -234,11 +235,12 @@ const propsData = [
 
 export default function ConfigProviderDoc() {
   return (
+    <ComponentDocPage>
     <div className="space-y-8">
       <div>
         <h1 className="font-heading text-3xl font-bold">ConfigProvider 全局配置</h1>
         <p className="mt-2 text-muted-foreground">
-          ConfigProvider 统一管理主题、语言、翻译资源和默认时区；内置组件通过 useEasyT 读取当前语言配置。
+          统一管理主题、语言、翻译资源和默认时区。
         </p>
       </div>
 
@@ -258,8 +260,20 @@ import { ConfigProvider } from "@easyfix/console-ui";
       <ComponentDemo
         title="局部配置"
         description="嵌套的 ConfigProvider 可覆盖子树的语言和主题。"
-        code={`<ConfigProvider locale="en-US" theme="dark">
-  <EasySearchTable ... />
+        code={`const [locale, setLocale] = useState<EasyLocale>("zh-CN");
+const [theme, setTheme] = useState<"light" | "dark" | "system">("light");
+
+<ConfigProvider locale={locale} theme={theme}>
+  <EasyInput allowClear placeholder="可清除输入" />
+  <EasySearchTable
+    columns={sampleColumns}
+    data={sampleData}
+    page={1}
+    pageSize={10}
+    searchFields={[]}
+    total={sampleData.length}
+    onSearch={() => undefined}
+  />
 </ConfigProvider>`}
       >
         <LocalConfigPreview />
@@ -270,8 +284,14 @@ import { ConfigProvider } from "@easyfix/console-ui";
         description="TimezoneSelect 更新全局时区；未传 timeZone 的日期组件读取该值。"
         code={`const [timeZone, setTimeZone] = useState("Asia/Shanghai");
 
-<ConfigProvider timeZone={timeZone}>
-  <TimezoneSelect value={timeZone} onValueChange={setTimeZone} />
+<ConfigProvider locale="zh-CN" theme="light" timeZone={timeZone}>
+  <TimezoneSelect
+    value={timeZone}
+    onValueChange={setTimeZone}
+    className="max-w-xl"
+  />
+  <div>当前全局时区：{timeZone}</div>
+  <ConfigDisplay />
 </ConfigProvider>`}
       >
         <TimeZoneConfigPreview />
@@ -304,5 +324,6 @@ import { ConfigProvider } from "@easyfix/console-ui";
       <h2 className="font-heading text-xl font-semibold">API</h2>
       <PropsTable data={propsData} />
     </div>
+    </ComponentDocPage>
   );
 }

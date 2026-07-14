@@ -2,6 +2,7 @@ import { Input, Label } from "@easyfix/console-ui";
 
 import { ComponentDemo } from "@/components/ComponentDemo";
 import { PropsTable } from "@/components/PropsTable";
+import { ComponentDocPage } from "@/components/ComponentDocPage";
 
 const propsData = [
   {
@@ -28,6 +29,7 @@ const propsData = [
 
 export default function LabelDoc() {
   return (
+    <ComponentDocPage>
     <div className="space-y-8">
       <div>
         <h1 className="font-heading text-3xl font-bold">Label 标签</h1>
@@ -60,8 +62,10 @@ export default function LabelDoc() {
         code={`import { Input, Label } from "@easyfix/console-ui";
 
 <div className="flex flex-col gap-2">
-  <Label htmlFor="username">用户名</Label>
-  <Input id="username" placeholder="用户名" />
+  <Label htmlFor="demo-username">用户名</Label>
+  <Input id="demo-username" placeholder="用户名" />
+  <Label htmlFor="demo-email">邮箱地址</Label>
+  <Input id="demo-email" placeholder="邮箱" type="email" />
 </div>`}
       >
         <div className="flex flex-col gap-4">
@@ -79,5 +83,6 @@ export default function LabelDoc() {
       <h2 className="font-heading text-xl font-semibold">Label API</h2>
       <PropsTable data={propsData} />
     </div>
+    </ComponentDocPage>
   );
 }

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Cascader, type CascaderOption } from "@easyfix/console-ui";
 import { ComponentDemo } from "@/components/ComponentDemo";
 import { PropsTable } from "@/components/PropsTable";
+import { ComponentDocPage } from "@/components/ComponentDocPage";
 
 const regionOptions: CascaderOption[] = [
   {
@@ -60,6 +61,7 @@ const propsData = [
   { name: "changeOnSelect", type: "boolean", default: "false", description: "是否允许选择非叶子节点时立即触发变更" },
   { name: "size", type: '"sm" | "default" | "lg"', default: '"default"', description: "触发器尺寸" },
   { name: "disabled", type: "boolean", default: "false", description: "是否禁用" },
+  { name: "clearable", type: "boolean", default: "true", description: "是否显示清除按钮" },
   { name: "className", type: "string", description: "自定义样式类名" },
 ];
 
@@ -99,6 +101,7 @@ function ChangeOnSelectDemo() {
 
 export default function CascaderDoc() {
   return (
+    <ComponentDocPage>
     <div className="space-y-8">
       <div>
         <h1 className="font-heading text-3xl font-bold">
@@ -112,24 +115,15 @@ export default function CascaderDoc() {
       <ComponentDemo
         title="层级选择"
         description="按列展开层级，选择叶子节点后关闭弹层。"
-        code={`const options = [
-  {
-    value: "china",
-    label: "中国",
-    children: [
-      {
-        value: "guangdong",
-        label: "广东",
-        children: [{ value: "shenzhen", label: "深圳" }],
-      },
-    ],
-  },
-];
+        code={`const [value, setValue] = useState<string[]>([]);
+const options = regionOptions;
 
 <Cascader
   value={value}
   onValueChange={setValue}
-  options={options}
+  options={regionOptions}
+  placeholder="选择区域"
+  clearable
 />`}
       >
         <BasicDemo />
@@ -141,7 +135,8 @@ export default function CascaderDoc() {
         code={`<Cascader
   value={value}
   onValueChange={setValue}
-  options={options}
+  options={regionOptions}
+  placeholder="选择到任意层级"
   changeOnSelect
 />`}
       >
@@ -151,7 +146,7 @@ export default function CascaderDoc() {
       <ComponentDemo
         title="禁用状态"
         description="设置 disabled 禁用级联选择"
-        code={`<Cascader disabled options={options} placeholder="不可选择" />`}
+        code={`<Cascader disabled options={regionOptions} placeholder="不可选择" />`}
       >
         <div className="w-80">
           <Cascader
@@ -167,5 +162,6 @@ export default function CascaderDoc() {
       </h2>
       <PropsTable data={propsData} />
     </div>
+    </ComponentDocPage>
   );
 }

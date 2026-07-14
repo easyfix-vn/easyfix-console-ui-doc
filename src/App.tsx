@@ -30,7 +30,7 @@ import {
   SettingsIcon,
   Sun,
 } from "lucide-react";
-import { Suspense } from "react";
+import { Suspense, useEffect } from "react";
 import { NavLink, useLocation, useRoutes } from "react-router-dom";
 import { useAppConfig } from "./providers/AppConfigProvider";
 import { navGroups, routes } from "./router";
@@ -73,12 +73,13 @@ function ThemeSwitcher() {
 
 function OverviewLink() {
   const location = useLocation();
-  const isActive = location.pathname === "/";
+  const isActive =
+    location.pathname === "/" || location.pathname === "/组件预览";
   return (
-    <SidebarMenuButton asChild isActive={isActive} tooltip="概览">
+    <SidebarMenuButton asChild isActive={isActive} tooltip="Overview">
       <NavLink to="/" end className="inline-flex items-center gap-2">
         <Home className="size-4" />
-        <span>概览</span>
+        <span>Overview</span>
       </NavLink>
     </SidebarMenuButton>
   );
@@ -208,7 +209,12 @@ function DocsSidebar() {
 }
 
 export function App() {
+  const location = useLocation();
   const element = useRoutes(routes);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }, [location.pathname]);
 
   return (
     <SidebarProvider defaultOpen>

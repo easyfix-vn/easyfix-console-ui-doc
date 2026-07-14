@@ -6,6 +6,7 @@ import {
 
 import { ComponentDemo } from "@/components/ComponentDemo";
 import { PropsTable } from "@/components/PropsTable";
+import { ComponentDocPage } from "@/components/ComponentDocPage";
 
 const previewCardPropsData = [
   {
@@ -43,13 +44,14 @@ const previewCardPopupPropsData = [
 
 export default function PreviewCardDoc() {
   return (
+    <ComponentDocPage>
     <div className="space-y-10">
       <div>
         <h1 className="font-heading text-3xl font-bold">
           PreviewCard 预览卡片
         </h1>
         <p className="mt-2 text-muted-foreground">
-          在触发元素悬停时显示上下文预览，适用于链接和资料摘要。
+          悬停触发时显示上下文预览。
         </p>
       </div>
 
@@ -64,15 +66,15 @@ export default function PreviewCardDoc() {
 
 <PreviewCard>
   <PreviewCardTrigger
-    render={<a href="https://github.com" target="_blank" rel="noreferrer" />}
+    render={<a href="https://easyfix.vn" target="_blank" rel="noreferrer" />}
   >
-    GitHub
+    Easyfix 官网
   </PreviewCardTrigger>
   <PreviewCardPopup>
     <div className="space-y-2">
-      <p className="font-medium">GitHub</p>
+      <p className="font-medium">Easyfix 官网</p>
       <p className="text-sm text-muted-foreground">
-        全球最大的代码托管平台，为开发者提供代码协作和版本管理服务。
+        Easyfix 官方网站，提供产品与服务信息。
       </p>
     </div>
   </PreviewCardPopup>
@@ -83,19 +85,19 @@ export default function PreviewCardDoc() {
             render={
               <a
                 className="font-medium text-primary underline underline-offset-4"
-                href="https://github.com"
+                href="https://easyfix.vn"
                 rel="noreferrer"
                 target="_blank"
               />
             }
           >
-            GitHub
+            Easyfix 官网
           </PreviewCardTrigger>
           <PreviewCardPopup>
             <div className="space-y-2">
-              <p className="font-medium">GitHub</p>
+              <p className="font-medium">Easyfix 官网</p>
               <p className="text-sm text-muted-foreground">
-                全球最大的代码托管平台，为开发者提供代码协作和版本管理服务。
+                Easyfix 官方网站，提供产品与服务信息。
               </p>
             </div>
           </PreviewCardPopup>
@@ -113,7 +115,7 @@ export default function PreviewCardDoc() {
 
 <PreviewCard>
   <PreviewCardTrigger
-    render={<a href="#" />}
+    render={<a href="https://easyfix.vn" />}
   >
     @easyfix
   </PreviewCardTrigger>
@@ -136,7 +138,7 @@ export default function PreviewCardDoc() {
             render={
               <a
                 className="font-medium text-primary underline underline-offset-4"
-                href="#"
+                href="https://easyfix.vn"
               />
             }
           >
@@ -168,5 +170,6 @@ export default function PreviewCardDoc() {
         <PropsTable data={previewCardPopupPropsData} />
       </div>
     </div>
+    </ComponentDocPage>
   );
 }

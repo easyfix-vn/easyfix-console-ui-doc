@@ -3,10 +3,12 @@ import { EasyInput, EasyPasswordInput, Input } from "@easyfix/console-ui";
 import { LockIcon, MailIcon, SearchIcon, UserIcon } from "lucide-react";
 import { ComponentDemo } from "@/components/ComponentDemo";
 import { PropsTable } from "@/components/PropsTable";
+import { ComponentDocPage } from "@/components/ComponentDocPage";
 
 const inputPropsData = [
   { name: "size", type: '"sm" | "default" | "lg"', default: '"default"', description: "输入框尺寸" },
   { name: "placeholder", type: "string", description: "占位文本" },
+  { name: "maxLength", type: "number", description: "字数软限制：允许超出输入，超出时标记错误并阻止原生 form 提交" },
   { name: "disabled", type: "boolean", default: "false", description: "是否禁用" },
   { name: "type", type: "string", default: '"text"', description: "输入框类型" },
   { name: "className", type: "string", description: "自定义样式类名" },
@@ -15,8 +17,9 @@ const inputPropsData = [
 const easyInputPropsData = [
   { name: "prefix", type: "ReactNode", description: "前置插槽（图标 / 文字）" },
   { name: "suffix", type: "ReactNode", description: "后置插槽（图标 / 单位 / 按钮）" },
+  { name: "tips", type: "ReactNode", description: "输入框下方的提示内容（支持文本或 JSX）" },
   { name: "allowClear", type: "boolean", default: "false", description: "是否在有内容时显示清除按钮" },
-  { name: "maxLength", type: "number", description: "字数限制" },
+  { name: "maxLength", type: "number", description: "字数软限制：允许超出输入，超出时标记错误并阻止原生 form 提交" },
   { name: "showCount", type: "boolean", default: "false", description: "是否显示当前字数（与 maxLength 配合）" },
   { name: "onClear", type: "() => void", description: "清除操作回调" },
 ];
@@ -24,8 +27,9 @@ const easyInputPropsData = [
 const passwordInputPropsData = [
   { name: "defaultVisible", type: "boolean", default: "false", description: "默认是否可见" },
   { name: "prefix", type: "ReactNode", description: "前置插槽" },
+  { name: "tips", type: "ReactNode", description: "输入框下方的提示内容" },
   { name: "allowClear", type: "boolean", default: "false", description: "是否可清除" },
-  { name: "maxLength / showCount", type: "number / boolean", description: "字数限制与字数显示（继承自 EasyInput）" },
+  { name: "maxLength / showCount", type: "number / boolean", description: "字数软限制与字数显示（继承自 EasyInput）" },
 ];
 
 function ClearableDemo() {
@@ -64,6 +68,7 @@ function PasswordDemo() {
 
 export default function InputDoc() {
   return (
+    <ComponentDocPage>
     <div className="space-y-8">
       <div>
         <h1 className="font-heading text-3xl font-bold">Input 输入框</h1>
@@ -123,6 +128,30 @@ import { UserIcon, MailIcon, SearchIcon } from "lucide-react";
       </ComponentDemo>
 
       <ComponentDemo
+        title="下方提示 (tips)"
+        description="通过 tips 设置输入框下方的统一提示区域，支持文本或 JSX 内容。"
+        code={`<EasyInput
+  placeholder="用户名"
+  tips="请输入 6-20 位字符"
+ />
+<EasyInput
+  placeholder="邮箱"
+  tips={<span>我们不会公开您的邮箱</span>}
+ />`}
+      >
+        <div className="flex w-full flex-col gap-3">
+          <EasyInput
+            placeholder="用户名"
+            tips="请输入 6-20 位字符"
+          />
+          <EasyInput
+            placeholder="邮箱"
+            tips={<span>我们不会公开您的邮箱</span>}
+          />
+        </div>
+      </ComponentDemo>
+
+      <ComponentDemo
         title="可清除 (allowClear)"
         description="输入框有内容时显示清除按钮"
         code={`<EasyInput
@@ -137,7 +166,7 @@ import { UserIcon, MailIcon, SearchIcon } from "lucide-react";
 
       <ComponentDemo
         title="字数限制与字数显示"
-        description="通过 maxLength + showCount 同时限制输入与显示当前字数"
+        description="maxLength 允许继续输入超限内容；showCount 会显示当前字数，超限时使用错误样式，并阻止原生 form 提交。"
         code={`<EasyInput
   defaultValue="hello"
   placeholder="最多输入 20 字"
@@ -173,5 +202,6 @@ import { LockIcon } from "lucide-react";
       <h2 className="font-heading text-xl font-semibold">EasyPasswordInput API（继承 EasyInput 全部属性）</h2>
       <PropsTable data={passwordInputPropsData} />
     </div>
+    </ComponentDocPage>
   );
 }

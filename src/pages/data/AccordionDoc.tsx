@@ -7,6 +7,7 @@ import {
 
 import { ComponentDemo } from "@/components/ComponentDemo";
 import { PropsTable } from "@/components/PropsTable";
+import { ComponentDocPage } from "@/components/ComponentDocPage";
 
 const accordionPropsData = [
   {
@@ -46,6 +47,7 @@ const componentList = [
 
 export default function AccordionDoc() {
   return (
+    <ComponentDocPage>
     <div className="space-y-8">
       <div>
         <h1 className="font-heading text-3xl font-bold">Accordion 手风琴</h1>
@@ -182,5 +184,6 @@ export default function AccordionDoc() {
         </div>
       </div>
     </div>
+    </ComponentDocPage>
   );
 }

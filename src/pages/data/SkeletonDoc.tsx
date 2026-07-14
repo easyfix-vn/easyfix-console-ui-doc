@@ -1,6 +1,7 @@
 import { Skeleton } from "@easyfix/console-ui";
 import { ComponentDemo } from "@/components/ComponentDemo";
 import { PropsTable } from "@/components/PropsTable";
+import { ComponentDocPage } from "@/components/ComponentDocPage";
 
 function BasicDemo() {
   return (
@@ -48,6 +49,7 @@ const propsData = [
 
 export default function SkeletonDoc() {
   return (
+    <ComponentDocPage>
     <div className="space-y-8">
       <div>
         <h1 className="font-heading text-3xl font-bold">Skeleton 骨架屏</h1>
@@ -102,5 +104,6 @@ export default function SkeletonDoc() {
       </p>
       <PropsTable data={propsData} />
     </div>
+    </ComponentDocPage>
   );
 }

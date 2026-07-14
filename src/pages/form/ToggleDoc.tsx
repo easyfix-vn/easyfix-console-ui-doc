@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { ComponentDemo } from "@/components/ComponentDemo";
 import { PropsTable } from "@/components/PropsTable";
+import { ComponentDocPage } from "@/components/ComponentDocPage";
 
 function BasicDemo() {
   const [pressed, setPressed] = useState(false);
@@ -186,6 +187,7 @@ const groupPropsData = [
 
 export default function ToggleDoc() {
   return (
+    <ComponentDocPage>
     <div className="space-y-8">
       <div>
         <h1 className="font-heading text-3xl font-bold">Toggle 切换按钮</h1>
@@ -281,5 +283,6 @@ export default function ToggleDoc() {
       </p>
       <PropsTable data={groupPropsData} />
     </div>
+    </ComponentDocPage>
   );
 }

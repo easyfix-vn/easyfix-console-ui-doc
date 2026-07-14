@@ -13,6 +13,7 @@ import {
 
 import { ComponentDemo } from "@/components/ComponentDemo";
 import { PropsTable } from "@/components/PropsTable";
+import { ComponentDocPage } from "@/components/ComponentDocPage";
 
 const sheetPopupPropsData = [
   {
@@ -68,11 +69,12 @@ const sides = ["right", "left", "top", "bottom"] as const;
 
 export default function SheetDoc() {
   return (
+    <ComponentDocPage>
     <div className="space-y-10">
       <div>
         <h1 className="font-heading text-3xl font-bold">Sheet 侧边抽屉</h1>
         <p className="mt-2 text-muted-foreground">
-          从视口边缘滑出的面板，适用于表单编辑和详情查看等上下文操作。
+          侧边抽屉，适合表单编辑和详情查看。
         </p>
       </div>
 
@@ -96,7 +98,11 @@ export default function SheetDoc() {
       <SheetDescription>维护应用配置。</SheetDescription>
     </SheetHeader>
     <SheetPanel>
-      <p>这里是抽屉的主要内容区域。</p>
+      <div className="space-y-4">
+        <p className="text-sm text-muted-foreground">
+          抽屉主体区域可承载表单或其他内容。
+        </p>
+      </div>
     </SheetPanel>
     <SheetFooter>
       <SheetClose render={<Button variant="outline" />}>取消</SheetClose>
@@ -150,6 +156,11 @@ export default function SheetDoc() {
       <SheetTitle>左侧抽屉</SheetTitle>
       <SheetDescription>从左侧滑入的抽屉面板。</SheetDescription>
     </SheetHeader>
+    <SheetPanel>
+      <p className="text-sm text-muted-foreground">
+        这是一个从 left 方向弹出的抽屉示例。
+      </p>
+    </SheetPanel>
   </SheetPopup>
 </Sheet>`}
       >
@@ -189,5 +200,6 @@ export default function SheetDoc() {
         <PropsTable data={sheetPopupPropsData} />
       </div>
     </div>
+    </ComponentDocPage>
   );
 }

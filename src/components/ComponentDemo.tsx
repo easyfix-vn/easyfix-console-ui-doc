@@ -1,8 +1,8 @@
-import { useState, type ReactNode } from "react";
+import { useId, useState, type ReactNode } from "react";
 import { CodeBlock } from "./CodeBlock";
 
 type ComponentDemoProps = {
-  title?: string;
+  title?: ReactNode;
   description?: string;
   code: string;
   children: ReactNode;
@@ -17,6 +17,7 @@ export function ComponentDemo({
   language,
 }: ComponentDemoProps) {
   const [showCode, setShowCode] = useState(false);
+  const codeId = useId();
 
   return (
     <div className="rounded-xl border">
@@ -33,6 +34,8 @@ export function ComponentDemo({
       </div>
       <div className="border-t">
         <button
+          aria-controls={codeId}
+          aria-expanded={showCode}
           type="button"
           onClick={() => setShowCode(!showCode)}
           className="flex w-full items-center justify-center gap-1.5 py-2 text-xs text-muted-foreground transition-colors hover:text-foreground"
@@ -40,7 +43,7 @@ export function ComponentDemo({
           {showCode ? "隐藏代码" : "查看代码"}
         </button>
         {showCode && (
-          <div className="border-t">
+          <div className="border-t" id={codeId}>
             <CodeBlock code={code} language={language} />
           </div>
         )}

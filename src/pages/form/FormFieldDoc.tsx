@@ -11,6 +11,7 @@ import {
 
 import { ComponentDemo } from "@/components/ComponentDemo";
 import { PropsTable } from "@/components/PropsTable";
+import { ComponentDocPage } from "@/components/ComponentDocPage";
 
 const fieldPropsData = [
   {
@@ -49,6 +50,7 @@ const componentList = [
 
 export default function FormFieldDoc() {
   return (
+    <ComponentDocPage>
     <div className="space-y-8">
       <div>
         <h1 className="font-heading text-3xl font-bold">Form & Field 表单</h1>
@@ -198,5 +200,6 @@ export default function FormFieldDoc() {
         </div>
       </div>
     </div>
+    </ComponentDocPage>
   );
 }

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { EasyLocaleSwitch } from "@easyfix/console-ui";
 import { ComponentDemo } from "@/components/ComponentDemo";
 import { PropsTable } from "@/components/PropsTable";
+import { ComponentDocPage } from "@/components/ComponentDocPage";
 
 function LocaleSwitchDefault() {
   const [locale, setLocale] = useState<string>("zh-CN");
@@ -98,6 +99,7 @@ const optionData = [
 
 export default function LocaleSwitchDoc() {
   return (
+    <ComponentDocPage>
     <div className="space-y-10">
       <div>
         <h1 className="font-heading text-3xl font-bold">
@@ -149,17 +151,10 @@ function MyApp() {
       <ComponentDemo
         title="胶囊尺寸"
         description="胶囊模式基于 SegmentedControl 渲染，size 控制整体高度、内边距和图标尺寸。"
-        code={`<EasyLocaleSwitch
-  value={locale}
-  onChange={setLocale}
-  size="xs"
-/>
-
-<EasyLocaleSwitch
-  value={locale}
-  onChange={setLocale}
-  size="lg"
-/>`}
+        code={`<EasyLocaleSwitch value={locale} onChange={setLocale} size="xs" />
+<EasyLocaleSwitch value={locale} onChange={setLocale} size="sm" />
+<EasyLocaleSwitch value={locale} onChange={setLocale} size="md" />
+<EasyLocaleSwitch value={locale} onChange={setLocale} size="lg" />`}
       >
         <LocaleSwitchSizes />
       </ComponentDemo>
@@ -174,5 +169,6 @@ function MyApp() {
         <PropsTable data={optionData} />
       </div>
     </div>
+    </ComponentDocPage>
   );
 }

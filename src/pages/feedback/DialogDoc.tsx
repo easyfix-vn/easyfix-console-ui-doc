@@ -13,6 +13,7 @@ import {
 
 import { ComponentDemo } from "@/components/ComponentDemo";
 import { PropsTable } from "@/components/PropsTable";
+import { ComponentDocPage } from "@/components/ComponentDocPage";
 
 const dialogPropsData = [
   {
@@ -69,6 +70,7 @@ const footerPropsData = [
 
 export default function DialogDoc() {
   return (
+    <ComponentDocPage>
     <div className="space-y-10">
       <div>
         <h1 className="font-heading text-3xl font-bold">Dialog 对话框</h1>
@@ -351,6 +353,11 @@ export default function DialogDoc() {
         遮罩和 Escape 均不会关闭对话框。
       </DialogDescription>
     </DialogHeader>
+    <DialogPanel>
+      <p className="text-sm text-muted-foreground">
+        适用于流程性、强提交场景，避免误关导致用户输入丢失。
+      </p>
+    </DialogPanel>
     <DialogFooter>
       <DialogClose render={<Button />}>我已确认</DialogClose>
     </DialogFooter>
@@ -447,5 +454,6 @@ export default function DialogDoc() {
         <PropsTable data={footerPropsData} />
       </div>
     </div>
+    </ComponentDocPage>
   );
 }

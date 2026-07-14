@@ -2,6 +2,7 @@ import { useState } from "react";
 import { CheckboxGroup, CheckboxGroupItem } from "@easyfix/console-ui";
 import { ComponentDemo } from "@/components/ComponentDemo";
 import { PropsTable } from "@/components/PropsTable";
+import { ComponentDocPage } from "@/components/ComponentDocPage";
 
 const propsData = [
   {
@@ -129,6 +130,7 @@ function DefaultValueDemo() {
 
 export default function CheckboxGroupDoc() {
   return (
+    <ComponentDocPage>
     <div className="space-y-8">
       <div>
         <h1 className="font-heading text-3xl font-bold">
@@ -225,5 +227,6 @@ const [value, setValue] = useState<string[]>([]);
       </h2>
       <PropsTable data={itemPropsData} />
     </div>
+    </ComponentDocPage>
   );
 }

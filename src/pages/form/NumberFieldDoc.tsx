@@ -9,6 +9,7 @@ import {
 } from "@easyfix/console-ui";
 import { ComponentDemo } from "@/components/ComponentDemo";
 import { PropsTable } from "@/components/PropsTable";
+import { ComponentDocPage } from "@/components/ComponentDocPage";
 
 function BasicDemo() {
   const [value, setValue] = useState<number | null>(0);
@@ -129,6 +130,7 @@ const scrubAreaPropsData = [
 
 export default function NumberFieldDoc() {
   return (
+    <ComponentDocPage>
     <div className="space-y-8">
       <div>
         <h1 className="font-heading text-3xl font-bold">
@@ -233,5 +235,6 @@ const [value, setValue] = useState<number | null>(50);
         <PropsTable data={scrubAreaPropsData} />
       </div>
     </div>
+    </ComponentDocPage>
   );
 }

@@ -7,6 +7,7 @@ import {
 import { useState } from "react";
 import { ComponentDemo } from "@/components/ComponentDemo";
 import { PropsTable } from "@/components/PropsTable";
+import { ComponentDocPage } from "@/components/ComponentDocPage";
 
 function BasicRangePicker() {
   const [range, setRange] = useState<DateRangeValue | undefined>();
@@ -178,15 +179,14 @@ const propsData = [
 
 export default function DateRangePickerDoc() {
   return (
+    <ComponentDocPage>
     <div className="space-y-8">
       <div>
         <h1 className="font-heading text-3xl font-bold">
           DateRangePicker 日期范围选择器
         </h1>
         <p className="mt-2 text-muted-foreground">
-          统一的日期范围选择组件。通过{" "}
-          <code className="rounded bg-muted px-1.5 py-0.5 text-xs font-mono">showTime</code>{" "}
-          属性可在日期范围基础上追加时间选择。
+          日期范围选择器，支持日期、时间和时区配置。
         </p>
       </div>
 
@@ -233,7 +233,8 @@ const [timestamps, setTimestamps] = useState<TimestampRangeValue | undefined>();
       <ComponentDemo
         title="自定义快捷项"
         description="shortcuts 可覆盖默认快捷项，回调参数提供当前时区下的 dayjs now"
-        code={`const shortcuts = [
+        code={`const [range, setRange] = useState<DateRangeValue | undefined>();
+const shortcuts = [
   {
     label: "近 14 天",
     getRange: ({ now }) => ({
@@ -241,9 +242,17 @@ const [timestamps, setTimestamps] = useState<TimestampRangeValue | undefined>();
       to: now.endOf("day").toDate(),
     }),
   },
+  {
+    label: "本季度",
+    getRange: ({ now }) => {
+      const quarterStartMonth = Math.floor(now.month() / 3) * 3;
+      const from = now.month(quarterStartMonth).startOf("month");
+      return { from: from.toDate(), to: now.endOf("day").toDate() };
+    },
+  },
 ];
 
-<DateRangePicker shortcuts={shortcuts} />`}
+<DateRangePicker value={range} onChange={setRange} shortcuts={shortcuts} />`}
       >
         <CustomShortcutsRangePicker />
       </ComponentDemo>
@@ -251,7 +260,12 @@ const [timestamps, setTimestamps] = useState<TimestampRangeValue | undefined>();
       <ComponentDemo
         title="禁用状态"
         description="设置 disabled 禁用范围选择"
-        code={`<DateRangePicker disabled value={{ from: new Date(2026, 4, 1), to: new Date(2026, 4, 15) }} />`}
+        code={`const [range, setRange] = useState<DateRangeValue | undefined>({
+  from: new Date(2026, 4, 1),
+  to: new Date(2026, 4, 15),
+});
+
+<DateRangePicker value={range} onChange={setRange} disabled />`}
       >
         <DisabledRangePicker />
       </ComponentDemo>
@@ -259,5 +273,6 @@ const [timestamps, setTimestamps] = useState<TimestampRangeValue | undefined>();
       <h2 className="font-heading text-xl font-semibold">API</h2>
       <PropsTable data={propsData} />
     </div>
+    </ComponentDocPage>
   );
 }

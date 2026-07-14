@@ -33,8 +33,10 @@ const RadioCardsDoc = lazy(() => import("@/pages/form/RadioCardsDoc"));
 const CheckboxCardsDoc = lazy(() => import("@/pages/form/CheckboxCardsDoc"));
 const SelectDoc = lazy(() => import("@/pages/form/SelectDoc"));
 const PasswordInputDoc = lazy(() => import("@/pages/form/PasswordInputDoc"));
+const I18nInputDoc = lazy(() => import("@/pages/form/I18nInputDoc"));
 const SwitchDoc = lazy(() => import("@/pages/form/SwitchDoc"));
 const FormFieldDoc = lazy(() => import("@/pages/form/FormFieldDoc"));
+const ImageUploadDoc = lazy(() => import("@/pages/form/ImageUploadDoc"));
 const TextareaDoc = lazy(() => import("@/pages/form/TextareaDoc"));
 const SliderDoc = lazy(() => import("@/pages/form/SliderDoc"));
 const RadioGroupDoc = lazy(() => import("@/pages/form/RadioGroupDoc"));
@@ -129,6 +131,7 @@ export const navGroups: NavGroup[] = [
       { label: "Textarea 多行文本框", path: "/form/textarea" },
       { label: "NumberField 数字输入框", path: "/form/number-field" },
       { label: "PasswordInput 密码输入", path: "/form/password-input" },
+      { label: "I18nInput 多语言输入", path: "/form/i18n-input" },
       { label: "GlobalPhoneInput 国际手机", path: "/form/global-phone-input" },
       { label: "PriceInput 金额输入框", path: "/form/price-input" },
       { label: "OTPField 验证码输入框", path: "/form/otp-field" },
@@ -158,6 +161,7 @@ export const navGroups: NavGroup[] = [
       { label: "CheckboxGroup 复选组", path: "/form/checkbox-group" },
       { label: "Checkbox Cards 复选卡片", path: "/form/checkbox-cards" },
       { label: "Form & Field 表单", path: "/form/form-field" },
+      { label: "ImageUpload 图片上传", path: "/form/image-upload" },
     ],
   },
   {
@@ -208,6 +212,7 @@ export const navGroups: NavGroup[] = [
 
 export const routes: RouteObject[] = [
   { index: true, element: <Overview /> },
+  { path: "组件预览", element: <Overview /> },
   { path: "quick-start", element: <QuickStart /> },
   { path: "config-provider", element: <ConfigProviderDoc /> },
 
@@ -238,8 +243,10 @@ export const routes: RouteObject[] = [
   { path: "form/radio-cards", element: <RadioCardsDoc /> },
   { path: "form/checkbox-cards", element: <CheckboxCardsDoc /> },
   { path: "form/password-input", element: <PasswordInputDoc /> },
+  { path: "form/i18n-input", element: <I18nInputDoc /> },
   { path: "form/switch", element: <SwitchDoc /> },
   { path: "form/form-field", element: <FormFieldDoc /> },
+  { path: "form/image-upload", element: <ImageUploadDoc /> },
   { path: "form/textarea", element: <TextareaDoc /> },
   { path: "form/slider", element: <SliderDoc /> },
   { path: "form/radio-group", element: <RadioGroupDoc /> },

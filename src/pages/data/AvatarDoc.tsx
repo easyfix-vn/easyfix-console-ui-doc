@@ -2,6 +2,7 @@ import { Avatar, AvatarImage, AvatarFallback } from "@easyfix/console-ui";
 
 import { ComponentDemo } from "@/components/ComponentDemo";
 import { PropsTable } from "@/components/PropsTable";
+import { ComponentDocPage } from "@/components/ComponentDocPage";
 import logoSvg from "@/assets/easyfix_icon_c_2025.svg";
 
 const avatarPropsData = [
@@ -50,6 +51,7 @@ const fallbackPropsData = [
 
 export default function AvatarDoc() {
   return (
+    <ComponentDocPage>
     <div className="space-y-10">
       <div>
         <h1 className="font-heading text-3xl font-bold">Avatar 头像</h1>
@@ -74,10 +76,10 @@ export default function AvatarDoc() {
         title="图片头像"
         description="通过 AvatarImage 设置头像图片，图片加载失败时会显示 AvatarFallback 内容。"
         code={`import { Avatar, AvatarImage, AvatarFallback } from "@easyfix/console-ui";
-import logo from "@/assets/easyfix_icon_c_2025.svg";
+import logoSvg from "@/assets/easyfix_icon_c_2025.svg";
 
 <Avatar>
-  <AvatarImage src={logo} alt="Easyfix" />
+<AvatarImage src={logoSvg} alt="Easyfix" />
   <AvatarFallback>EF</AvatarFallback>
 </Avatar>`}
       >
@@ -119,22 +121,22 @@ import logo from "@/assets/easyfix_icon_c_2025.svg";
         title="不同尺寸"
         description="通过 className 设置 size-* 来控制头像大小。"
         code={`import { Avatar, AvatarImage, AvatarFallback } from "@easyfix/console-ui";
-import logo from "@/assets/easyfix_icon_c_2025.svg";
+import logoSvg from "@/assets/easyfix_icon_c_2025.svg";
 
 <Avatar className="size-8">
-  <AvatarImage src={logo} alt="Easyfix" />
+  <AvatarImage src={logoSvg} alt="Easyfix" />
   <AvatarFallback>EF</AvatarFallback>
 </Avatar>
 <Avatar className="size-10">
-  <AvatarImage src={logo} alt="Easyfix" />
+  <AvatarImage src={logoSvg} alt="Easyfix" />
   <AvatarFallback>EF</AvatarFallback>
 </Avatar>
 <Avatar className="size-12">
-  <AvatarImage src={logo} alt="Easyfix" />
+  <AvatarImage src={logoSvg} alt="Easyfix" />
   <AvatarFallback>EF</AvatarFallback>
 </Avatar>
 <Avatar className="size-16">
-  <AvatarImage src={logo} alt="Easyfix" />
+  <AvatarImage src={logoSvg} alt="Easyfix" />
   <AvatarFallback>EF</AvatarFallback>
 </Avatar>`}
       >
@@ -171,5 +173,6 @@ import logo from "@/assets/easyfix_icon_c_2025.svg";
         <PropsTable data={fallbackPropsData} />
       </div>
     </div>
+    </ComponentDocPage>
   );
 }

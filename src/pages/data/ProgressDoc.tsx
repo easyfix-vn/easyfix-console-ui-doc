@@ -8,6 +8,7 @@ import {
 } from "@easyfix/console-ui";
 import { ComponentDemo } from "@/components/ComponentDemo";
 import { PropsTable } from "@/components/PropsTable";
+import { ComponentDocPage } from "@/components/ComponentDocPage";
 
 function BasicDemo() {
   return <Progress value={45} />;
@@ -104,6 +105,7 @@ const propsData = [
 
 export default function ProgressDoc() {
   return (
+    <ComponentDocPage>
     <div className="space-y-8">
       <div>
         <h1 className="font-heading text-3xl font-bold">Progress 进度条</h1>
@@ -150,7 +152,9 @@ export default function ProgressDoc() {
       <ComponentDemo
         title="不同状态"
         description="ProgressIndicator 的 className 定义状态颜色。"
-        code={`<Progress value={100}>
+        code={`<Progress value={60} />
+
+<Progress value={100}>
   <ProgressTrack>
     <ProgressIndicator className="bg-green-500" />
   </ProgressTrack>
@@ -181,5 +185,6 @@ export default function ProgressDoc() {
       </p>
       <PropsTable data={propsData} />
     </div>
+    </ComponentDocPage>
   );
 }

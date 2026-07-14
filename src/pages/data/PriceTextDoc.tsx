@@ -1,10 +1,29 @@
 import { EasyPriceText } from "@easyfix/console-ui";
 import { ComponentDemo } from "@/components/ComponentDemo";
 import { PropsTable } from "@/components/PropsTable";
+import { ComponentDocPage } from "@/components/ComponentDocPage";
 
 const propsData = [
   { name: "value", type: "string | number | null | undefined", description: "金额值" },
-  { name: "currency", type: "EasyCurrencyCode", default: '"VND"', description: "ISO 4217 三位字母货币代码，如 VND、USD、EUR、CNY" },
+  {
+    name: "currency",
+    type: "EasyCurrencyCode",
+    default: '"VND"',
+    description: (
+      <>
+        ISO 4217 三位字母货币代码，如 VND、USD、EUR、CNY。参考{" "}
+        <a
+          className="text-primary underline-offset-4 hover:underline"
+          href="https://en.wikipedia.org/wiki/ISO_4217"
+          rel="noreferrer"
+          target="_blank"
+        >
+          ISO 4217
+        </a>
+        。
+      </>
+    ),
+  },
   { name: "useGrouping", type: "boolean", default: "true", description: "是否启用千分位" },
   { name: "groupSeparator", type: "string", default: '","', description: "千分位分隔符" },
   { name: "decimalSeparator", type: "string", default: '"."', description: "小数分隔符" },
@@ -29,6 +48,7 @@ const commonCurrencyCodes = [
 
 export default function PriceTextDoc() {
   return (
+    <ComponentDocPage>
     <div className="space-y-8">
       <div>
         <h1 className="font-heading text-3xl font-bold">
@@ -96,14 +116,6 @@ export default function PriceTextDoc() {
       <div className="space-y-3">
         <h2 className="font-heading text-xl font-semibold">常用货币代码</h2>
         <p className="text-sm text-muted-foreground">
-          <a
-            className="text-primary underline-offset-4 hover:underline"
-            href="https://en.wikipedia.org/wiki/ISO_4217"
-            rel="noreferrer"
-            target="_blank"
-          >
-            ISO 4217
-          </a>{" "}
           使用三位字母表示货币；组件内置常用代码的小数位推断，其他三位大写代码也可作为字符串传入。
         </p>
         <div className="overflow-x-auto rounded-lg border">
@@ -133,5 +145,6 @@ export default function PriceTextDoc() {
       </h2>
       <PropsTable data={propsData} />
     </div>
+    </ComponentDocPage>
   );
 }

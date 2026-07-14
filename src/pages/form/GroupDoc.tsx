@@ -12,6 +12,7 @@ import { CopyIcon, LinkIcon, MailIcon, SearchIcon } from "lucide-react";
 
 import { ComponentDemo } from "@/components/ComponentDemo";
 import { PropsTable } from "@/components/PropsTable";
+import { ComponentDocPage } from "@/components/ComponentDocPage";
 
 const groupPropsData = [
   {
@@ -61,6 +62,7 @@ const inputGroupAddonPropsData = [
 
 export default function GroupDoc() {
   return (
+    <ComponentDocPage>
     <div className="space-y-10">
       <div>
         <h1 className="font-heading text-3xl font-bold">Group 组合</h1>
@@ -113,7 +115,7 @@ export default function GroupDoc() {
         code={`import { Group, GroupSeparator, GroupText, Button } from "@easyfix/console-ui";
 
 <Group>
-  <GroupText>https://</GroupText>
+  <GroupText><LinkIcon /> https://</GroupText>
   <GroupSeparator />
   <Button variant="outline">
     <CopyIcon /> 复制链接
@@ -204,5 +206,6 @@ import { SearchIcon, MailIcon } from "lucide-react";
         <PropsTable data={inputGroupAddonPropsData} />
       </div>
     </div>
+    </ComponentDocPage>
   );
 }

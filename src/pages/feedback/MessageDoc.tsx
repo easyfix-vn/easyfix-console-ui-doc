@@ -7,6 +7,7 @@ import {
 import { useState } from "react";
 import { ComponentDemo } from "@/components/ComponentDemo";
 import { PropsTable } from "@/components/PropsTable";
+import { ComponentDocPage } from "@/components/ComponentDocPage";
 
 const POSITIONS: ToastPosition[] = [
   "top-left",
@@ -80,6 +81,7 @@ export default function MessageDoc() {
   const [position, setPosition] = useState<ToastPosition>("top-right");
 
   return (
+    <ComponentDocPage>
     <div className="space-y-10">
       <ToastProvider key={position} position={position} />
 
@@ -185,9 +187,24 @@ const [position, setPosition] = useState<ToastPosition>("top-right");
 function showAt(p: ToastPosition) {
   setPosition(p);
   queueMicrotask(() =>
-    toastManager.add({ title: \`位置：\${p}\`, type: "info" })
+    toastManager.add({
+      title: \`位置：\${p}\`,
+      description: \`消息显示在 \${p}\`,
+      type: "info",
+    })
   );
-}`}
+}
+
+{POSITIONS.map((p) => (
+  <Button
+    key={p}
+    variant={position === p ? "default" : "outline"}
+    size="sm"
+    onClick={() => showAt(p)}
+  >
+    {p}
+  </Button>
+))}`}
       >
         <PositionSelector position={position} onPositionChange={setPosition} />
       </ComponentDemo>
@@ -231,5 +248,6 @@ function showAt(p: ToastPosition) {
         <PropsTable data={propsData} />
       </div>
     </div>
+    </ComponentDocPage>
   );
 }

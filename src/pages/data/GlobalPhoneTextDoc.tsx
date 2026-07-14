@@ -1,6 +1,7 @@
 import { EasyGlobalPhoneText } from "@easyfix/console-ui";
 import { ComponentDemo } from "@/components/ComponentDemo";
 import { PropsTable } from "@/components/PropsTable";
+import { ComponentDocPage } from "@/components/ComponentDocPage";
 
 const propsData = [
   { name: "cc", type: "string", description: "区号，如 \"84\"、\"86\"" },
@@ -13,13 +14,14 @@ const propsData = [
 
 export default function GlobalPhoneTextDoc() {
   return (
+    <ComponentDocPage>
     <div className="space-y-8">
       <div>
         <h1 className="font-heading text-3xl font-bold">
           GlobalPhoneText 手机号展示
         </h1>
         <p className="mt-2 text-muted-foreground">
-          格式化展示国际手机号，支持 International（国际格式，+CC）和 National（国内格式，trunk prefix）两种显示方式，并可开启一键复制。
+          国际手机号格式化展示，支持 International、National 和一键复制。
         </p>
       </div>
 
@@ -87,5 +89,6 @@ export default function GlobalPhoneTextDoc() {
       </h2>
       <PropsTable data={propsData} />
     </div>
+    </ComponentDocPage>
   );
 }

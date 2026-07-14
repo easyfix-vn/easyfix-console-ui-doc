@@ -1,6 +1,7 @@
 import { CopyableText } from "@easyfix/console-ui";
 import { ComponentDemo } from "@/components/ComponentDemo";
 import { PropsTable } from "@/components/PropsTable";
+import { ComponentDocPage } from "@/components/ComponentDocPage";
 
 const sampleToken =
   "sk_live_51Hxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
@@ -70,15 +71,14 @@ const propsData = [
 
 export default function CopyableTextDoc() {
   return (
+    <ComponentDocPage>
     <div className="space-y-10">
       <div>
         <h1 className="font-heading text-3xl font-bold">
           CopyableText 可复制文本
         </h1>
         <p className="mt-2 text-muted-foreground">
-          常用于 ID、Token、链接、JSON 片段等需要一键复制到剪贴板的展示场景。提供
-          inline / block / card 三种视觉变体，复制后会以 ✓ 图标和 tooltip
-          反馈，1.5s 后自动恢复。
+          可复制文本展示组件，支持 inline、block、card 三种变体。
         </p>
       </div>
 
@@ -91,15 +91,16 @@ export default function CopyableTextDoc() {
       >
         <div className="space-y-3">
           <CopyableText value="u_2k9j7m" />
-          <CopyableText value="https://api.easyfix.com/v3/console" />
+          <CopyableText value="https://easyfix.vn/v3/console" />
         </div>
       </ComponentDemo>
 
       <ComponentDemo
         title="Inline：嵌入文本"
         description="悬停时显示复制控件，适合嵌入段落。"
-        code={`<p>
-  当前 commit hash 为 <CopyableText variant="inline" value="3a7c2f9" />。
+code={`<p>
+  当前 commit hash 为 <CopyableText variant="inline" value="3a7c2f9b1e" />，
+  可复制到工单备注。
 </p>`}
       >
         <p className="text-sm">
@@ -145,6 +146,7 @@ export default function CopyableTextDoc() {
           value="ord_20260509_001"
           copyTooltip="复制订单号"
           copiedTooltip="订单号已复制"
+          onCopy={(v) => console.log("copied", v)}
         />
       </ComponentDemo>
 
@@ -153,5 +155,6 @@ export default function CopyableTextDoc() {
         <PropsTable data={propsData} />
       </div>
     </div>
+    </ComponentDocPage>
   );
 }

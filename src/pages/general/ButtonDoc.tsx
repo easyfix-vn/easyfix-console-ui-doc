@@ -3,6 +3,7 @@ import { DownloadIcon, PlusIcon, TrashIcon } from "lucide-react";
 
 import { ComponentDemo } from "@/components/ComponentDemo";
 import { PropsTable } from "@/components/PropsTable";
+import { ComponentDocPage } from "@/components/ComponentDocPage";
 
 const propsData = [
   {
@@ -39,6 +40,7 @@ const propsData = [
 
 export default function ButtonDoc() {
   return (
+    <ComponentDocPage>
     <div className="space-y-10">
       <div>
         <h1 className="font-heading text-3xl font-bold">Button 按钮</h1>
@@ -175,11 +177,11 @@ import { PlusIcon, DownloadIcon, TrashIcon } from "lucide-react";
         description="buttonVariants 为链接等元素复用按钮样式。"
         code={`import { buttonVariants } from "@easyfix/console-ui";
 
-<a href="#" className={buttonVariants({ variant: "outline" })}>
+<a href="https://easyfix.vn" className={buttonVariants({ variant: "outline" })}>
   链接按钮
 </a>`}
       >
-        <a href="#" className={buttonVariants({ variant: "outline" })}>
+        <a href="https://easyfix.vn" className={buttonVariants({ variant: "outline" })}>
           链接按钮
         </a>
       </ComponentDemo>
@@ -189,5 +191,6 @@ import { PlusIcon, DownloadIcon, TrashIcon } from "lucide-react";
         <PropsTable data={propsData} />
       </div>
     </div>
+    </ComponentDocPage>
   );
 }

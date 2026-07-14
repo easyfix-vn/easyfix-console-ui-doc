@@ -1,21 +1,29 @@
-import { EasyConsoleIcon, EasyfixLogoIcon } from "@easyfix/console-ui";
+import { CopyableText, EasyConsoleIcon, EasyfixLogoIcon } from "@easyfix/console-ui";
 import {
   BellIcon,
   HomeIcon,
   SearchIcon,
   SettingsIcon,
   UserIcon,
+  icons,
+  type LucideIcon,
 } from "lucide-react";
 
 import { ComponentDemo } from "@/components/ComponentDemo";
 import { PropsTable } from "@/components/PropsTable";
+import { ComponentDocPage } from "@/components/ComponentDocPage";
 
-const lucideIcons = [
-  { name: "HomeIcon", Icon: HomeIcon },
-  { name: "SettingsIcon", Icon: SettingsIcon },
-  { name: "UserIcon", Icon: UserIcon },
-  { name: "SearchIcon", Icon: SearchIcon },
-  { name: "BellIcon", Icon: BellIcon },
+const commonLucideIcons: Array<[string, LucideIcon]> = [
+  ["Home", HomeIcon],
+  ["Settings", SettingsIcon],
+  ["User", UserIcon],
+  ["Search", SearchIcon],
+  ["Bell", BellIcon],
+];
+
+const allLucideIcons = [
+  ...(Object.entries(icons) as Array<[string, LucideIcon]>),
+  ...commonLucideIcons.filter(([name]) => !(name in icons)),
 ];
 
 const propsData = [
@@ -46,6 +54,7 @@ const propsData = [
 
 export default function IconDoc() {
   return (
+    <ComponentDocPage>
     <div className="space-y-10">
       <div>
         <h1 className="font-heading text-3xl font-bold">Icon 图标</h1>
@@ -79,23 +88,50 @@ export default function IconDoc() {
       </ComponentDemo>
 
       <ComponentDemo
-        title="Lucide 图标"
-        description="lucide-react 提供按需导入的通用图标集。"
-        code={`import { HomeIcon, SettingsIcon, UserIcon, SearchIcon, BellIcon } from "lucide-react";
+        title={`Lucide 图标（全部 ${allLucideIcons.length} 个）`}
+        description="展示 lucide-react 的完整图标集，每个图标都支持复制对应的组件代码。"
+        code={`import { CopyableText } from "@easyfix/console-ui";
+import * as icons from "lucide-react";
 
-<HomeIcon />
-<SettingsIcon />
-<UserIcon />
-<SearchIcon />
-<BellIcon />`}
+const allLucideIcons = Object.entries(icons);
+
+{allLucideIcons.map(([name, Icon]) => {
+  const componentName = \`\${name}Icon\`;
+  const code = \`import { \${componentName} } from "lucide-react";\\n\\n<\${componentName} />\`;
+
+  return (
+    <div key={name}>
+      <Icon className="size-5" />
+      <span>{componentName}</span>
+      <CopyableText value={code} iconOnly size="xs" />
+    </div>
+  );
+})}`}
       >
-        <div className="grid grid-cols-5 gap-6">
-          {lucideIcons.map(({ name, Icon }) => (
-            <div key={name} className="flex flex-col items-center gap-2">
-              <Icon className="h-6 w-6" />
-              <span className="text-xs text-muted-foreground">{name}</span>
-            </div>
-          ))}
+        <div className="grid w-full grid-cols-3 gap-2 sm:grid-cols-5 md:grid-cols-8 lg:grid-cols-10">
+          {allLucideIcons.map(([name, Icon]) => {
+            const componentName = `${name}Icon`;
+            const code = `import { ${componentName} } from "lucide-react";\n\n<${componentName} />`;
+
+            return (
+              <div
+                key={name}
+                className="group flex min-w-0 flex-col items-center gap-1.5 rounded-md border border-transparent p-2 text-center transition-colors hover:border-border hover:bg-muted/50"
+              >
+                <Icon className="size-5 shrink-0" />
+                <span className="w-full truncate text-[11px] text-muted-foreground" title={componentName}>
+                  {componentName}
+                </span>
+                <CopyableText
+                  value={code}
+                  iconOnly
+                  size="xs"
+                  copyTooltip="复制组件"
+                  copiedTooltip="已复制"
+                />
+              </div>
+            );
+          })}
         </div>
       </ComponentDemo>
 
@@ -149,5 +185,6 @@ export default function IconDoc() {
         </p>
       </div>
     </div>
+    </ComponentDocPage>
   );
 }

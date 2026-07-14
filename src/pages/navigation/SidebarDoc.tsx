@@ -40,6 +40,7 @@ import {
 
 import { ComponentDemo } from "@/components/ComponentDemo";
 import { PropsTable } from "@/components/PropsTable";
+import { ComponentDocPage } from "@/components/ComponentDocPage";
 
 const sidebarProviderPropsData = [
   {
@@ -586,12 +587,12 @@ export default function SidebarDoc() {
     "快速开始";
 
   return (
+    <ComponentDocPage>
     <div className="space-y-10">
       <div>
         <h1 className="font-heading text-3xl font-bold">Sidebar 侧边栏</h1>
         <p className="mt-2 text-muted-foreground">
-          可折叠的侧边栏导航组件，由多个子组件组合构成。支持多级菜单、图标模式折叠、移动端抽屉模式等特性，
-          适用于后台管理系统的导航布局。
+          可折叠的侧边栏导航，支持多级菜单、图标模式和移动端抽屉模式。
         </p>
       </div>
 
@@ -979,5 +980,6 @@ export function SidebarWithSubMenu() {
         </div>
       </div>
     </div>
+    </ComponentDocPage>
   );
 }

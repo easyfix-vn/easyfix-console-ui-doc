@@ -12,6 +12,7 @@ import {
 } from "@easyfix/console-ui";
 import { ComponentDemo } from "@/components/ComponentDemo";
 import { PropsTable } from "@/components/PropsTable";
+import { ComponentDocPage } from "@/components/ComponentDocPage";
 
 const alertDialogPropsData = [
   {
@@ -71,6 +72,7 @@ const actionPropsData = [
 
 export default function AlertDialogDoc() {
   return (
+    <ComponentDocPage>
     <div className="space-y-8">
       <div>
         <h1 className="font-heading text-3xl font-bold">
@@ -229,5 +231,6 @@ export default function AlertDialogDoc() {
         <PropsTable data={actionPropsData} />
       </div>
     </div>
+    </ComponentDocPage>
   );
 }

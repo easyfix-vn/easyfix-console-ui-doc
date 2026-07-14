@@ -10,6 +10,7 @@ import {
 } from "@easyfix/console-ui";
 import { ComponentDemo } from "@/components/ComponentDemo";
 import { PropsTable } from "@/components/PropsTable";
+import { ComponentDocPage } from "@/components/ComponentDocPage";
 
 function BasicDemo() {
   return (
@@ -31,8 +32,8 @@ function BasicDemo() {
       <DataListItem>
         <DataListLabel>邮箱</DataListLabel>
         <DataListValue>
-          <a className="text-primary hover:underline" href="mailto:hi@easyfix.com">
-            hi@easyfix.com
+          <a className="text-primary hover:underline" href="mailto:hi@easyfix.vn">
+            hi@easyfix.vn
           </a>
         </DataListValue>
       </DataListItem>
@@ -242,20 +243,12 @@ const valueProps = [
 
 export default function DataListDoc() {
   return (
+    <ComponentDocPage>
     <div className="space-y-10">
       <div>
         <h1 className="font-heading text-3xl font-bold">DataList 数据列表</h1>
         <p className="mt-2 text-muted-foreground">
-          以「键 / 值」对形式展示属性数据，常用于详情面板、设置预览。设计参考{" "}
-          <a
-            className="text-primary hover:underline"
-            href="https://www.radix-ui.com/themes/docs/components/data-list"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Radix Themes DataList
-          </a>
-          。
+          以键值对形式展示属性数据，支持水平、垂直布局和多种尺寸。
         </p>
       </div>
 
@@ -283,9 +276,24 @@ export default function DataListDoc() {
       <ComponentDemo
         title="尺寸 size"
         description="size 定义文本尺寸与行间距：1 紧凑、2 默认、3 宽松。"
-        code={`<DataList size="1">...</DataList>
-<DataList size="2">...</DataList>
-<DataList size="3">...</DataList>`}
+        code={`<div className="grid gap-6 sm:grid-cols-3">
+  {(["1", "2", "3"] as const).map((size) => (
+    <DataList key={size} size={size}>
+      <DataListItem>
+        <DataListLabel>密度</DataListLabel>
+        <DataListValue>size = {size}</DataListValue>
+      </DataListItem>
+      <DataListItem>
+        <DataListLabel>状态</DataListLabel>
+        <DataListValue>正常</DataListValue>
+      </DataListItem>
+      <DataListItem>
+        <DataListLabel>更新时间</DataListLabel>
+        <DataListValue>5 分钟前</DataListValue>
+      </DataListItem>
+    </DataList>
+  ))}
+</div>`}
       >
         <SizeDemo />
       </ComponentDemo>
@@ -293,10 +301,10 @@ export default function DataListDoc() {
       <ComponentDemo
         title="垂直排版"
         description="orientation='vertical' 将 Label 单独成行，适用于长内容。"
-        code={`<DataList orientation="vertical">
+        code={`<DataList orientation="vertical" size="2">
   <DataListItem>
     <DataListLabel>工作描述</DataListLabel>
-    <DataListValue>……</DataListValue>
+    <DataListValue>全栈开发工程师，主要负责 Console UI 组件库与文档站。</DataListValue>
   </DataListItem>
 </DataList>`}
       >
@@ -370,5 +378,6 @@ export default function DataListDoc() {
         <PropsTable data={valueProps} />
       </div>
     </div>
+    </ComponentDocPage>
   );
 }

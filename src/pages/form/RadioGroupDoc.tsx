@@ -2,6 +2,7 @@ import { useState } from "react";
 import { RadioGroup, Radio, Label } from "@easyfix/console-ui";
 import { ComponentDemo } from "@/components/ComponentDemo";
 import { PropsTable } from "@/components/PropsTable";
+import { ComponentDocPage } from "@/components/ComponentDocPage";
 
 function BasicDemo() {
   const [value, setValue] = useState("apple");
@@ -79,6 +80,7 @@ const radioPropsData = [
 
 export default function RadioGroupDoc() {
   return (
+    <ComponentDocPage>
     <div className="space-y-8">
       <div>
         <h1 className="font-heading text-3xl font-bold">RadioGroup 单选组</h1>
@@ -233,5 +235,6 @@ const [value, setValue] = useState("apple");
       </p>
       <PropsTable data={radioPropsData} />
     </div>
+    </ComponentDocPage>
   );
 }

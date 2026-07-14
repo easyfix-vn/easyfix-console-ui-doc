@@ -13,6 +13,7 @@ import {
 import { SearchIcon } from "lucide-react";
 import { ComponentDemo } from "@/components/ComponentDemo";
 import { PropsTable } from "@/components/PropsTable";
+import { ComponentDocPage } from "@/components/ComponentDocPage";
 
 const selectPropsData = [
   { name: "defaultValue", type: "any", description: "默认选中值（非受控）" },
@@ -20,6 +21,7 @@ const selectPropsData = [
   { name: "onValueChange", type: "(value: any) => void", description: "值变化回调" },
   { name: "items", type: "Record<string, ReactNode> | Array<{value, label}>", description: "选项数据映射，用于在未打开弹窗时正确显示选中项标签（通常自动从子组件推断）" },
   { name: "disabled", type: "boolean", default: "false", description: "是否禁用" },
+  { name: "clearable", type: "boolean", default: "true", description: "是否显示清除按钮" },
 ];
 
 const selectItemPropsData = [
@@ -35,7 +37,8 @@ const searchableSelectPropsData = [
   { name: "defaultValue", type: "string | null", description: "默认选中值（非受控）" },
   { name: "onValueChange", type: "(value, option) => void", description: "选中值变化回调" },
   { name: "filter", type: "(option, query) => boolean", description: "自定义搜索函数，返回 true 表示匹配" },
-  { name: "clearable", type: "boolean", default: "false", description: "是否显示清除按钮" },
+  { name: "clearable", type: "boolean", default: "true", description: "是否显示清除按钮" },
+  { name: "popupClassName", type: "string", description: "搜索弹窗自定义样式" },
   { name: "size", type: '"sm" | "default" | "lg"', default: '"default"', description: "触发器尺寸" },
   { name: "startAddon", type: "ReactNode", description: "触发器前置图标或内容" },
   { name: "placeholder", type: "string", default: '"请选择"', description: "未选择时的占位文本" },
@@ -127,6 +130,7 @@ function FuzzySearchDemo() {
 
 export default function SelectDoc() {
   return (
+    <ComponentDocPage>
     <div className="space-y-8">
       <div>
         <h1 className="font-heading text-3xl font-bold">Select 选择器</h1>
@@ -211,6 +215,17 @@ export default function SelectDoc() {
   <SelectPopup>
     <SelectItem value="a">选项 A</SelectItem>
   </SelectPopup>
+</Select>
+
+<Select defaultValue="a">
+  <SelectTrigger>
+    <SelectValue placeholder="选择项" />
+  </SelectTrigger>
+  <SelectPopup>
+    <SelectItem value="a">可选项 A</SelectItem>
+    <SelectItem value="b" disabled>禁用选项 B</SelectItem>
+    <SelectItem value="c">可选项 C</SelectItem>
+  </SelectPopup>
 </Select>`}
       >
         <div className="flex flex-wrap gap-4">
@@ -238,19 +253,19 @@ export default function SelectDoc() {
       <ComponentDemo
         title="搜索选择"
         description="SearchableSelect 继承 Select 视觉风格，支持搜索、分组和清除"
-        code={`const options = [
-  { value: "react", label: "React", group: "前端框架" },
-  { value: "nestjs", label: "NestJS", group: "后端框架" },
-];
+        code={`const [value, setValue] = useState<string | null>(null);
+const selected = frameworkOptions.find((item) => item.value === value);
 
 <SearchableSelect
   value={value}
   onValueChange={setValue}
-  options={options}
+  options={frameworkOptions}
   placeholder="选择框架"
   searchPlaceholder="搜索框架..."
   clearable
-/>`}
+  startAddon={<SearchIcon />}
+/>
+<p>选中：{selected?.label ?? "无"}</p>`}
       >
         <BasicSearchDemo />
       </ComponentDemo>
@@ -270,6 +285,11 @@ export default function SelectDoc() {
   value={value}
   onValueChange={setValue}
   options={cities}
+  placeholder="选择城市"
+  searchPlaceholder="输入城市名或拼音..."
+  emptyText="未找到匹配城市"
+  startAddon={<SearchIcon />}
+  clearable
   filter={(option, query) =>
     fuzzyMatch(option.searchText ?? String(option.label), query)
   }
@@ -287,5 +307,6 @@ export default function SelectDoc() {
       <h2 className="font-heading text-xl font-semibold">SearchableSelect API</h2>
       <PropsTable data={searchableSelectPropsData} />
     </div>
+    </ComponentDocPage>
   );
 }

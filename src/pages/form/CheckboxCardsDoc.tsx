@@ -2,6 +2,7 @@ import { useState } from "react";
 import { CheckboxCards, CheckboxCardItem } from "@easyfix/console-ui";
 import { ComponentDemo } from "@/components/ComponentDemo";
 import { PropsTable } from "@/components/PropsTable";
+import { ComponentDocPage } from "@/components/ComponentDocPage";
 
 function BasicCheckboxCards() {
   const [value, setValue] = useState<string[]>(["monitor"]);
@@ -65,11 +66,12 @@ const checkboxCardItemPropsData = [
 
 export default function CheckboxCardsDoc() {
   return (
+    <ComponentDocPage>
     <div className="space-y-8">
       <div>
         <h1 className="font-heading text-3xl font-bold">CheckboxCards 复选卡片</h1>
         <p className="mt-2 text-muted-foreground">
-          以卡片形式展示的复选组，支持多选，适用于需要突出展示的多选场景。
+          卡片式多选组件，适合需要突出展示的选项。
         </p>
       </div>
 
@@ -131,5 +133,6 @@ const [value, setValue] = useState<string[]>(["monitor"]);
       <h2 className="font-heading text-xl font-semibold">CheckboxCardItem API</h2>
       <PropsTable data={checkboxCardItemPropsData} />
     </div>
+    </ComponentDocPage>
   );
 }

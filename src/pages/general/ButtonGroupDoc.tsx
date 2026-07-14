@@ -1,6 +1,7 @@
 import { EasyButton, EasyButtonGroup } from "@easyfix/console-ui";
 import { ComponentDemo } from "@/components/ComponentDemo";
 import { PropsTable } from "@/components/PropsTable";
+import { ComponentDocPage } from "@/components/ComponentDocPage";
 
 const propsData = [
   {
@@ -24,6 +25,7 @@ const propsData = [
 
 export default function ButtonGroupDoc() {
   return (
+    <ComponentDocPage>
     <div className="space-y-10">
       <div>
         <h1 className="font-heading text-3xl font-bold">
@@ -87,5 +89,6 @@ export default function ButtonGroupDoc() {
         <PropsTable data={propsData} />
       </div>
     </div>
+    </ComponentDocPage>
   );
 }

@@ -1,6 +1,7 @@
 import { Spinner } from "@easyfix/console-ui";
 import { ComponentDemo } from "@/components/ComponentDemo";
 import { PropsTable } from "@/components/PropsTable";
+import { ComponentDocPage } from "@/components/ComponentDocPage";
 
 function BasicDemo() {
   return <Spinner />;
@@ -51,6 +52,7 @@ const propsData = [
 
 export default function SpinnerDoc() {
   return (
+    <ComponentDocPage>
     <div className="space-y-8">
       <div>
         <h1 className="font-heading text-3xl font-bold">Spinner 加载中</h1>
@@ -93,5 +95,6 @@ export default function SpinnerDoc() {
       </p>
       <PropsTable data={propsData} />
     </div>
+    </ComponentDocPage>
   );
 }

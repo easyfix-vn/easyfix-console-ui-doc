@@ -10,6 +10,7 @@ import {
 } from "@easyfix/console-ui";
 import { ComponentDemo } from "@/components/ComponentDemo";
 import { PropsTable } from "@/components/PropsTable";
+import { ComponentDocPage } from "@/components/ComponentDocPage";
 
 const invoices = [
   { id: "INV-001", status: "已付款", method: "微信支付", amount: "¥250.00" },
@@ -46,6 +47,7 @@ const propsData = [
 
 export default function TableDoc() {
   return (
+    <ComponentDocPage>
     <div className="space-y-8">
       <div>
         <h1 className="font-heading text-3xl font-bold">Table 表格</h1>
@@ -117,7 +119,16 @@ export default function TableDoc() {
       <TableHead className="text-right">金额</TableHead>
     </TableRow>
   </TableHeader>
-  <TableBody>...</TableBody>
+  <TableBody>
+    {invoices.map((inv) => (
+      <TableRow key={inv.id}>
+        <TableCell className="font-medium">{inv.id}</TableCell>
+        <TableCell>{inv.status}</TableCell>
+        <TableCell>{inv.method}</TableCell>
+        <TableCell className="text-right">{inv.amount}</TableCell>
+      </TableRow>
+    ))}
+  </TableBody>
   <TableFooter>
     <TableRow>
       <TableCell colSpan={3}>合计</TableCell>
@@ -234,5 +245,6 @@ export default function TableDoc() {
         </div>
       </div>
     </div>
+    </ComponentDocPage>
   );
 }

@@ -16,6 +16,7 @@ import { HomeIcon, LayoutDashboardIcon, SettingsIcon, UsersIcon } from "lucide-r
 
 import { ComponentDemo } from "@/components/ComponentDemo";
 import { PropsTable } from "@/components/PropsTable";
+import { ComponentDocPage } from "@/components/ComponentDocPage";
 
 const menuItems = [
   { icon: HomeIcon, label: "首页", active: true },
@@ -63,12 +64,12 @@ const componentList = [
 
 export default function LayoutDoc() {
   return (
+    <ComponentDocPage>
     <div className="space-y-10">
       <div>
         <h1 className="font-heading text-3xl font-bold">Layout 布局</h1>
         <p className="mt-2 text-muted-foreground">
-          基于 Sidebar 的应用布局系统，提供侧边栏导航 + 主内容区的经典后台布局。
-          通过组合多个子组件灵活构建侧边栏结构。
+          基于 Sidebar 的应用布局，提供侧边栏与主内容区。
         </p>
       </div>
 
@@ -201,5 +202,6 @@ import { HomeIcon, LayoutDashboardIcon, UsersIcon, SettingsIcon } from "lucide-r
         </div>
       </div>
     </div>
+    </ComponentDocPage>
   );
 }

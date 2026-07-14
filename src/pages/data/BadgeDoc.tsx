@@ -1,6 +1,7 @@
 import { Badge } from "@easyfix/console-ui";
 import { ComponentDemo } from "@/components/ComponentDemo";
 import { PropsTable } from "@/components/PropsTable";
+import { ComponentDocPage } from "@/components/ComponentDocPage";
 
 const variants = [
   "default",
@@ -81,6 +82,7 @@ const propsData = [
 
 export default function BadgeDoc() {
   return (
+    <ComponentDocPage>
     <div className="space-y-8">
       <div>
         <h1 className="font-heading text-3xl font-bold">Badge 徽章</h1>
@@ -132,5 +134,6 @@ export default function BadgeDoc() {
       <h2 className="font-heading text-xl font-semibold">API</h2>
       <PropsTable data={propsData} />
     </div>
+    </ComponentDocPage>
   );
 }

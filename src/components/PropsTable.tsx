@@ -1,15 +1,34 @@
+import type { ReactNode } from "react";
+
 type PropDef = {
   name: string;
   type: string;
   default?: string;
-  description: string;
+  description: ReactNode;
 };
 
 type PropsTableProps = {
   data: PropDef[];
 };
 
+function isFunctionProp(prop: PropDef): boolean {
+  return (
+    prop.type.includes("=>") ||
+    /\bFunction\b/.test(prop.type) ||
+    /^on[A-Z]/.test(prop.name)
+  );
+}
+
 export function PropsTable({ data }: PropsTableProps) {
+  const sortedData = data
+    .map((prop, index) => ({ prop, index }))
+    .sort((a, b) => {
+      const functionOrder =
+        Number(isFunctionProp(a.prop)) - Number(isFunctionProp(b.prop));
+      return functionOrder || a.index - b.index;
+    })
+    .map(({ prop }) => prop);
+
   return (
     <div className="overflow-x-auto rounded-lg border">
       <table className="w-full text-sm">
@@ -22,7 +41,7 @@ export function PropsTable({ data }: PropsTableProps) {
           </tr>
         </thead>
         <tbody>
-          {data.map((prop) => (
+          {sortedData.map((prop) => (
             <tr key={prop.name} className="border-b last:border-b-0">
               <td className="px-4 py-2.5">
                 <code className="rounded bg-muted px-1.5 py-0.5 text-xs font-mono text-primary">

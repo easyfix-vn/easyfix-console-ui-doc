@@ -2,6 +2,7 @@ import { EasyPageContainer } from "@easyfix/console-ui";
 
 import { ComponentDemo } from "@/components/ComponentDemo";
 import { PropsTable } from "@/components/PropsTable";
+import { ComponentDocPage } from "@/components/ComponentDocPage";
 
 const propsData = [
   {
@@ -33,6 +34,7 @@ const propsData = [
 
 export default function ContainerDoc() {
   return (
+    <ComponentDocPage>
     <div className="space-y-10">
       <div>
         <h1 className="font-heading text-3xl font-bold">Container 容器</h1>
@@ -104,13 +106,13 @@ export default function ContainerDoc() {
 <EasyPageContainer
   header={<h2 className="text-lg font-semibold">设置</h2>}
   footer={
-    <div className="flex justify-end gap-2">
-      <button>取消</button>
-      <button>保存</button>
+    <div className="flex justify-end gap-2 text-sm">
+      <span className="text-muted-foreground">取消</span>
+      <span className="text-primary">保存</span>
     </div>
   }
 >
-  <p>表单内容区域...</p>
+  <p className="text-sm text-muted-foreground">表单内容区域...</p>
 </EasyPageContainer>`}
       >
         <div className="w-full max-w-lg">
@@ -147,5 +149,6 @@ export default function ContainerDoc() {
         </ul>
       </div>
     </div>
+    </ComponentDocPage>
   );
 }

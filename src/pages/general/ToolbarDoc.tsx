@@ -22,6 +22,7 @@ import {
 } from "lucide-react";
 import { ComponentDemo } from "@/components/ComponentDemo";
 import { PropsTable } from "@/components/PropsTable";
+import { ComponentDocPage } from "@/components/ComponentDocPage";
 
 function BasicDemo() {
   return (
@@ -53,7 +54,7 @@ function BasicDemo() {
       <ToolbarLink
         render={
           <a
-            href="https://example.com"
+            href="https://easyfix.vn"
             target="_blank"
             rel="noreferrer"
             className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"
@@ -171,6 +172,7 @@ const separatorPropsData = [
 
 export default function ToolbarDoc() {
   return (
+    <ComponentDocPage>
     <div className="space-y-8">
       <div>
         <h1 className="font-heading text-3xl font-bold">Toolbar 工具栏</h1>
@@ -207,7 +209,7 @@ export default function ToolbarDoc() {
     </ToolbarButton>
   </ToolbarGroup>
   <ToolbarSeparator orientation="vertical" />
-  <ToolbarLink render={<a href="..." />}>
+  <ToolbarLink render={<a href="https://easyfix.vn" />}>
     <LinkIcon /> 链接
   </ToolbarLink>
 </Toolbar>`}
@@ -263,5 +265,6 @@ export default function ToolbarDoc() {
       <h2 className="font-heading text-xl font-semibold">ToolbarSeparator API</h2>
       <PropsTable data={separatorPropsData} />
     </div>
+    </ComponentDocPage>
   );
 }

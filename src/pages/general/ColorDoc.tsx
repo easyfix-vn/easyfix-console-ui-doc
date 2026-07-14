@@ -114,12 +114,12 @@ function ColorSwatch({ color, revision }: { color: ColorToken; revision: number 
       >
         <span className={`text-xs font-medium ${color.fg}`}>{color.name}</span>
       </div>
-      <div className="space-y-1 bg-background px-3 py-2">
+      <div className="space-y-0.5 bg-background px-3 py-1.5">
         <p className="font-mono text-xs text-muted-foreground">
           var({color.var})
         </p>
         <p className="font-mono text-xs text-muted-foreground">{color.bg}</p>
-        <div className="grid min-h-6 grid-cols-[2rem_minmax(0,1fr)_auto] items-center gap-2">
+        <div className="grid min-h-5 grid-cols-[2rem_minmax(0,1fr)_auto] items-center gap-1.5">
           <span className="text-[10px] font-medium text-muted-foreground">HEX</span>
           <span className="min-w-0 truncate font-mono text-xs text-foreground">
             {resolvedValue.hex || "-"}
@@ -134,7 +134,7 @@ function ColorSwatch({ color, revision }: { color: ColorToken; revision: number 
             />
           )}
         </div>
-        <div className="grid min-h-6 grid-cols-[2rem_minmax(0,1fr)_auto] items-center gap-2">
+        <div className="grid min-h-5 grid-cols-[2rem_minmax(0,1fr)_auto] items-center gap-1.5">
           <span className="text-[10px] font-medium text-muted-foreground">RGB</span>
           <span className="min-w-0 truncate font-mono text-xs text-foreground">
             {resolvedValue.rgb || "-"}
@@ -181,8 +181,7 @@ export default function ColorDoc() {
       <div>
         <h1 className="font-heading text-3xl font-bold">Color 色彩</h1>
         <p className="mt-2 text-muted-foreground">
-          项目基于 TailwindCSS 的 CSS 变量体系定义颜色令牌，支持亮色 / 暗色主题自动切换。
-          所有颜色均由 CSS 自定义属性管理，并映射为 Tailwind CSS 语义类名。
+          基于 CSS 变量的主题色彩系统，支持亮色与暗色主题。
         </p>
       </div>
 

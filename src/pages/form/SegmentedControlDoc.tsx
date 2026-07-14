@@ -7,6 +7,7 @@ import { LayoutGridIcon, ListIcon, TableIcon } from "lucide-react";
 import { useState } from "react";
 import { ComponentDemo } from "@/components/ComponentDemo";
 import { PropsTable } from "@/components/PropsTable";
+import { ComponentDocPage } from "@/components/ComponentDocPage";
 
 function BasicSegmentedControl() {
   const [value, setValue] = useState("month");
@@ -138,13 +139,14 @@ const itemProps = [
 
 export default function SegmentedControlDoc() {
   return (
+    <ComponentDocPage>
     <div className="space-y-8">
       <div>
         <h1 className="font-heading text-3xl font-bold">
           Segmented Control 分段控制器
         </h1>
         <p className="mt-2 text-muted-foreground">
-          用于在一组互斥选项中选择一个，带平滑的滑动指示器。常用于视图切换、筛选器等场景。
+          互斥选项切换组件，支持滑动指示器。
         </p>
       </div>
 
@@ -189,15 +191,38 @@ export default function SegmentedControlDoc() {
       <ComponentDemo
         title="不同尺寸"
         description='通过 size 设置分段控制器尺寸，支持 "xs"、"sm"、"md"、"lg"。'
-        code={`<SegmentedControl size="xs" value={value} onValueChange={setValue}>
+        code={`const [size, setSize] = useState<"xs" | "sm" | "md" | "lg">("xs");
+
+<SegmentedControl size="xs" value={size} onValueChange={setSize}>
   <SegmentedControlList>
     <SegmentedControlItem value="xs">XS</SegmentedControlItem>
     <SegmentedControlItem value="sm">SM</SegmentedControlItem>
+    <SegmentedControlItem value="md">MD</SegmentedControlItem>
+    <SegmentedControlItem value="lg">LG</SegmentedControlItem>
   </SegmentedControlList>
 </SegmentedControl>
 
-<SegmentedControl size="lg" value={value} onValueChange={setValue}>
+<SegmentedControl size="sm" value={size} onValueChange={setSize}>
   <SegmentedControlList>
+    <SegmentedControlItem value="xs">XS</SegmentedControlItem>
+    <SegmentedControlItem value="sm">SM</SegmentedControlItem>
+    <SegmentedControlItem value="md">MD</SegmentedControlItem>
+    <SegmentedControlItem value="lg">LG</SegmentedControlItem>
+  </SegmentedControlList>
+</SegmentedControl>
+
+<SegmentedControl size="md" value={size} onValueChange={setSize}>
+  <SegmentedControlList>
+    <SegmentedControlItem value="xs">XS</SegmentedControlItem>
+    <SegmentedControlItem value="sm">SM</SegmentedControlItem>
+    <SegmentedControlItem value="md">MD</SegmentedControlItem>
+    <SegmentedControlItem value="lg">LG</SegmentedControlItem>
+  </SegmentedControlList>
+</SegmentedControl>
+<SegmentedControl size="lg" value={size} onValueChange={setSize}>
+  <SegmentedControlList>
+    <SegmentedControlItem value="xs">XS</SegmentedControlItem>
+    <SegmentedControlItem value="sm">SM</SegmentedControlItem>
     <SegmentedControlItem value="md">MD</SegmentedControlItem>
     <SegmentedControlItem value="lg">LG</SegmentedControlItem>
   </SegmentedControlList>
@@ -228,5 +253,6 @@ export default function SegmentedControlDoc() {
         <PropsTable data={itemProps} />
       </div>
     </div>
+    </ComponentDocPage>
   );
 }

@@ -27,6 +27,7 @@ import { Ghost } from "lucide-react";
 
 import { ComponentDemo } from "@/components/ComponentDemo";
 import { PropsTable } from "@/components/PropsTable";
+import { ComponentDocPage } from "@/components/ComponentDocPage";
 
 type UserRecord = {
   id: string;
@@ -1075,13 +1076,14 @@ const searchFieldDefData = [
 
 export default function SearchTableDoc() {
   return (
+    <ComponentDocPage>
     <div className="space-y-10">
       <div>
         <h1 className="font-heading text-3xl font-bold">
           SearchTable 搜索表格
         </h1>
         <p className="mt-2 text-muted-foreground">
-          组合搜索表单、数据表格与分页，面向后台数据列表。支持 input、select、dateRange、custom 字段，auto/manual 搜索模式、响应式搜索区和表格、卡片、列表视图。
+          组合搜索、表格与分页，支持多种字段类型及表格、卡片、列表视图。
         </p>
       </div>
 
@@ -1103,10 +1105,13 @@ type UserRecord = {
   status: string;
 };
 
-const mockData: UserRecord[] = [
+const allData: UserRecord[] = [
   { id: "1", name: "张三", email: "zhangsan@example.com", status: "active" },
   { id: "2", name: "李四", email: "lisi@example.com", status: "inactive" },
-  // ...
+  { id: "3", name: "王五", email: "wangwu@example.com", status: "active" },
+  { id: "4", name: "赵六", email: "zhaoliu@example.com", status: "active" },
+  { id: "5", name: "钱七", email: "qianqi@example.com", status: "inactive" },
+  { id: "6", name: "孙八", email: "sunba@example.com", status: "active" },
 ];
 
 const searchFields: SearchFieldDef[] = [
@@ -1115,6 +1120,7 @@ const searchFields: SearchFieldDef[] = [
     key: "status",
     labelKey: "状态",
     type: "select",
+    placeholder: "状态",
     options: [
       { label: "活跃", value: "active" },
       { label: "停用", value: "inactive" },
@@ -1138,16 +1144,16 @@ const columns: ColumnDef<UserRecord>[] = [
 ];
 
 function MyPage() {
-  const [data, setData] = useState(mockData.slice(0, 5));
+  const [data, setData] = useState(allData.slice(0, 5));
   const [page, setPage] = useState(1);
-  const [total, setTotal] = useState(mockData.length);
+  const [total, setTotal] = useState(allData.length);
   const [loading, setLoading] = useState(false);
 
   const handleSearch = useCallback((params: SearchParams) => {
     setLoading(true);
     // 模拟过滤与分页
     setTimeout(() => {
-      let filtered = [...mockData];
+      let filtered = [...allData];
       if (params.name) filtered = filtered.filter(i => i.name.includes(params.name as string));
       if (params.status) filtered = filtered.filter(i => i.status === params.status);
       const start = (params.page - 1) * params.pageSize;
@@ -1469,7 +1475,6 @@ const renderExportContent = (ctx: EasySearchTableExportContext<UserRecord>) => (
     // sort: { key: "name", order: "asc" | "desc" | null }
     fetchData({ ...searchParams, sortKey: sort.key, sortOrder: sort.order });
   }}
-  // ...
 />
 
 // 客户端排序：不传 onSort，自动对当前页数据排序
@@ -1487,7 +1492,13 @@ const renderExportContent = (ctx: EasySearchTableExportContext<UserRecord>) => (
   { key: "id", headerKey: "ID", width: 60, fixed: "left" },
   { key: "col1", headerKey: "字段A", width: 120 },
   { key: "col2", headerKey: "字段B", width: 120 },
-  // ... 更多列
+  { key: "col3", headerKey: "字段C", width: 120 },
+  { key: "col4", headerKey: "字段D", width: 120 },
+  { key: "col5", headerKey: "字段E", width: 120 },
+  { key: "col6", headerKey: "字段F", width: 120 },
+  { key: "col7", headerKey: "字段G", width: 120 },
+  { key: "col8", headerKey: "字段H", width: 120 },
+  { key: "col9", headerKey: "字段I", width: 120 },
   { key: "col10", headerKey: "字段J", width: 120, fixed: "right" },
 ];
 
@@ -1545,5 +1556,6 @@ const renderExportContent = (ctx: EasySearchTableExportContext<UserRecord>) => (
         <PropsTable data={searchFieldDefData} />
       </div>
     </div>
+    </ComponentDocPage>
   );
 }

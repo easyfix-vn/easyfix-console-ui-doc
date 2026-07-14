@@ -12,6 +12,7 @@ import {
 } from "@easyfix/console-ui";
 import { ComponentDemo } from "@/components/ComponentDemo";
 import { PropsTable } from "@/components/PropsTable";
+import { ComponentDocPage } from "@/components/ComponentDocPage";
 
 function BasicTabs() {
   return (
@@ -100,6 +101,7 @@ const tabItemProps = [
 
 export default function TabsDoc() {
   return (
+    <ComponentDocPage>
     <div className="space-y-8">
       <div>
         <h1 className="font-heading text-3xl font-bold">Tabs 标签页</h1>
@@ -140,7 +142,9 @@ export default function TabsDoc() {
     <TabsTab value="analytics">分析</TabsTab>
     <TabsTab value="notifications" disabled>通知（禁用）</TabsTab>
   </TabsList>
-  <TabsContent value="overview">...</TabsContent>
+  <TabsContent value="overview">概览面板内容</TabsContent>
+  <TabsContent value="analytics">分析面板内容</TabsContent>
+  <TabsContent value="reports">报告面板内容</TabsContent>
 </Tabs>`}
       >
         <UnderlineTabs />
@@ -212,5 +216,6 @@ const items = [
         <PropsTable data={tabItemProps} />
       </div>
     </div>
+    </ComponentDocPage>
   );
 }

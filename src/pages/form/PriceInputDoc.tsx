@@ -7,6 +7,7 @@ import {
 } from "@easyfix/console-ui";
 import { ComponentDemo } from "@/components/ComponentDemo";
 import { PropsTable } from "@/components/PropsTable";
+import { ComponentDocPage } from "@/components/ComponentDocPage";
 
 const propsData = [
   { name: "value", type: "string | number | null | undefined", description: "当前金额值" },
@@ -151,13 +152,14 @@ function SizeDemo() {
 
 export default function PriceInputDoc() {
   return (
+    <ComponentDocPage>
     <div className="space-y-8">
       <div>
         <h1 className="font-heading text-3xl font-bold">
           PriceInput 金额输入框
         </h1>
         <p className="mt-2 text-muted-foreground">
-          金额默认以 PriceText 展示；编辑态确认或按 Enter 后回写 value，适用于需要显式确认的金额录入。
+          金额输入组件，支持货币切换、格式化和确认回写。
         </p>
       </div>
 
@@ -180,10 +182,11 @@ const [value, setValue] = useState("1280000");
         code={`const [value, setValue] = useState("1280.5");
 const [currency, setCurrency] = useState("USD");
 
-const currencyOptions = [
+const customCurrencyOptions = [
   { currency: "VND", label: "VND 越南盾", unitText: "VND", fractionDigits: 0 },
   { currency: "USD", label: "USD 美元", unitText: "USD", fractionDigits: 2 },
   { currency: "CNY", label: "CNY 人民币", unitText: "元", fractionDigits: 2 },
+  { currency: "JPY", label: "JPY 日元", unitText: "JPY", fractionDigits: 0 },
 ];
 
 <EasyPriceInput
@@ -191,7 +194,13 @@ const currencyOptions = [
   onValueChange={setValue}
   currency={currency}
   onCurrencyChange={setCurrency}
-  currencyOptions={currencyOptions}
+  currencyOptions={customCurrencyOptions}
+  unitPosition="prefix"
+/>
+<EasyPriceText
+  value={value}
+  currency={currency}
+  unitText={currency === "CNY" ? "元" : undefined}
   unitPosition="prefix"
 />`}
       >
@@ -214,8 +223,8 @@ const currencyOptions = [
       <ComponentDemo
         title="千分位规则"
         description="可配置是否启用千分位，以及千分位符号"
-        code={`<EasyPriceInput value={value} onValueChange={setValue} groupSeparator="." />
-<EasyPriceInput value={value} onValueChange={setValue} useGrouping={false} />`}
+        code={`<EasyPriceInput value={value} onValueChange={setValue} currency="VND" groupSeparator="." />
+<EasyPriceInput value={value} onValueChange={setValue} currency="VND" useGrouping={false} />`}
       >
         <GroupSeparatorDemo />
       </ComponentDemo>
@@ -254,5 +263,6 @@ const currencyOptions = [
       </h2>
       <PropsTable data={currencyOptionPropsData} />
     </div>
+    </ComponentDocPage>
   );
 }

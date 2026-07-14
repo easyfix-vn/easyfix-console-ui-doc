@@ -10,6 +10,7 @@ import {
 
 import { ComponentDemo } from "@/components/ComponentDemo";
 import { PropsTable } from "@/components/PropsTable";
+import { ComponentDocPage } from "@/components/ComponentDocPage";
 
 const paginationLinkPropsData = [
   {
@@ -43,11 +44,12 @@ const componentList = [
 
 export default function PaginationDoc() {
   return (
+    <ComponentDocPage>
     <div className="space-y-8">
       <div>
         <h1 className="font-heading text-3xl font-bold">Pagination 分页</h1>
         <p className="mt-2 text-muted-foreground">
-          用于在多页数据之间导航的分页组件，通过组合子组件灵活构建分页栏。
+          分页组件，支持组合子组件自定义分页栏。
         </p>
       </div>
 
@@ -175,5 +177,6 @@ export default function PaginationDoc() {
         </div>
       </div>
     </div>
+    </ComponentDocPage>
   );
 }

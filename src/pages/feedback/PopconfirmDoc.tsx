@@ -3,6 +3,7 @@ import { Popconfirm, Button } from "@easyfix/console-ui";
 
 import { ComponentDemo } from "@/components/ComponentDemo";
 import { PropsTable } from "@/components/PropsTable";
+import { ComponentDocPage } from "@/components/ComponentDocPage";
 
 const propsData = [
   {
@@ -123,11 +124,12 @@ function CustomTextDemo() {
 
 export default function PopconfirmDoc() {
   return (
+    <ComponentDocPage>
     <div className="space-y-10">
       <div>
         <h1 className="font-heading text-3xl font-bold">Popconfirm 气泡确认</h1>
         <p className="mt-2 text-muted-foreground">
-          由触发元素唤起的轻量确认框，适用于需要二次确认的操作。
+          轻量确认框，支持二次确认。
         </p>
       </div>
 
@@ -215,5 +217,6 @@ function Demo() {
         <PropsTable data={propsData} />
       </div>
     </div>
+    </ComponentDocPage>
   );
 }

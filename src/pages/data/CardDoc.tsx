@@ -15,6 +15,7 @@ import {
 } from "@easyfix/console-ui";
 import { ComponentDemo } from "@/components/ComponentDemo";
 import { PropsTable } from "@/components/PropsTable";
+import { ComponentDocPage } from "@/components/ComponentDocPage";
 
 const componentList = [
   { name: "Card", description: "卡片根容器，提供圆角、边框和阴影" },
@@ -52,6 +53,7 @@ const propsData = [
 
 export default function CardDoc() {
   return (
+    <ComponentDocPage>
     <div className="space-y-8">
       <div>
         <h1 className="font-heading text-3xl font-bold">Card 卡片</h1>
@@ -113,13 +115,16 @@ export default function CardDoc() {
     <CardTitle>通知设置</CardTitle>
     <CardDescription>管理通知偏好。</CardDescription>
     <CardAction>
-      <button className="rounded-md bg-primary px-3 py-1.5 text-xs text-primary-foreground">
+      <button
+        type="button"
+        className="rounded-md bg-primary px-3 py-1.5 text-xs text-primary-foreground"
+      >
         保存
       </button>
     </CardAction>
   </CardHeader>
   <CardContent>
-    <p>卡片内容区域...</p>
+    <p className="text-sm">在这里配置邮件通知、应用内通知等选项。</p>
   </CardContent>
 </Card>`}
       >
@@ -156,17 +161,24 @@ export default function CardDoc() {
     <CardFrameTitle>团队成员</CardFrameTitle>
     <CardFrameDescription>管理团队中的成员与权限。</CardFrameDescription>
     <CardFrameAction>
-      <button>邀请成员</button>
+      <button
+        type="button"
+        className="rounded-md bg-primary px-3 py-1.5 text-xs text-primary-foreground"
+      >
+        邀请成员
+      </button>
     </CardFrameAction>
   </CardFrameHeader>
   <Card>
     <CardHeader>
       <CardTitle>成员列表</CardTitle>
     </CardHeader>
-    <CardContent>内容...</CardContent>
+    <CardContent>
+      <p className="text-sm">成员列表内容区域。</p>
+    </CardContent>
   </Card>
   <CardFrameFooter>
-    <span>共 5 位成员</span>
+    <span className="text-sm text-muted-foreground">共 3 位成员</span>
   </CardFrameFooter>
 </CardFrame>`}
       >
@@ -245,5 +257,6 @@ export default function CardDoc() {
         </div>
       </div>
     </div>
+    </ComponentDocPage>
   );
 }

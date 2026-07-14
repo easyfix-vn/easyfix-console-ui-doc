@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Textarea } from "@easyfix/console-ui";
 import { ComponentDemo } from "@/components/ComponentDemo";
 import { PropsTable } from "@/components/PropsTable";
+import { ComponentDocPage } from "@/components/ComponentDocPage";
 
 function BasicDemo() {
   const [value, setValue] = useState("");
@@ -29,7 +30,9 @@ function MaxLengthDemo() {
         maxLength={maxLength}
         onChange={(e) => setValue(e.target.value)}
       />
-      <p className="text-right text-xs text-muted-foreground">
+      <p
+        className={`text-right text-xs ${value.length > maxLength ? "text-destructive" : "text-muted-foreground"}`}
+      >
         {value.length}/{maxLength}
       </p>
     </div>
@@ -71,6 +74,11 @@ const propsData = [
     description: "非受控模式下的默认值",
   },
   {
+    name: "maxLength",
+    type: "number",
+    description: "字数软限制：允许超出输入，超出时标记错误并阻止原生 form 提交",
+  },
+  {
     name: "onChange",
     type: "ChangeEventHandler<HTMLTextAreaElement>",
     description: "值变化时的回调",
@@ -84,6 +92,7 @@ const propsData = [
 
 export default function TextareaDoc() {
   return (
+    <ComponentDocPage>
     <div className="space-y-8">
       <div>
         <h1 className="font-heading text-3xl font-bold">Textarea 文本域</h1>
@@ -122,7 +131,7 @@ const [value, setValue] = useState("");
 
       <ComponentDemo
         title="带字数限制"
-        description="结合 maxLength 和字数统计实现字数限制提示。"
+        description="maxLength 允许继续输入超限内容；超限时使用错误样式，并阻止原生 form 提交。"
         code={`const [value, setValue] = useState("");
 const maxLength = 100;
 
@@ -133,7 +142,7 @@ const maxLength = 100;
     maxLength={maxLength}
     onChange={(e) => setValue(e.target.value)}
   />
-  <p className="text-right text-xs text-muted-foreground">
+  <p className={value.length > maxLength ? "text-right text-xs text-destructive" : "text-right text-xs text-muted-foreground"}>
     {value.length}/{maxLength}
   </p>
 </div>`}
@@ -151,5 +160,6 @@ const maxLength = 100;
       </p>
       <PropsTable data={propsData} />
     </div>
+    </ComponentDocPage>
   );
 }

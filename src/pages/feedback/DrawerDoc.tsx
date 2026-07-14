@@ -14,6 +14,7 @@ import {
 
 import { ComponentDemo } from "@/components/ComponentDemo";
 import { PropsTable } from "@/components/PropsTable";
+import { ComponentDocPage } from "@/components/ComponentDocPage";
 
 const drawerPropsData = [
   {
@@ -100,6 +101,7 @@ const panelPropsData = [
 
 export default function DrawerDoc() {
   return (
+    <ComponentDocPage>
     <div className="space-y-10">
       <div>
         <h1 className="font-heading text-3xl font-bold">Drawer 抽屉</h1>
@@ -439,6 +441,11 @@ export default function DrawerDoc() {
         遮罩、Escape 和滑动均不会关闭抽屉。
       </DrawerDescription>
     </DrawerHeader>
+    <DrawerPanel>
+      <p className="text-sm text-muted-foreground">
+        适用于流程性、强提交场景，避免误关导致用户输入丢失。
+      </p>
+    </DrawerPanel>
   </DrawerContent>
 </Drawer>`}
       >
@@ -531,5 +538,6 @@ export default function DrawerDoc() {
         <PropsTable data={panelPropsData} />
       </div>
     </div>
+    </ComponentDocPage>
   );
 }

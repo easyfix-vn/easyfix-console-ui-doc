@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Slider, SliderValue } from "@easyfix/console-ui";
 import { ComponentDemo } from "@/components/ComponentDemo";
 import { PropsTable } from "@/components/PropsTable";
+import { ComponentDocPage } from "@/components/ComponentDocPage";
 
 function BasicDemo() {
   const [value, setValue] = useState(30);
@@ -94,6 +95,7 @@ const sliderPropsData = [
 
 export default function SliderDoc() {
   return (
+    <ComponentDocPage>
     <div className="space-y-8">
       <div>
         <h1 className="font-heading text-3xl font-bold">Slider 滑块</h1>
@@ -113,7 +115,12 @@ export default function SliderDoc() {
 
 const [value, setValue] = useState(30);
 
-<Slider value={value} onValueChange={setValue}>
+<Slider
+  value={value}
+  onValueChange={(nextValue) => {
+    if (typeof nextValue === "number") setValue(nextValue);
+  }}
+>
   <SliderValue />
 </Slider>`}
       >
@@ -133,9 +140,14 @@ const [value, setValue] = useState(30);
       <ComponentDemo
         title="范围滑块"
         description="数组形式的 value 或 defaultValue 启用范围模式。"
-        code={`const [value, setValue] = useState([20, 80]);
+        code={`const [value, setValue] = useState<readonly number[]>([20, 80]);
 
-<Slider value={value} onValueChange={setValue}>
+<Slider
+  value={value}
+  onValueChange={(nextValue) => {
+    if (Array.isArray(nextValue)) setValue(nextValue);
+  }}
+>
   <SliderValue />
 </Slider>`}
       >
@@ -162,5 +174,6 @@ const [value, setValue] = useState(30);
       </p>
       <PropsTable data={sliderPropsData} />
     </div>
+    </ComponentDocPage>
   );
 }

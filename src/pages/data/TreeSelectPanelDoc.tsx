@@ -3,6 +3,7 @@ import { EasyTreeSelectPanel, type EasyTreeNode } from "@easyfix/console-ui";
 
 import { ComponentDemo } from "@/components/ComponentDemo";
 import { PropsTable } from "@/components/PropsTable";
+import { ComponentDocPage } from "@/components/ComponentDocPage";
 
 const treeData: EasyTreeNode[] = [
   {
@@ -143,13 +144,14 @@ const treeNodeData = [
 
 export default function TreeSelectPanelDoc() {
   return (
+    <ComponentDocPage>
     <div className="space-y-10">
       <div>
         <h1 className="font-heading text-3xl font-bold">
           TreeSelectPanel 树选择面板
         </h1>
         <p className="mt-2 text-muted-foreground">
-          左侧树形导航 + 右侧内容的面板布局，适用于组织架构选择、分类管理等场景。
+          树形导航与内容面板，支持组织架构、分类等数据选择。
         </p>
       </div>
 
@@ -203,7 +205,21 @@ function Demo() {
         code={`import { useState } from "react";
 import { EasyTreeSelectPanel, type EasyTreeNode } from "@easyfix/console-ui";
 
-const treeData = [ /* ... */ ];
+const treeData: EasyTreeNode[] = [
+  {
+    id: "1",
+    label: "部门A",
+    children: [
+      { id: "1-1", label: "小组A-1" },
+      { id: "1-2", label: "小组A-2" },
+    ],
+  },
+  {
+    id: "2",
+    label: "部门B",
+    children: [{ id: "2-1", label: "小组B-1" }],
+  },
+];
 
 function Demo() {
   const [selected, setSelected] = useState<string>();
@@ -239,5 +255,6 @@ function Demo() {
         <PropsTable data={treeNodeData} />
       </div>
     </div>
+    </ComponentDocPage>
   );
 }

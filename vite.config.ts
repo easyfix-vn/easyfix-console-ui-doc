@@ -1,4 +1,5 @@
 import path from "node:path";
+import fs from "node:fs";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import { defineConfig, type Plugin } from "vite";
@@ -8,9 +9,9 @@ const uiSrc = path.resolve(__dirname, "../easyfix_console_ui/src");
 const uiRoot = path.resolve(__dirname, "../easyfix_console_ui");
 
 /**
- * dev 模式下把 @easyfix/console-ui 指向相邻组件库源码，
+ * 当前工作区把 @easyfix/console-ui 指向相邻组件库源码，
  * 同时根据 importer 位置把 @/ 分别映射到 docs/src 或 ui/src，
- * 使组件库改动即时 HMR；GitHub build 使用 npm 包。
+ * 使组件库改动即时 HMR，也允许 npm 新版本发布前构建新组件文档。
  */
 function consoleUiSourcePlugin(): Plugin {
   return {
@@ -48,8 +49,10 @@ function consoleUiSourcePlugin(): Plugin {
   };
 }
 
-export default defineConfig(({ command }) => {
-  const useLocalConsoleUiSource = command === "serve";
+export default defineConfig(() => {
+  const useLocalConsoleUiSource =
+    process.env.EASYFIX_DOCS_CONSOLE_UI_SOURCE !== "npm" &&
+    fs.existsSync(path.resolve(uiSrc, "index.ts"));
 
   return {
     plugins: [

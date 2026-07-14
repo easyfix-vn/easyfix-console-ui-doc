@@ -6,14 +6,15 @@ import {
 import { useState, type ComponentType } from "react";
 import { ComponentDemo } from "@/components/ComponentDemo";
 import { PropsTable } from "@/components/PropsTable";
+import { ComponentDocPage } from "@/components/ComponentDocPage";
 
 const StepItem = ConsoleStepItem as ComponentType<StepItemProps>;
 
 function BasicSteps() {
   const [current, setCurrent] = useState(1);
   return (
-    <div className="space-y-4">
-      <Steps current={current}>
+    <div className="w-full space-y-4">
+      <Steps current={current} className="w-full">
         <StepItem title="账户信息" description="填写基本信息" />
         <StepItem title="验证邮箱" description="邮箱验证码确认" />
         <StepItem title="完成注册" />
@@ -102,6 +103,7 @@ const itemProps = [
 
 export default function StepsDoc() {
   return (
+    <ComponentDocPage>
     <div className="space-y-8">
       <div>
         <h1 className="font-heading text-3xl font-bold">Steps 步骤条</h1>
@@ -113,13 +115,26 @@ export default function StepsDoc() {
       <ComponentDemo
         title="默认状态"
         description="水平步骤条，通过 current 控制当前激活步骤"
-        code={`import { Steps, StepItem } from "@easyfix/console-ui";
+        code={`import { useState } from "react";
+import { Steps, StepItem } from "@easyfix/console-ui";
 
-<Steps current={1}>
-  <StepItem title="账户信息" description="填写基本信息" />
-  <StepItem title="验证邮箱" description="邮箱验证码确认" />
-  <StepItem title="完成注册" />
-</Steps>`}
+const [current, setCurrent] = useState(1);
+
+<div className="w-full space-y-4">
+  <Steps current={current} className="w-full">
+    <StepItem title="账户信息" description="填写基本信息" />
+    <StepItem title="验证邮箱" description="邮箱验证码确认" />
+    <StepItem title="完成注册" />
+  </Steps>
+  <div className="flex gap-2">
+    <button onClick={() => setCurrent((v) => Math.max(0, v - 1))} disabled={current === 0}>
+      上一步
+    </button>
+    <button onClick={() => setCurrent((v) => Math.min(2, v + 1))} disabled={current === 2}>
+      下一步
+    </button>
+  </div>
+</div>`}
       >
         <BasicSteps />
       </ComponentDemo>
@@ -157,5 +172,6 @@ export default function StepsDoc() {
         <PropsTable data={itemProps} />
       </div>
     </div>
+    </ComponentDocPage>
   );
 }
