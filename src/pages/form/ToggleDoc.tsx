@@ -14,6 +14,7 @@ import {
   AlignRightIcon,
 } from "lucide-react";
 import { ComponentDemo } from "@/components/ComponentDemo";
+import { ExternalDocLink } from "@/components/ExternalDocLink";
 import { PropsTable } from "@/components/PropsTable";
 import { ComponentDocPage } from "@/components/ComponentDocPage";
 
@@ -193,9 +194,12 @@ export default function ToggleDoc() {
         <h1 className="font-heading text-3xl font-bold">Toggle 切换按钮</h1>
         <p className="mt-2 text-muted-foreground">
           可切换开关状态的按钮组件，基于{" "}
-          <code className="rounded bg-muted px-1.5 py-0.5 text-xs font-mono">
+          <ExternalDocLink
+            href="https://base-ui.com/react/components/toggle"
+            label="Base UI Toggle 官方文档"
+          >
             @base-ui/react/toggle
-          </code>{" "}
+          </ExternalDocLink>{" "}
           封装，支持多种尺寸和变体样式，也可组合为 ToggleGroup 使用。
         </p>
       </div>

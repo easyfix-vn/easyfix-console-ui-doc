@@ -7,6 +7,7 @@ import {
   ProgressValue,
 } from "@easyfix/console-ui";
 import { ComponentDemo } from "@/components/ComponentDemo";
+import { ExternalDocLink } from "@/components/ExternalDocLink";
 import { PropsTable } from "@/components/PropsTable";
 import { ComponentDocPage } from "@/components/ComponentDocPage";
 
@@ -111,9 +112,12 @@ export default function ProgressDoc() {
         <h1 className="font-heading text-3xl font-bold">Progress 进度条</h1>
         <p className="mt-2 text-muted-foreground">
           展示操作进度，基于{" "}
-          <code className="rounded bg-muted px-1.5 py-0.5 text-xs font-mono">
+          <ExternalDocLink
+            href="https://base-ui.com/react/components/progress"
+            label="Base UI Progress 官方文档"
+          >
             @base-ui/react/progress
-          </code>{" "}
+          </ExternalDocLink>{" "}
           封装，支持自定义标签和多种状态样式。
         </p>
       </div>

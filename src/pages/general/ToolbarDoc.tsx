@@ -21,6 +21,7 @@ import {
   Redo2Icon,
 } from "lucide-react";
 import { ComponentDemo } from "@/components/ComponentDemo";
+import { ExternalDocLink } from "@/components/ExternalDocLink";
 import { PropsTable } from "@/components/PropsTable";
 import { ComponentDocPage } from "@/components/ComponentDocPage";
 
@@ -178,9 +179,12 @@ export default function ToolbarDoc() {
         <h1 className="font-heading text-3xl font-bold">Toolbar 工具栏</h1>
         <p className="mt-2 text-muted-foreground">
           用于组织一组操作按钮的容器组件，基于{" "}
-          <code className="rounded bg-muted px-1.5 py-0.5 text-xs font-mono">
+          <ExternalDocLink
+            href="https://base-ui.com/react/components/toolbar"
+            label="Base UI Toolbar 官方文档"
+          >
             @base-ui/react/toolbar
-          </code>{" "}
+          </ExternalDocLink>{" "}
           封装，支持按钮分组、分隔线和链接等。
         </p>
       </div>

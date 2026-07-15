@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Switch } from "@easyfix/console-ui";
 import { ComponentDemo } from "@/components/ComponentDemo";
+import { ExternalDocLink } from "@/components/ExternalDocLink";
 import { PropsTable } from "@/components/PropsTable";
 import { ComponentDocPage } from "@/components/ComponentDocPage";
 
@@ -62,9 +63,12 @@ export default function SwitchDoc() {
         <h1 className="font-heading text-3xl font-bold">Switch 开关</h1>
         <p className="mt-2 text-muted-foreground">
           开关选择器，基于{" "}
-          <code className="rounded bg-muted px-1.5 py-0.5 text-xs font-mono">
+          <ExternalDocLink
+            href="https://base-ui.com/react/components/switch"
+            label="Base UI Switch 官方文档"
+          >
             @base-ui/react/switch
-          </code>{" "}
+          </ExternalDocLink>{" "}
           封装，用于切换单个选项的开启/关闭状态。
         </p>
       </div>

@@ -8,6 +8,7 @@ import {
   Button,
 } from "@easyfix/console-ui";
 import { ComponentDemo } from "@/components/ComponentDemo";
+import { ExternalDocLink } from "@/components/ExternalDocLink";
 import { PropsTable } from "@/components/PropsTable";
 import { ComponentDocPage } from "@/components/ComponentDocPage";
 
@@ -76,9 +77,12 @@ export default function PopoverDoc() {
         <h1 className="font-heading text-3xl font-bold">Popover 弹出框</h1>
         <p className="mt-2 text-muted-foreground">
           弹出框组件，基于{" "}
-          <code className="rounded bg-muted px-1.5 py-0.5 text-xs font-mono">
+          <ExternalDocLink
+            href="https://base-ui.com/react/components/popover"
+            label="Base UI Popover 官方文档"
+          >
             @base-ui/react/popover
-          </code>{" "}
+          </ExternalDocLink>{" "}
           封装，在触发元素附近展示上下文内容。
         </p>
       </div>

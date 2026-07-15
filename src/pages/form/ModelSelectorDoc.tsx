@@ -55,7 +55,7 @@ const optionPropsData = [
 function BasicDemo() {
   return (
     <div className="w-full max-w-sm">
-      <EasyModelSelector modelName="GPT-5.4" />
+      <EasyModelSelector modelName="Easyfix Super Intelligence" />
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import { Separator } from "@easyfix/console-ui";
 import { ComponentDemo } from "@/components/ComponentDemo";
+import { ExternalDocLink } from "@/components/ExternalDocLink";
 import { PropsTable } from "@/components/PropsTable";
 import { ComponentDocPage } from "@/components/ComponentDocPage";
 
@@ -25,9 +26,12 @@ export default function SeparatorDoc() {
         <h1 className="font-heading text-3xl font-bold">Separator 分隔线</h1>
         <p className="mt-2 text-muted-foreground">
           分隔线组件，基于{" "}
-          <code className="rounded bg-muted px-1.5 py-0.5 text-xs font-mono">
+          <ExternalDocLink
+            href="https://base-ui.com/react/components/separator"
+            label="Base UI Separator 官方文档"
+          >
             @base-ui/react/separator
-          </code>{" "}
+          </ExternalDocLink>{" "}
           封装，用于在视觉上分隔内容区域。
         </p>
       </div>

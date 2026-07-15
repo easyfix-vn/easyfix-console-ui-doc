@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { CheckboxGroup, CheckboxGroupItem } from "@easyfix/console-ui";
 import { ComponentDemo } from "@/components/ComponentDemo";
+import { ExternalDocLink } from "@/components/ExternalDocLink";
 import { PropsTable } from "@/components/PropsTable";
 import { ComponentDocPage } from "@/components/ComponentDocPage";
 
@@ -138,9 +139,12 @@ export default function CheckboxGroupDoc() {
         </h1>
         <p className="mt-2 text-muted-foreground">
           基于{" "}
-          <code className="rounded bg-muted px-1.5 py-0.5 text-xs font-mono">
+          <ExternalDocLink
+            href="https://base-ui.com/react/components/checkbox-group"
+            label="Base UI Checkbox Group 官方文档"
+          >
             @base-ui/react/checkbox-group
-          </code>{" "}
+          </ExternalDocLink>{" "}
           的复选框组容器，统一管理多个 CheckboxGroupItem 的选中状态。
         </p>
       </div>

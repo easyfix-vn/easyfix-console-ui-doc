@@ -236,13 +236,13 @@ export default function GlobalPhoneInputDoc() {
           GlobalPhoneInput 国际手机号
         </h1>
         <p className="mt-2 text-muted-foreground">
-          国际手机号输入组件，支持区号选择、号码输入、自定义选项和验证。
+          国际手机号输入组件，支持区号选择、号码输入、自定义选项和验证。区号选择默认不可清空。
         </p>
       </div>
 
       <ComponentDemo
         title="默认区号"
-        description="默认内置 +84（越南 10 位）和 +86（中国 11 位）两个区号选项"
+        description="默认内置 +84（越南 10 位）和 +86（中国 11 位）两个区号选项，区号不可清空"
         code={`import { useState } from "react";
 import { EasyGlobalPhoneInput } from "@easyfix/console-ui";
 

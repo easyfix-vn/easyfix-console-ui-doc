@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Slider, SliderValue } from "@easyfix/console-ui";
 import { ComponentDemo } from "@/components/ComponentDemo";
+import { ExternalDocLink } from "@/components/ExternalDocLink";
 import { PropsTable } from "@/components/PropsTable";
 import { ComponentDocPage } from "@/components/ComponentDocPage";
 
@@ -101,9 +102,12 @@ export default function SliderDoc() {
         <h1 className="font-heading text-3xl font-bold">Slider 滑块</h1>
         <p className="mt-2 text-muted-foreground">
           滑块输入组件，基于{" "}
-          <code className="rounded bg-muted px-1.5 py-0.5 text-xs font-mono">
+          <ExternalDocLink
+            href="https://base-ui.com/react/components/slider"
+            label="Base UI Slider 官方文档"
+          >
             @base-ui/react/slider
-          </code>{" "}
+          </ExternalDocLink>{" "}
           封装，用于在数值范围内进行选择。
         </p>
       </div>

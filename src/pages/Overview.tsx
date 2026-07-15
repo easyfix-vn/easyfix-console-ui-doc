@@ -54,7 +54,7 @@ export default function Overview() {
                     </div>
                     <div className="mt-6 flex items-center gap-2 text-xs text-muted-foreground">
                       <span className="size-2 rounded-full bg-primary/60" />
-                      查看概览、属性和用法示例
+                      查看
                     </div>
                   </Link>
                 </li>

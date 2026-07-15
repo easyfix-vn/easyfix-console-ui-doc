@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Textarea } from "@easyfix/console-ui";
 import { ComponentDemo } from "@/components/ComponentDemo";
+import { ExternalDocLink } from "@/components/ExternalDocLink";
 import { PropsTable } from "@/components/PropsTable";
 import { ComponentDocPage } from "@/components/ComponentDocPage";
 
@@ -98,9 +99,12 @@ export default function TextareaDoc() {
         <h1 className="font-heading text-3xl font-bold">Textarea 文本域</h1>
         <p className="mt-2 text-muted-foreground">
           多行文本输入框，基于{" "}
-          <code className="rounded bg-muted px-1.5 py-0.5 text-xs font-mono">
+          <ExternalDocLink
+            href="https://base-ui.com/react/components/field"
+            label="Base UI Field 官方文档"
+          >
             @base-ui/react/field
-          </code>{" "}
+          </ExternalDocLink>{" "}
           封装，支持多种尺寸和自适应高度。
         </p>
       </div>

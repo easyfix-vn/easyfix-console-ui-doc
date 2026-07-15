@@ -14,6 +14,7 @@ import {
   CardFrameFooter,
 } from "@easyfix/console-ui";
 import { ComponentDemo } from "@/components/ComponentDemo";
+import { ExternalDocLink } from "@/components/ExternalDocLink";
 import { PropsTable } from "@/components/PropsTable";
 import { ComponentDocPage } from "@/components/ComponentDocPage";
 
@@ -42,7 +43,18 @@ const propsData = [
   {
     name: "render",
     type: "ReactElement",
-    description: "替换底层渲染元素（基于 @base-ui/react useRender）",
+    description: (
+      <>
+        替换底层渲染元素（基于{" "}
+        <ExternalDocLink
+          href="https://base-ui.com/react/utils/use-render"
+          label="Base UI useRender 官方文档"
+        >
+          @base-ui/react/use-render
+        </ExternalDocLink>
+        ）
+      </>
+    ),
   },
   {
     name: "children",

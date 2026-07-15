@@ -6,6 +6,7 @@ import {
 } from "@easyfix/console-ui";
 
 import { ComponentDemo } from "@/components/ComponentDemo";
+import { ExternalDocLink } from "@/components/ExternalDocLink";
 import { PropsTable } from "@/components/PropsTable";
 import { ComponentDocPage } from "@/components/ComponentDocPage";
 
@@ -53,9 +54,12 @@ export default function AccordionDoc() {
         <h1 className="font-heading text-3xl font-bold">Accordion 手风琴</h1>
         <p className="mt-2 text-muted-foreground">
           基于{" "}
-          <code className="rounded bg-muted px-1.5 py-0.5 text-xs font-mono">
+          <ExternalDocLink
+            href="https://base-ui.com/react/components/accordion"
+            label="Base UI Accordion 官方文档"
+          >
             @base-ui/react/accordion
-          </code>{" "}
+          </ExternalDocLink>{" "}
           的可折叠面板组件，适用于在有限空间内展示多组内容。
         </p>
       </div>

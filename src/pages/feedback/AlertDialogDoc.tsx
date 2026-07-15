@@ -11,6 +11,7 @@ import {
   Button,
 } from "@easyfix/console-ui";
 import { ComponentDemo } from "@/components/ComponentDemo";
+import { ExternalDocLink } from "@/components/ExternalDocLink";
 import { PropsTable } from "@/components/PropsTable";
 import { ComponentDocPage } from "@/components/ComponentDocPage";
 
@@ -80,9 +81,12 @@ export default function AlertDialogDoc() {
         </h1>
         <p className="mt-2 text-muted-foreground">
           确认对话框组件，基于{" "}
-          <code className="rounded bg-muted px-1.5 py-0.5 text-xs font-mono">
+          <ExternalDocLink
+            href="https://base-ui.com/react/components/alert-dialog"
+            label="Base UI Alert Dialog 官方文档"
+          >
             @base-ui/react/alert-dialog
-          </code>{" "}
+          </ExternalDocLink>{" "}
           封装，用于需要用户明确确认的操作场景。与 Dialog
           不同，AlertDialog 不会被点击遮罩或按 ESC 键关闭。
         </p>

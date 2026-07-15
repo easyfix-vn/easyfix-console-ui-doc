@@ -7,6 +7,7 @@ import {
 } from "@easyfix/console-ui";
 
 import { ComponentDemo } from "@/components/ComponentDemo";
+import { ExternalDocLink } from "@/components/ExternalDocLink";
 import { PropsTable } from "@/components/PropsTable";
 import { ComponentDocPage } from "@/components/ComponentDocPage";
 
@@ -94,9 +95,12 @@ export default function CollapsibleDoc() {
         </h1>
         <p className="mt-2 text-muted-foreground">
           可展开和收起的内容区域，基于{" "}
-          <code className="rounded bg-muted px-1.5 py-0.5 text-xs font-mono">
+          <ExternalDocLink
+            href="https://base-ui.com/react/components/collapsible"
+            label="Base UI Collapsible 官方文档"
+          >
             @base-ui/react/collapsible
-          </code>{" "}
+          </ExternalDocLink>{" "}
           实现，支持动画过渡效果。
         </p>
       </div>

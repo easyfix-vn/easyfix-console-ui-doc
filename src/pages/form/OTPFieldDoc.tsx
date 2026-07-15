@@ -2,6 +2,7 @@ import { useState } from "react";
 import { OTPField, OTPFieldInput, OTPFieldSeparator } from "@easyfix/console-ui";
 
 import { ComponentDemo } from "@/components/ComponentDemo";
+import { ExternalDocLink } from "@/components/ExternalDocLink";
 import { PropsTable } from "@/components/PropsTable";
 import { ComponentDocPage } from "@/components/ComponentDocPage";
 
@@ -142,9 +143,12 @@ export default function OTPFieldDoc() {
         <h1 className="font-heading text-3xl font-bold">OTPField 验证码输入框</h1>
         <p className="mt-2 text-muted-foreground">
           用于输入一次性验证码（OTP）的分段输入组件，基于{" "}
-          <code className="rounded bg-muted px-1.5 py-0.5 text-xs font-mono">
+          <ExternalDocLink
+            href="https://base-ui.com/react/components/otp-field"
+            label="Base UI OTP Field 官方文档"
+          >
             @base-ui/react/otp-field
-          </code>{" "}
+          </ExternalDocLink>{" "}
           实现。支持自动聚焦、完成回调、值校验、密码遮盖等功能。
         </p>
       </div>

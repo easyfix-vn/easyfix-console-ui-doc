@@ -6,6 +6,7 @@ import {
   MeterValue,
 } from "@easyfix/console-ui";
 import { ComponentDemo } from "@/components/ComponentDemo";
+import { ExternalDocLink } from "@/components/ExternalDocLink";
 import { PropsTable } from "@/components/PropsTable";
 import { ComponentDocPage } from "@/components/ComponentDocPage";
 
@@ -113,9 +114,12 @@ export default function MeterDoc() {
         <h1 className="font-heading text-3xl font-bold">Meter 仪表盘</h1>
         <p className="mt-2 text-muted-foreground">
           用于展示某个度量值在已知范围内的当前状态，基于{" "}
-          <code className="rounded bg-muted px-1.5 py-0.5 text-xs font-mono">
+          <ExternalDocLink
+            href="https://base-ui.com/react/components/meter"
+            label="Base UI Meter 官方文档"
+          >
             @base-ui/react/meter
-          </code>{" "}
+          </ExternalDocLink>{" "}
           封装，支持标签、数值显示和自定义颜色。
         </p>
       </div>

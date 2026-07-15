@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { RadioGroup, Radio, Label } from "@easyfix/console-ui";
 import { ComponentDemo } from "@/components/ComponentDemo";
+import { ExternalDocLink } from "@/components/ExternalDocLink";
 import { PropsTable } from "@/components/PropsTable";
 import { ComponentDocPage } from "@/components/ComponentDocPage";
 
@@ -86,13 +87,19 @@ export default function RadioGroupDoc() {
         <h1 className="font-heading text-3xl font-bold">RadioGroup 单选组</h1>
         <p className="mt-2 text-muted-foreground">
           单选组组件，基于{" "}
-          <code className="rounded bg-muted px-1.5 py-0.5 text-xs font-mono">
+          <ExternalDocLink
+            href="https://base-ui.com/react/components/radio-group"
+            label="Base UI Radio Group 官方文档"
+          >
             @base-ui/react/radio-group
-          </code>{" "}
+          </ExternalDocLink>{" "}
           和{" "}
-          <code className="rounded bg-muted px-1.5 py-0.5 text-xs font-mono">
+          <ExternalDocLink
+            href="https://base-ui.com/react/components/radio"
+            label="Base UI Radio 官方文档"
+          >
             @base-ui/react/radio
-          </code>{" "}
+          </ExternalDocLink>{" "}
           封装，用于在一组选项中选择单个值。
         </p>
       </div>

@@ -1,5 +1,6 @@
 import { ScrollArea, Separator } from "@easyfix/console-ui";
 import { ComponentDemo } from "@/components/ComponentDemo";
+import { ExternalDocLink } from "@/components/ExternalDocLink";
 import { PropsTable } from "@/components/PropsTable";
 import { ComponentDocPage } from "@/components/ComponentDocPage";
 
@@ -40,9 +41,12 @@ export default function ScrollAreaDoc() {
         </h1>
         <p className="mt-2 text-muted-foreground">
           自定义滚动区域组件，基于{" "}
-          <code className="rounded bg-muted px-1.5 py-0.5 text-xs font-mono">
+          <ExternalDocLink
+            href="https://base-ui.com/react/components/scroll-area"
+            label="Base UI Scroll Area 官方文档"
+          >
             @base-ui/react/scroll-area
-          </code>{" "}
+          </ExternalDocLink>{" "}
           封装，提供统一样式的滚动条和可选的渐隐效果。
         </p>
       </div>
