@@ -9,6 +9,7 @@ type PropDef = {
 
 type PropsTableProps = {
   data: PropDef[];
+  kind?: "props" | "events";
 };
 
 function isFunctionProp(prop: PropDef): boolean {
@@ -19,7 +20,7 @@ function isFunctionProp(prop: PropDef): boolean {
   );
 }
 
-export function PropsTable({ data }: PropsTableProps) {
+export function PropsTable({ data, kind = "props" }: PropsTableProps) {
   const sortedData = data
     .map((prop, index) => ({ prop, index }))
     .sort((a, b) => {
@@ -34,9 +35,15 @@ export function PropsTable({ data }: PropsTableProps) {
       <table className="w-full text-sm">
         <thead>
           <tr className="border-b bg-muted/50">
-            <th className="px-4 py-2.5 text-start font-medium">属性</th>
-            <th className="px-4 py-2.5 text-start font-medium">类型</th>
-            <th className="px-4 py-2.5 text-start font-medium">默认值</th>
+            <th className="px-4 py-2.5 text-start font-medium">
+              {kind === "events" ? "事件名" : "属性"}
+            </th>
+            <th className="px-4 py-2.5 text-start font-medium">
+              {kind === "events" ? "回调签名" : "类型"}
+            </th>
+            {kind === "props" && (
+              <th className="px-4 py-2.5 text-start font-medium">默认值</th>
+            )}
             <th className="px-4 py-2.5 text-start font-medium">说明</th>
           </tr>
         </thead>
@@ -53,13 +60,15 @@ export function PropsTable({ data }: PropsTableProps) {
                   {prop.type}
                 </code>
               </td>
-              <td className="px-4 py-2.5 text-muted-foreground">
-                {prop.default ? (
-                  <code className="text-xs font-mono">{prop.default}</code>
-                ) : (
-                  "-"
-                )}
-              </td>
+              {kind === "props" && (
+                <td className="px-4 py-2.5 text-muted-foreground">
+                  {prop.default ? (
+                    <code className="text-xs font-mono">{prop.default}</code>
+                  ) : (
+                    "-"
+                  )}
+                </td>
+              )}
               <td className="px-4 py-2.5 text-muted-foreground">
                 {prop.description}
               </td>

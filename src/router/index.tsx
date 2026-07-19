@@ -25,6 +25,7 @@ const ConfigProviderDoc = lazy(() => import("@/pages/ConfigProviderDoc"));
 const TimezoneSelectDoc = lazy(
   () => import("@/pages/form/TimezoneSelectDoc"),
 );
+const TimePickerDoc = lazy(() => import("@/pages/form/TimePickerDoc"));
 const DatePickerDoc = lazy(() => import("@/pages/form/DatePickerDoc"));
 const DateTimePickerDoc = lazy(() => import("@/pages/form/DateTimePickerDoc"));
 const DateRangePickerDoc = lazy(() => import("@/pages/form/DateRangePickerDoc"));
@@ -141,6 +142,7 @@ export const navGroups: NavGroup[] = [
       { label: "Cascader 级联选择", path: "/form/cascader" },
       { label: "ModelSelector 模型选择器", path: "/form/model-selector" },
       { label: "TimezoneSelect 时区选择", path: "/form/timezone-select" },
+      { label: "TimePicker 时间选择器", path: "/form/time-picker" },
       { label: "DatePicker 日期选择器", path: "/form/date-picker" },
       {
         label: "DateTimePicker 日期时间选择器",
@@ -237,6 +239,7 @@ export const routes: RouteObject[] = [
   { path: "form/input", element: <InputDoc /> },
   { path: "form/select", element: <SelectDoc /> },
   { path: "form/timezone-select", element: <TimezoneSelectDoc /> },
+  { path: "form/time-picker", element: <TimePickerDoc /> },
   { path: "form/date-picker", element: <DatePickerDoc /> },
   { path: "form/date-time-picker", element: <DateTimePickerDoc /> },
   { path: "form/date-range-picker", element: <DateRangePickerDoc /> },

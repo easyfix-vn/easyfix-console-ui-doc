@@ -225,7 +225,7 @@ export function ComponentDocPage({ children }: ComponentDocPageProps) {
         <div>
           <h2 className="font-heading text-xl font-semibold">属性</h2>
           <p className="mt-1 text-sm text-muted-foreground">
-            组件支持的属性和回调函数。属性按常规属性在前、函数回调在后的顺序展示。
+            组件支持的普通属性和事件回调，按类别分表展示。
           </p>
         </div>
         {properties.length > 0 ? (
