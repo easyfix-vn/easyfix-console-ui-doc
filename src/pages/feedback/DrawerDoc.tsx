@@ -9,6 +9,8 @@ import {
   DrawerFooter,
   DrawerClose,
   DrawerSwipeHandle,
+  EasyDrawer,
+  EasyDrawerClose,
   Button,
 } from "@easyfix/console-ui";
 
@@ -168,6 +170,54 @@ export default function DrawerDoc() {
             </DrawerFooter>
           </DrawerContent>
         </Drawer>
+      </ComponentDemo>
+
+      <ComponentDemo
+        title="EasyDrawer 表单封装"
+        description="左右侧 EasyDrawer 与基础 Drawer 使用相同的视口留白和圆角规范。"
+        code={`import { Button, EasyDrawer, EasyDrawerClose } from "@easyfix/console-ui";
+
+<EasyDrawer
+  position="right"
+  width="lg"
+  trigger={<Button variant="outline">打开 EasyDrawer</Button>}
+  title="编辑门店"
+  description="适合承载带标题和固定操作区的表单。"
+  footer={
+    <>
+      <EasyDrawerClose render={<Button variant="outline" />}>
+        取消
+      </EasyDrawerClose>
+      <Button>保存</Button>
+    </>
+  }
+>
+  <div className="space-y-3">
+    <div className="rounded-lg border p-4">基本信息</div>
+    <div className="rounded-lg border p-4">地址信息</div>
+  </div>
+</EasyDrawer>`}
+      >
+        <EasyDrawer
+          position="right"
+          width="lg"
+          trigger={<Button variant="outline">打开 EasyDrawer</Button>}
+          title="编辑门店"
+          description="适合承载带标题和固定操作区的表单。"
+          footer={
+            <>
+              <EasyDrawerClose render={<Button variant="outline" />}>
+                取消
+              </EasyDrawerClose>
+              <Button>保存</Button>
+            </>
+          }
+        >
+          <div className="space-y-3">
+            <div className="rounded-lg border p-4">基本信息</div>
+            <div className="rounded-lg border p-4">地址信息</div>
+          </div>
+        </EasyDrawer>
       </ComponentDemo>
 
       <ComponentDemo
