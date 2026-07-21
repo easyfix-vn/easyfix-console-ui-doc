@@ -33,6 +33,9 @@ const InputDoc = lazy(() => import("@/pages/form/InputDoc"));
 const RadioCardsDoc = lazy(() => import("@/pages/form/RadioCardsDoc"));
 const CheckboxCardsDoc = lazy(() => import("@/pages/form/CheckboxCardsDoc"));
 const SelectDoc = lazy(() => import("@/pages/form/SelectDoc"));
+const MultiSelectDoc = lazy(() => import("@/pages/form/MultiSelectDoc"));
+const OpeningHoursDoc = lazy(() => import("@/pages/form/OpeningHoursDoc"));
+const HolidayScheduleDoc = lazy(() => import("@/pages/form/HolidayScheduleDoc"));
 const PasswordInputDoc = lazy(() => import("@/pages/form/PasswordInputDoc"));
 const I18nInputDoc = lazy(() => import("@/pages/form/I18nInputDoc"));
 const SwitchDoc = lazy(() => import("@/pages/form/SwitchDoc"));
@@ -139,6 +142,9 @@ export const navGroups: NavGroup[] = [
       { label: "Slider 滑块", path: "/form/slider" },
       { label: "Group 输入组合", path: "/form/group" },
       { label: "Select 选择器", path: "/form/select" },
+      { label: "MultiSelect 多选选择器", path: "/form/multi-select" },
+      { label: "OpeningHours 营业时间", path: "/form/opening-hours" },
+      { label: "HolidaySchedule 特殊日程", path: "/form/holiday-schedule" },
       { label: "Cascader 级联选择", path: "/form/cascader" },
       { label: "ModelSelector 模型选择器", path: "/form/model-selector" },
       { label: "TimezoneSelect 时区选择", path: "/form/timezone-select" },
@@ -238,6 +244,9 @@ export const routes: RouteObject[] = [
 
   { path: "form/input", element: <InputDoc /> },
   { path: "form/select", element: <SelectDoc /> },
+  { path: "form/multi-select", element: <MultiSelectDoc /> },
+  { path: "form/opening-hours", element: <OpeningHoursDoc /> },
+  { path: "form/holiday-schedule", element: <HolidayScheduleDoc /> },
   { path: "form/timezone-select", element: <TimezoneSelectDoc /> },
   { path: "form/time-picker", element: <TimePickerDoc /> },
   { path: "form/date-picker", element: <DatePickerDoc /> },
